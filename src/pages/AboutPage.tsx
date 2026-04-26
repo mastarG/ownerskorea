@@ -177,11 +177,13 @@ const AboutPage: React.FC = () => {
             <h3 className="closing-subtext text-white fw-light" style={{ fontSize: '2.5rem' }}>골목의 숨결을 자산의 가치로.</h3>
             
             <p className="text-white opacity-80 mt-5 fs-5 lh-lg">
-              누군가의 희망을 담은 첫 투자로 오늘도 누군가는 첫 매장의 문을 엽니다. <br/>
-              새로운 일자리가 창출되고 대한민국의 지방상권이 살아납니다.
+              누군가의 희망을 담은 첫 투자로 <br/>
+              오늘도 누군가는 첫 매장의 문을 엽니다. <br/>
+              새로운 일자리가 창출되고 <br/>
+              대한민국의 지방상권이 살아납니다.
             </p>
             
-            <div className="mt-5 pt-4">
+            <div className="mt-5 pt-5">
               <button className="btn btn-primary btn-lg rounded-pill px-5 py-4 fw-bold shadow-lg" style={{ fontSize: '1.2rem' }}>
                 오너십 참여하기 <ArrowRight size={24} className="ms-3 inline" />
               </button>
