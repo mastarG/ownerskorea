@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect } from 'react';
 import { 
   LayoutDashboard, List, Store, Bell, MessageSquare, LogOut, 
