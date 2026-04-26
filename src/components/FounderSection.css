@@ -1,0 +1,64 @@
+.founder-section {
+  position: relative;
+  height: 80vh;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.founder-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.founder-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.founder-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(11, 25, 44, 0.7); /* Deep Navy semi-transparent overlay */
+}
+
+.founder-content {
+  position: relative;
+  z-index: 1;
+  color: var(--color-surface);
+  max-width: 800px;
+}
+
+.founder-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+.founder-desc {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 768px) {
+  .founder-title {
+    font-size: 2.25rem;
+  }
+  .founder-desc {
+    font-size: 1.125rem;
+  }
+}

@@ -1,0 +1,112 @@
+.career-section {
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.career-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .career-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.career-welfare h3,
+.career-jobs h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--color-primary);
+}
+
+.welfare-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.welfare-list li {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.welfare-icon {
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.welfare-list strong {
+  display: block;
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+  color: var(--color-text-main);
+}
+
+.welfare-list p {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.job-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.job-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: var(--color-background);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.job-card:hover {
+  border-color: var(--color-secondary);
+  transform: translateX(5px);
+}
+
+.job-category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.job-info h4 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--color-text-main);
+}
+
+.job-info p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.job-status {
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.job-status.active {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--color-success);
+}

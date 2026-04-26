@@ -1,0 +1,21 @@
+.chatbot-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.chatbot-btn:hover {
+  transform: scale(1.1);
+  background-color: #081220; /* Slightly darker navy */
+}

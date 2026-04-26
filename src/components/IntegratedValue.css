@@ -1,0 +1,240 @@
+.integrated-value {
+  background-color: var(--color-background);
+  perspective: 1500px;
+}
+
+.integrated-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.flip-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+}
+
+.flip-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  border-color: var(--color-primary);
+}
+
+.ml-2 { margin-left: 0.5rem; }
+.mr-2 { margin-right: 0.5rem; }
+.mt-4 { margin-top: 1.5rem; }
+
+/* Flip Animation Setup */
+.flip-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  perspective: 1500px;
+}
+
+.flipper {
+  width: 100%;
+  position: relative;
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+  min-height: 550px;
+}
+
+.flip-container.flipped .flipper {
+  transform: rotateY(180deg);
+}
+
+.face {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.face.back {
+  transform: rotateY(180deg);
+}
+
+/* Front Side Blocks */
+.value-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.value-block {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background-color: var(--color-surface);
+  padding: 1.75rem 2rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.value-icon {
+  width: 64px;
+  height: 64px;
+  background-color: rgba(212, 175, 55, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.value-content {
+  flex: 1;
+}
+
+.value-content h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.value-content p {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+/* Back Side Simulation */
+.simulation-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  height: 100%;
+}
+
+.sim-header {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  padding: 1.5rem 2rem;
+}
+
+.sim-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sim-badge {
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.sim-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .sim-content {
+    grid-template-columns: 1fr 1.2fr;
+  }
+}
+
+.sim-highlight-box h4 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin-bottom: 0.75rem;
+}
+
+.sim-highlight-box p {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.sim-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.sim-table th,
+.sim-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.sim-table th {
+  background-color: rgba(11, 25, 44, 0.05); /* very light navy */
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.sim-table td {
+  color: var(--color-text-main);
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-success {
+  color: var(--color-success) !important;
+  font-weight: 600;
+}
+
+.sim-total-row td {
+  background-color: rgba(212, 175, 55, 0.1);
+  font-weight: 800;
+  color: var(--color-primary);
+  border-bottom: none;
+}
+
+.sim-calc-btn {
+  margin-top: 2rem;
+  font-size: 1.05rem;
+  padding: 1rem;
+  background-color: #EA580C; /* Orange-600 */
+  color: white;
+  border: none;
+  box-shadow: 0 4px 6px -1px rgba(234, 88, 12, 0.3);
+}
+
+.sim-calc-btn:hover {
+  background-color: #C2410C; /* Orange-700 */
+  transform: translateY(-2px);
+}
+
+@media (max-width: 767px) {
+  .integrated-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  
+  .value-block {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .sim-table th, .sim-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.875rem;
+  }
+}

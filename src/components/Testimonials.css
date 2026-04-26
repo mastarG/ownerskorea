@@ -1,0 +1,150 @@
+.testimonials {
+  background-color: var(--color-surface);
+  overflow: hidden; /* Prevent horizontal scroll from marquee */
+}
+
+.testimonials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-left {
+  text-align: left !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.highlight-text {
+  background-color: rgba(212, 175, 55, 0.3);
+  color: var(--color-primary);
+  font-weight: 700;
+  padding: 0 0.25rem;
+  border-radius: 2px;
+}
+
+/* Marquee Styles */
+.marquee-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  padding: 1rem 0 3rem 0;
+}
+
+/* Gradient fades for edges */
+.marquee-container::before,
+.marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-surface) 0%, transparent 100%);
+}
+
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-surface) 0%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 2rem;
+  animation: scroll 40s linear infinite;
+  padding-left: 2rem;
+  width: max-content;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.testimonial-card {
+  background-color: var(--color-background);
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
+  position: relative;
+  width: 400px; /* Fixed width for marquee cards */
+  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-icon {
+  color: var(--color-secondary);
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.testimonial-quote {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: var(--color-text-main);
+  flex-grow: 1;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.5rem;
+}
+
+.author-image {
+  width: 72px; /* Made image significantly larger */
+  height: 72px;
+  border-radius: var(--radius-lg); /* Rounded rectangle instead of circle */
+  object-fit: cover;
+  border: 2px solid var(--color-secondary);
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.author-name {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 1.125rem;
+}
+
+.author-title {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 1rem)); /* Translate half the total track width + gap */
+  }
+}
+
+@media (max-width: 767px) {
+  .testimonial-card {
+    width: 320px;
+    padding: 1.5rem;
+  }
+  
+  .marquee-container::before,
+  .marquee-container::after {
+    width: 50px;
+  }
+}
