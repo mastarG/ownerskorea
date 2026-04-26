@@ -207,6 +207,7 @@ const InvestmentDetail = () => {
   const { id } = useParams();
   const data = id ? INVESTMENTS_DATA[id] : null;
   const [activeTab, setActiveTab] = useState('store');
+  const [units, setUnits] = useState(1);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -221,7 +222,7 @@ const InvestmentDetail = () => {
     fadeElements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [activeTab]); // Re-run when tab changes to animate new content
+  }, [activeTab]);
 
   if (!data) {
     return (
@@ -232,6 +233,18 @@ const InvestmentDetail = () => {
       </div>
     );
   }
+
+  // Helper to calculate total investment based on units
+  const getMinAmountValue = (str: string) => {
+    return parseInt(str.replace(/[^0-9]/g, '')) || 0;
+  };
+
+  const unitPriceValue = getMinAmountValue(data.minInvestment);
+  const totalInvestmentPrice = (units * unitPriceValue).toLocaleString();
+
+  const handleUnitChange = (delta: number) => {
+    setUnits(prev => Math.max(1, prev + delta));
+  };
 
   return (
     <div className="investment-detail">
@@ -497,27 +510,37 @@ const InvestmentDetail = () => {
           <aside className="detail-sidebar">
             <div className="sticky-card">
               
-              {/* Added: Syndicate and Date Info */}
               <div className="sidebar-top-info">
                 <h3 className="syndicate-name">{data.syndicateName}</h3>
                 
-                <div className="closing-info">
-                  <div className="date-box">
-                    <CalendarDays size={16} className="text-muted" />
-                    <span>결정 예정일: <strong>{data.closingDate}</strong></span>
+                <div className="fund-summary-list mt-3">
+                  <div className="fund-summary-item">
+                    <span className="label">총 결성금액</span>
+                    <span className="value">{data.totalAmount} (30구좌)</span>
                   </div>
-                  <span className="d-day-badge">{data.dDay}</span>
+                  <div className="fund-summary-item">
+                    <span className="label">1구좌</span>
+                    <span className="value">{data.minInvestment}</span>
+                  </div>
+                  <div className="fund-summary-item">
+                    <span className="label">결정 예정일</span>
+                    <span className="value">{data.closingDate}</span>
+                  </div>
+                  <div className="fund-summary-item">
+                    <span className="label">투자기간</span>
+                    <span className="value">{data.duration}</span>
+                  </div>
                 </div>
 
-                <button className="btn btn-outline w-full mb-4" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                  <MessageSquare size={16} /> 운영사에 메시지 보내기
+                <button className="btn btn-outline w-full mt-4" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                  <MessageSquare size={16} /> 문의사항(메시지)
                 </button>
               </div>
 
-              <div className="sidebar-header" style={{ borderTop: '1px solid #f1f5f9', paddingTop: '1.5rem' }}>
+              <div className="sidebar-header mt-4" style={{ borderTop: '1px solid #f1f5f9', paddingTop: '1.5rem' }}>
                 <div className="progress-top">
                   <span className="percent">{data.progress}% 모집 중</span>
-                  <span className="remaining">잔여 1.5억</span>
+                  <span className="remaining">잔여 5구좌</span>
                 </div>
                 <div className="progress-bar-bg">
                   <div className="progress-bar-fill" style={{ width: `${data.progress}%` }}></div>
@@ -530,21 +553,26 @@ const InvestmentDetail = () => {
                   <span className="value text-danger">{data.returnRate}</span>
                 </div>
                 <div className="metric-item">
-                  <span className="label">투자 기간</span>
-                  <span className="value">{data.duration}</span>
-                </div>
-                <div className="metric-item">
                   <span className="label">최소 투자액</span>
-                  <span className="value">{data.minInvestment}</span>
+                  <span className="value">(1구좌) {data.minInvestment}</span>
                 </div>
-                <div className="metric-item">
-                  <span className="label">정산 주기</span>
-                  <span className="value">{data.payoutCycle}</span>
+                
+                {/* Interactive Unit Selection */}
+                <div className="metric-item mt-3 pt-3 border-top">
+                  <span className="label">투자금액 선택</span>
+                  <div className="unit-selector">
+                    <button className="unit-btn" onClick={() => handleUnitChange(-1)}>-</button>
+                    <span className="unit-count">{units}구좌</span>
+                    <button className="unit-btn" onClick={() => handleUnitChange(1)}>+</button>
+                  </div>
+                </div>
+                <div className="metric-item highlight-amount mt-2">
+                  <span className="label">총 투자금액</span>
+                  <span className="value text-primary">{totalInvestmentPrice}만 원</span>
                 </div>
               </div>
 
               <div className="sidebar-actions">
-                {/* Changed Button Text */}
                 <button className="btn btn-primary w-full btn-lg">계약하기</button>
                 <div className="sub-actions">
                   <button className="btn btn-outline"><Download size={18} /> 자료실</button>
