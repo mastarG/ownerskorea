@@ -24,11 +24,10 @@ const Navbar = ({ onLogin }: NavbarProps) => {
             <span className="text-secondary">O</span>wners <span className="text-secondary">K</span>orea
           </Link>
           <div className="navbar-links center-links">
-            <Link to="/about">어바웃</Link>
+            <Link to="/about">미션</Link>
             <Link to="/investments">투자정보</Link>
             <a href="/#partnership">입점협력</a>
             <a href="/#support">고객지원</a>
-            <a href="/#career">채용공고</a>
           </div>
           <div className="navbar-actions right-actions">
             <button className="btn btn-outline-white" onClick={() => setIsLoginOpen(true)}>

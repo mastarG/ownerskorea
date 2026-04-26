@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './AboutPage.css';
 import { ArrowRight } from 'lucide-react';
 
@@ -187,9 +188,9 @@ const AboutPage: React.FC = () => {
             </div>
             
             <div className="mt-5 pt-5 pb-5">
-              <button className="btn btn-primary btn-lg rounded-pill px-5 py-4 fw-bold shadow-lg" style={{ fontSize: '1.2rem', marginTop: '2rem' }}>
+              <Link to="/investments" className="btn btn-primary btn-lg rounded-pill px-5 py-4 fw-bold shadow-lg text-decoration-none" style={{ fontSize: '1.2rem', marginTop: '2rem' }}>
                 오너십 참여하기 <ArrowRight size={24} className="ms-3 inline" />
-              </button>
+              </Link>
             </div>
           </div>
         </div>
