@@ -77,14 +77,28 @@ const AboutPage = () => {
                 <p>고소득층 자본 선순환을 통한 지역 경제 활성화 및 일자리 창출</p>
               </div>
             </div>
-            <div className="slogan-box mt-5 text-center p-4" style={{ background: 'var(--color-primary)', color: 'white', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
-              <h4 style={{ margin: 0, fontWeight: 700, letterSpacing: '-0.5px' }}>
-                <span className="text-secondary">"</span>보장은 불법이지만, 구조는 과학입니다. 오너스코리아가 증명합니다.<span className="text-secondary">"</span>
-              </h4>
-              <p className="mt-3 opacity-80" style={{ fontSize: '0.9rem', margin: 0 }}>
-                엑시톤은 중소벤처기업부에 인가받은 창업기획자(AC)로, 소상공인 창업자를 지원하고 투자를 연계하는 <strong>'오너스코리아'</strong>를 런칭하였습니다.
-              </p>
+            
+            {/* Exciton Introduction */}
+            <div className="exciton-intro mt-5 pt-4" style={{ borderTop: '1px solid var(--color-border)' }}>
+              <div className="exciton-header text-center mb-4">
+                <span className="badge badge-primary mb-2">운영사 소개</span>
+                <h3 style={{ fontWeight: 800, color: 'var(--color-primary)' }}>중소벤처기업부 등록 창업기획자(AC) <span className="text-secondary">엑시톤</span></h3>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem' }}>국가에서 공식 인가받은 액셀러레이터가 소상공인 창업자를 지원하고 안전한 투자를 연계합니다.</p>
+              </div>
+              
+              <div className="exciton-images-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                <div className="exciton-card" style={{ background: 'white', padding: '1.5rem', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', textAlign: 'center' }}>
+                  <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" alt="엑시톤 사옥" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '8px', marginBottom: '1rem' }} />
+                  <h5 style={{ fontWeight: 700, margin: 0, color: 'var(--color-primary)' }}>엑시톤 본사 사옥</h5>
+                </div>
+                <div className="exciton-card" style={{ background: 'white', padding: '1.5rem', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', textAlign: 'center' }}>
+                  <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80" alt="창업기획자 인가증" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '8px', marginBottom: '1rem', border: '1px solid #e2e8f0' }} />
+                  <h5 style={{ fontWeight: 700, margin: 0, color: 'var(--color-primary)' }}>창업기획자 등록증</h5>
+                  <p style={{ margin: '0.5rem 0 0 0', color: 'var(--color-text-muted)', fontSize: '0.9rem', fontWeight: 600 }}>등록번호: <span className="text-secondary">제2021-0000호</span></p>
+                </div>
+              </div>
             </div>
+            
           </div>
         </div>
 

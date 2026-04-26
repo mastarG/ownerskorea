@@ -73,6 +73,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  .exciton-images-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* Policy & Mission Section */
 .mission-grid {
   display: grid;
