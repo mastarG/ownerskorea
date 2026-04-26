@@ -10,8 +10,20 @@ interface MyPageProps {
   onLogout: () => void;
 }
 
-const ASSET_DATA = {
+interface Asset {
+  name?: string;
+  investment: string;
+  dividend: string;
+  principal: string;
+  duration: string;
+  roi: number;
+  nextPayout: string;
+  chartData: number[];
+}
+
+const ASSET_DATA: Record<'all' | 'sushi' | 'cafe', Asset> = {
   all: {
+    name: "통합 지표",
     investment: "9,000만 원",
     dividend: "1,240만 원",
     principal: "5,238만 원",
@@ -140,7 +152,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
         {/* Top Header */}
         <header className="main-header">
           <div>
-            <h1 className="page-title">{selectedAsset === 'all' ? '통합 자산 현황' : `${currentData.name} 현황`}</h1>
+            <h1 className="page-title">{selectedAsset === 'all' ? '통합 자산 현황' : `${currentData?.name ?? ''} 현황`}</h1>
             <p className="page-subtitle">김오너 님의 투자 포트폴리오 관제센터입니다.</p>
           </div>
           <div className="header-actions">
@@ -199,21 +211,21 @@ const MyPage = ({ onLogout }: MyPageProps) => {
             <div className="metric-icon bg-blue-light"><CircleDollarSign size={24} className="text-blue" /></div>
             <div className="metric-content">
               <span className="metric-label">총 투자액</span>
-              <h3 className="metric-value">{currentData.investment}</h3>
+              <h3 className="metric-value">{currentData?.investment}</h3>
             </div>
           </div>
           <div className="metric-card">
             <div className="metric-icon bg-orange-light"><TrendingUp size={24} className="text-orange" /></div>
             <div className="metric-content">
               <span className="metric-label">누적 배당금 (수익)</span>
-              <h3 className="metric-value text-orange">{currentData.dividend}</h3>
+              <h3 className="metric-value text-orange">{currentData?.dividend}</h3>
             </div>
           </div>
           <div className="metric-card">
             <div className="metric-icon bg-green-light"><Target size={24} className="text-green" /></div>
             <div className="metric-content">
               <span className="metric-label">실질 원금 (환급 차감 후)</span>
-              <h3 className="metric-value">{currentData.principal}</h3>
+              <h3 className="metric-value">{currentData?.principal}</h3>
               <span className="metric-hint">소득공제 혜택 반영됨</span>
             </div>
           </div>
@@ -221,7 +233,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
             <div className="metric-icon bg-purple-light"><Calendar size={24} className="text-purple" /></div>
             <div className="metric-content">
               <span className="metric-label">유지 기간</span>
-              <h3 className="metric-value">{currentData.duration}</h3>
+              <h3 className="metric-value">{currentData?.duration}</h3>
             </div>
           </div>
         </div>
@@ -230,7 +242,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
           {/* Charts Section */}
           <div className="chart-section main-content-card">
             <div className="chart-header">
-              <h3>{selectedAsset === 'all' ? '매출 및 배당액 추이' : `${currentData.name} 매출 추이`}</h3>
+              <h3>{selectedAsset === 'all' ? '매출 및 배당액 추이' : `${currentData?.name ?? ''} 매출 추이`}</h3>
               <div className="chart-toggles">
                 <button className={`chart-toggle ${chartPeriod === 'daily' ? 'active' : ''}`} onClick={() => setChartPeriod('daily')}>일별</button>
                 <button className={`chart-toggle ${chartPeriod === 'weekly' ? 'active' : ''}`} onClick={() => setChartPeriod('weekly')}>주간</button>
@@ -249,7 +261,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                 <span>0</span>
               </div>
               <div className="chart-bars">
-                {currentData.chartData.map((height, i) => (
+                {currentData?.chartData.map((height, i) => (
                   <div key={i} className="chart-bar-group">
                     <div className="bar revenue-bar" style={{ height: `${height}%` }}>
                       <div className="bar-tooltip">매출: {(height * 10).toLocaleString()}만</div>
@@ -278,9 +290,9 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                 <ArrowUpRight size={16} className="text-green" />
               </div>
               <div className="roi-progress-container">
-                <div className="roi-percentage">{currentData.roi}% <span className="status">진행 중</span></div>
+                <div className="roi-percentage">{currentData?.roi}% <span className="status">진행 중</span></div>
                 <div className="progress-bar-bg">
-                  <div className="progress-bar-fill" style={{ width: `${currentData.roi}%` }}></div>
+                  <div className="progress-bar-fill" style={{ width: `${currentData?.roi}%` }}></div>
                 </div>
                 <p className="roi-desc">배당금 + 절세 혜택 포함</p>
               </div>
@@ -293,8 +305,8 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                 <Calendar size={16} className="text-secondary" />
               </div>
               <div className="payout-content">
-                <div className="d-day">{currentData.nextPayout.split(' ')[0]}</div>
-                <p className="payout-est">{currentData.nextPayout.split(' ')[1]} {currentData.nextPayout.split(' ')[2]}</p>
+                <div className="d-day">{currentData?.nextPayout.split(' ')[0]}</div>
+                <p className="payout-est">{currentData?.nextPayout.split(' ')[1]} {currentData?.nextPayout.split(' ')[2]}</p>
               </div>
             </div>
 
