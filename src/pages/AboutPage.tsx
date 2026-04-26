@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { 
-  Building2, LineChart, Users, Sprout, Store, 
-  ShieldCheck, TrendingUp, Handshake, Target, ArrowRight, Zap 
+import {
+  Building2, LineChart, Users, Sprout, Store,
+  ShieldCheck, TrendingUp, Handshake, Target, ArrowRight, Zap
 } from 'lucide-react';
 import './AboutPage.css';
 
@@ -38,7 +38,7 @@ const AboutPage = () => {
                 대한민국 골목의 숨결을<br />자산의 가치로 연결합니다.
               </h1>
               <p className="hero-subtitle text-light opacity-80 mx-auto" style={{ maxWidth: '700px', fontSize: '1.2rem', lineHeight: '1.8' }}>
-                자본의 격차를 해소하고 열정 있는 창업가와 안목 있는 오너가 함께 성장하는<br/>
+                자본의 격차를 해소하고 열정 있는 창업가와 안목 있는 오너가 함께 성장하는<br />
                 <strong>'상생형 오너십 생태계'</strong>를 구축합니다.
               </p>
             </div>
@@ -163,7 +163,7 @@ const AboutPage = () => {
               <div className="value-header">
                 <h2 className="display-title mb-3" style={{ fontSize: '3rem', fontWeight: 900, color: 'var(--color-secondary)', letterSpacing: '-1px' }}>투자자(LP)</h2>
                 <h3 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-primary)', marginBottom: '1.5rem', lineHeight: '1.4' }}>
-                  세무서로 가던 당신의 자본을<br/>우리 동네 맛집의 지분으로.
+                  세무서로 가던 당신의 자본을<br />우리 동네 맛집의 지분으로.
                 </h3>
                 <div className="purpose-box mt-4">
                   <strong>이용 목적:</strong> 단순 재테크를 넘어선 <strong>'확정적 절세'</strong>와 <strong>'실물 자산 소유'</strong>의 결합
@@ -209,7 +209,7 @@ const AboutPage = () => {
               <div className="value-header">
                 <h2 className="display-title mb-3" style={{ fontSize: '3rem', fontWeight: 900, color: 'var(--color-primary)', letterSpacing: '-1px' }}>창업자</h2>
                 <h3 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-primary)', marginBottom: '1.5rem', lineHeight: '1.4' }}>
-                  실력은 당신이, 자본은 오너스코리아가.<br/>1,000만 원으로 여는 당신의 첫 매장.
+                  실력은 당신이, 자본은 오너스코리아가.<br />1,000만 원으로 여는 당신의 첫 매장.
                 </h3>
                 <div className="purpose-box mt-4">
                   <strong>이용 목적:</strong> 거대 자본 없이도 '유한책임' 하에 자신의 브랜드와 실력을 마음껏 펼치는 창업

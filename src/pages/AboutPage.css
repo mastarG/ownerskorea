@@ -44,7 +44,7 @@
   background: white;
   padding: 2.5rem 2rem;
   border-radius: 16px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
   text-align: center;
   border-top: 4px solid var(--color-secondary);
 }
@@ -89,7 +89,7 @@
 .certificate-card {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   padding: 1.5rem;
@@ -177,7 +177,7 @@
 .mission-card {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
   border: none;
@@ -188,7 +188,7 @@
 
 .mission-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
 }
 
 .mission-image {
@@ -256,7 +256,9 @@
 }
 
 @media (max-width: 992px) {
-  .value-layout, .value-layout.reverse-layout {
+
+  .value-layout,
+  .value-layout.reverse-layout {
     flex-direction: column;
     gap: 2rem;
   }
@@ -266,7 +268,7 @@
   flex: 1;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .value-image img {
@@ -281,7 +283,7 @@
   padding: 2rem;
   background: white;
   border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .investor-col {
@@ -337,7 +339,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   border: 1px solid #e2e8f0;
 }
 
