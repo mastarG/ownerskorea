@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
   MapPin, TrendingUp, Calendar, Users, ShieldCheck, 
@@ -41,6 +41,38 @@ const INVESTMENTS_DATA: Record<string, any> = {
       contact: '02-1234-5678'
     }
   },
+  "2": {
+    title: '메종 드 비프',
+    category: '외식업',
+    type: '양식/스테이크하우스',
+    location: '서울 서초구 반포동 12-5',
+    totalAmount: '12억',
+    minInvestment: '3,000만 원',
+    returnRate: '10.8%',
+    progress: 100,
+    duration: '36개월',
+    payoutCycle: '매월 정산',
+    description: '서초구 반포동에 위치한 최고급 드라이에이징 스테이크 하우스입니다. 철저한 육질 관리와 독자적인 숙성 기술로 고소득층 단골을 확보하고 있습니다.',
+    security: '임대보증금 1순위 근저당 설정',
+    images: ["https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: {
+      founder: '마이클 강 셰프',
+      area: '182㎡ (55평)',
+      tables: '홀 20석, 룸 4실',
+      avgRevenue: '월 1억 8,000만 원'
+    },
+    syndicateName: '오너스 제2호 스테이크 투자조합',
+    closingDate: '2026.04.20',
+    dDay: '마감',
+    companyInfo: {
+      name: '베프코리아 유한회사',
+      ceo: '강성훈',
+      founded: '2020.11.05',
+      capital: '4억 0,000만 원',
+      address: '서울 서초구 반포대로 45',
+      contact: '02-555-8888'
+    }
+  },
   "3": {
     title: '카페 에스프레소 바',
     category: '외식업',
@@ -72,6 +104,102 @@ const INVESTMENTS_DATA: Record<string, any> = {
       address: '경기 성남시 분당구 판교역로 192 1층',
       contact: '031-987-6543'
     }
+  },
+  "4": {
+    title: '진진 한정식',
+    category: '외식업',
+    type: '한식/파인다이닝',
+    location: '서울 종로구 가회동 31-2',
+    totalAmount: '15억',
+    minInvestment: '3,000만 원',
+    returnRate: '11.2%',
+    progress: 70,
+    duration: '48개월',
+    payoutCycle: '매월 정산',
+    description: '종로구 북촌 한옥마을의 정취를 담은 모던 한정식 브랜드입니다. 외국인 관광객과 귀빈 접대 수요가 일정하게 발생하는 안정적인 업장입니다.',
+    security: '마스터기업 운영 책임 보증',
+    images: ["https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: {
+      founder: '김수연 명인',
+      area: '198㎡ (60평)',
+      tables: '프라이빗 룸 8실',
+      avgRevenue: '월 2억 1,000만 원'
+    },
+    syndicateName: '오너스 제4호 한식 투자조합',
+    closingDate: '2026.05.30',
+    dDay: 'D-34',
+    companyInfo: {
+      name: '주식회사 진진글로벌',
+      ceo: '김수연',
+      founded: '2019.05.20',
+      capital: '5억 0,000만 원',
+      address: '서울 종로구 북촌로 5길 12',
+      contact: '02-741-9988'
+    }
+  },
+  "5": {
+    title: '토리노 퀴진',
+    category: '외식업',
+    type: '양식/이탈리안',
+    location: '서울 마포구 합정동 412-10',
+    totalAmount: '7억',
+    minInvestment: '3,000만 원',
+    returnRate: '10.5%',
+    progress: 30,
+    duration: '24개월',
+    payoutCycle: '매월 정산',
+    description: '합정동 카페거리의 랜드마크로 자리 잡은 캐주얼 이탈리안 퀴진입니다. MZ세대의 감성을 자극하는 인테리어와 가성비 높은 코스로 평일 대기줄이 끊이지 않습니다.',
+    security: '시설 및 집기 담보권 설정',
+    images: ["https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: {
+      founder: '최재혁 셰프',
+      area: '115㎡ (35평)',
+      tables: '홀 16석, 바 4석',
+      avgRevenue: '월 6,500만 원'
+    },
+    syndicateName: '오너스 제5호 영셰프 투자조합',
+    closingDate: '2026.06.15',
+    dDay: 'D-50',
+    companyInfo: {
+      name: '토리노파트너스',
+      ceo: '최재혁',
+      founded: '2023.01.12',
+      capital: '1억 5,000만 원',
+      address: '서울 마포구 독막로 7길 34',
+      contact: '02-333-4455'
+    }
+  },
+  "6": {
+    title: '사쿠라 이자카야',
+    category: '외식업',
+    type: '일식/이자카야',
+    location: '서울 송파구 잠실동 181-7',
+    totalAmount: '8억',
+    minInvestment: '3,000만 원',
+    returnRate: '13.0%',
+    progress: 95,
+    duration: '36개월',
+    payoutCycle: '매월 정산',
+    description: '잠실 방이동 먹자골목 내 위치한 프리미엄 이자카야입니다. 퇴근길 직장인들의 회식 장소로 사랑받으며 주말에는 인근 주거 단지의 가족 단위 고객이 많습니다.',
+    security: '영업권 및 권리금 우선 배분',
+    images: ["https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: {
+      founder: '이치로 마스터',
+      area: '82.5㎡ (25평)',
+      tables: '홀 12석, 룸 2실',
+      avgRevenue: '월 7,800만 원'
+    },
+    syndicateName: '오너스 제6호 야간경제 투자조합',
+    closingDate: '2026.05.10',
+    dDay: 'D-14',
+    companyInfo: {
+      name: '주식회사 사쿠라엔터',
+      ceo: '이동욱',
+      founded: '2021.09.30',
+      capital: '2억 0,000만 원',
+      address: '서울 송파구 올림픽로 32길 11',
+      contact: '02-422-7766'
+    }
   }
 };
 
@@ -79,6 +207,21 @@ const InvestmentDetail = () => {
   const { id } = useParams();
   const data = id ? INVESTMENTS_DATA[id] : null;
   const [activeTab, setActiveTab] = useState('store');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const fadeElements = document.querySelectorAll('.fade-in-section');
+    fadeElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [activeTab]); // Re-run when tab changes to animate new content
 
   if (!data) {
     return (
