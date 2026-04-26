@@ -25,21 +25,10 @@ const AboutPage = () => {
 
   return (
     <div className="about-page">
-      {/* Sticky Sub-Navigation */}
-      <div className="about-subnav-container">
-        <div className="container">
-          <div className="about-subnav">
-            <a href="#vision">1. 우리는 (Vision & Mission)</a>
-            <a href="#investor">2. 오너(투자자) 가이드</a>
-            <a href="#founder">3. 창업자 가이드</a>
-          </div>
-        </div>
-      </div>
-
       {/* Vision & Mission Section */}
       <section id="vision">
         {/* Hero Section */}
-        <div className="about-hero">
+        <div className="about-hero" style={{ backgroundImage: `linear-gradient(rgba(11, 25, 44, 0.8), rgba(11, 25, 44, 0.9)), url('/src/assets/building-bg.png')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           <div className="container">
             <div className="hero-content text-center">
               <span className="badge badge-secondary mb-4" style={{ display: 'inline-block', padding: '0.4rem 1rem', borderRadius: '20px', backgroundColor: 'rgba(212, 175, 55, 0.1)', color: 'var(--color-secondary)', fontWeight: 800 }}>
@@ -54,51 +43,45 @@ const AboutPage = () => {
               </p>
             </div>
           </div>
-          <div className="hero-overlay"></div>
         </div>
 
-        {/* Vision Metrics */}
-        <div className="vision-metrics py-5" style={{ marginTop: '-50px', position: 'relative', zIndex: 10 }}>
+        {/* Certificates Section */}
+        <div className="certificates-section py-5" style={{ marginTop: '-60px', position: 'relative', zIndex: 10 }}>
           <div className="container">
-            <div className="metrics-grid">
-              <div className="metric-card">
-                <div className="icon-wrapper"><Target size={32} /></div>
-                <h3>1,000개</h3>
-                <p>2030년 전국 유망 점포 벤처화 및 오너십 연결 목표</p>
-              </div>
-              <div className="metric-card">
-                <div className="icon-wrapper"><Zap size={32} /></div>
-                <h3>OMO-Vision</h3>
-                <p>AI 기술을 통한 외식업의 투명한 데이터 자산화</p>
-              </div>
-              <div className="metric-card">
-                <div className="icon-wrapper"><Handshake size={32} /></div>
-                <h3>상생 생태계</h3>
-                <p>고소득층 자본 선순환을 통한 지역 경제 활성화 및 일자리 창출</p>
-              </div>
-            </div>
-            
-            {/* Exciton Introduction */}
-            <div className="exciton-intro mt-5 pt-4" style={{ borderTop: '1px solid var(--color-border)' }}>
-              <div className="exciton-header text-center mb-4">
-                <span className="badge badge-primary mb-2">운영사 소개</span>
-                <h3 style={{ fontWeight: 800, color: 'var(--color-primary)' }}>중소벤처기업부 등록 창업기획자(AC) <span className="text-secondary">엑시톤</span></h3>
-                <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem' }}>국가에서 공식 인가받은 액셀러레이터가 소상공인 창업자를 지원하고 안전한 투자를 연계합니다.</p>
-              </div>
-              
-              <div className="exciton-images-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-                <div className="exciton-card" style={{ background: 'white', padding: '1.5rem', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', textAlign: 'center' }}>
-                  <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" alt="엑시톤 사옥" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '8px', marginBottom: '1rem' }} />
-                  <h5 style={{ fontWeight: 700, margin: 0, color: 'var(--color-primary)' }}>엑시톤 본사 사옥</h5>
+            <div className="certificates-grid">
+              {/* 창업기획자 */}
+              <div className="certificate-card">
+                <div className="cert-image">
+                  <img src="/src/assets/cert-ac.png" alt="창업기획자 등록증" />
                 </div>
-                <div className="exciton-card" style={{ background: 'white', padding: '1.5rem', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', textAlign: 'center' }}>
-                  <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80" alt="창업기획자 인가증" style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '8px', marginBottom: '1rem', border: '1px solid #e2e8f0' }} />
-                  <h5 style={{ fontWeight: 700, margin: 0, color: 'var(--color-primary)' }}>창업기획자 등록증</h5>
-                  <p style={{ margin: '0.5rem 0 0 0', color: 'var(--color-text-muted)', fontSize: '0.9rem', fontWeight: 600 }}>등록번호: <span className="text-secondary">제2021-0000호</span></p>
+                <div className="cert-info">
+                  <h5>창업기획자</h5>
+                  <p>제2025-16호</p>
+                </div>
+              </div>
+
+              {/* 창업보육센터 */}
+              <div className="certificate-card">
+                <div className="cert-image">
+                  <img src="/src/assets/cert-bi.png" alt="창업보육센터 지정서" />
+                </div>
+                <div className="cert-info">
+                  <h5>창업보육센터</h5>
+                  <p>제2026호 30호</p>
+                </div>
+              </div>
+
+              {/* 원격평생교육시설 */}
+              <div className="certificate-card">
+                <div className="cert-image">
+                  <img src="/src/assets/cert-edu.png" alt="원격평생교육시설 인가증" />
+                </div>
+                <div className="cert-info">
+                  <h5>원격평생교육시설</h5>
+                  <p>세종-50호</p>
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
 

@@ -79,6 +79,80 @@
   }
 }
 
+/* Certificates Section */
+.certificates-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.certificate-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  transition: transform 0.3s;
+  border: 1px solid var(--color-border);
+}
+
+.certificate-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.cert-image {
+  flex-shrink: 0;
+  width: 80px;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cert-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cert-info {
+  flex: 1;
+}
+
+.cert-info h5 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.5px;
+}
+
+.cert-info p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin: 0;
+}
+
+@media (max-width: 992px) {
+  .certificates-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .certificates-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Policy & Mission Section */
 .mission-grid {
   display: grid;
@@ -146,38 +220,6 @@
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 0.8rem;
-}
-
-/* Sub-Navigation */
-.about-subnav-container {
-  background: white;
-  border-bottom: 1px solid var(--color-border);
-  position: sticky;
-  top: 80px; /* Below Navbar */
-  z-index: 900;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-}
-
-.about-subnav {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 1rem 0;
-}
-
-.about-subnav a {
-  color: var(--color-text-main);
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: all 0.2s;
-}
-
-.about-subnav a:hover {
-  background: #f1f5f9;
-  color: var(--color-primary);
 }
 
 /* Value Sections */
