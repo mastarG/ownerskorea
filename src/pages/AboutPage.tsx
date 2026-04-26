@@ -104,17 +104,17 @@ const AboutPage: React.FC = () => {
         <div className="container h-100 d-flex align-items-center justify-content-center">
           <div className="hero-content text-center fade-in-section w-100">
             <div className="chapter-label text-secondary">Chapter 3</div>
-            <h1 className="chapter-title text-white">20년의 신뢰 위에 세웠습니다</h1>
+            <h1 className="chapter-title text-white">공인된 전문가들이 함께합니다.</h1>
             
             <div className="chapter-intro-text text-white opacity-90 mt-5 mx-auto" style={{ maxWidth: '800px' }}>
               <p className="fs-5 fw-light lh-lg mb-4">
-                오너스코리아는 한순간의 아이디어가 아닌, 20년의 축적된 신뢰에서 출발했습니다. <br/>
-                우리의 모기업 (주)엑시톤은 2005년부터 중소벤처기업부의 창업기획자로 활동해 온 정통 액셀러레이터입니다.
+                (주)엑시톤은 2025년부터 중소벤처기업부의 인가를 받아<br/>
+                창업보육센터(Bi), 평생교육원을 운영하는 '창업전문기업'입니다.
               </p>
               <p className="fs-5 fw-light lh-lg">
-                우리는 검증된 점포만을 투자자에게 소개합니다. <br/>
-                마스터기업이 6개월간 직접 운영하며 매출과 운영의 진정성을 검증한 점포만이, 
-                비로소 오너스코리아의 이름으로 투자자 앞에 섭니다. 
+                우리는 '마스터기업'이 검증한 안전한 창업자를 투자자에게 소개합니다. <br/>
+                20년 경력의 마스터기업이 창업자의 미숙함을 6개월간 직접 운영하며 매출과 운영을 검증가능한 점포만이, 
+                비로소 오너스코리아의 이름으로 투자자 앞에 섭니다. <br/>
                 부진한 점포는 투자자가 만나기 전에 조용히 멈춰 섭니다.
               </p>
               <div className="chapter-footer mt-5 pt-4 border-top border-white border-opacity-25">
@@ -173,13 +173,12 @@ const AboutPage: React.FC = () => {
         </div>
         <div className="container h-100 d-flex align-items-center justify-content-center">
           <div className="hero-content text-center fade-in-section w-100">
-            <h2 className="closing-text text-secondary mb-4" style={{ fontSize: '4.5rem', fontWeight: 900, letterSpacing: '-0.1rem' }}>오너스코리아.</h2>
+            <h2 className="closing-text text-secondary mb-4" style={{ fontSize: '4.5rem', fontWeight: 900, letterSpacing: '-0.1rem' }}>오너스코리아</h2>
             <h3 className="closing-subtext text-white fw-light" style={{ fontSize: '2.5rem' }}>골목의 숨결을 자산의 가치로.</h3>
             
-            <p className="text-white-50 mt-5 fs-5">
-              오늘도 누군가는 첫 매장의 문을 엽니다.<br/>
-              누군가는 첫 투자의 환급금을 손에 쥡니다.<br/>
-              그리고 그 사이에서, 대한민국의 골목은 다시 살아납니다.
+            <p className="text-white opacity-80 mt-5 fs-5 lh-lg">
+              누군가의 희망을 담은 첫 투자로 오늘도 누군가는 첫 매장의 문을 엽니다. <br/>
+              새로운 일자리가 창출되고 대한민국의 지방상권이 살아납니다.
             </p>
             
             <div className="mt-5 pt-4">
