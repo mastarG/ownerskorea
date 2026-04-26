@@ -155,7 +155,6 @@ const AboutPage: React.FC = () => {
                 매월 매출이 만든 배당금이 통장에 찍히며, 4년 뒤 권리금 차익까지 합산됩니다.
               </p>
               <blockquote className="chapter-quote text-secondary fs-3 mt-5 pt-4 border-top border-secondary border-opacity-25">
-                "보장은 불법이지만, 구조는 과학입니다." <br/>
                 "지속가능한 구조의 발견이 혁신입니다." <br/>
                 <footer className="mt-3 fs-5 opacity-75">- mastar.ct -</footer>
               </blockquote>
