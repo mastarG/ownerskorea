@@ -11,18 +11,28 @@
 .about-page {
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
   color: var(--color-text-main);
-  background-color: white;
+  background-color: var(--color-primary);
   overflow-x: hidden;
+  /* Snap scrolling effect */
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: scroll;
 }
 
-/* Chapter Hero (Chapter 1) */
+.about-page::-webkit-scrollbar {
+  display: none;
+}
+
+/* Chapter Hero Sections */
 .chapter-hero {
   height: 100vh;
+  width: 100%;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  scroll-snap-align: start;
 }
 
 .hero-image-bg {
@@ -38,6 +48,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Removed transition and transform for no-zoom effect */
 }
 
 .hero-image-bg.grayscale img {
@@ -50,138 +61,63 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(11, 25, 44, 0.4), rgba(11, 25, 44, 0.8));
+  background: linear-gradient(to bottom, rgba(11, 25, 44, 0.4), rgba(11, 25, 44, 0.9));
   z-index: 2;
 }
 
 .hero-content {
   position: relative;
   z-index: 3;
-}
-
-/* Common Chapter Styles */
-.chapter-section {
-  padding: 120px 0;
-  background-color: white;
+  padding: 0 2rem;
 }
 
 .chapter-label {
   font-weight: 800;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 0.3rem;
-  margin-bottom: 1.5rem;
+  letter-spacing: 0.4rem;
+  margin-bottom: 2rem;
   color: var(--color-secondary);
 }
 
 .chapter-title {
-  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-size: clamp(2.5rem, 6vw, 4.2rem);
   font-weight: 900;
-  color: var(--color-primary);
-  line-height: 1.15;
+  line-height: 1.1;
   margin-bottom: 2.5rem;
-  letter-spacing: -0.06rem;
+  letter-spacing: -0.08rem;
 }
 
-.chapter-text {
-  font-size: 1.15rem;
-  line-height: 2;
-  color: #333;
-}
-
-.chapter-text p {
-  margin-bottom: 1.8rem;
+.chapter-intro-text {
+  font-size: 1.25rem;
+  line-height: 1.9;
 }
 
 .chapter-quote {
   font-family: serif;
   font-style: italic;
-  font-size: 1.7rem;
-  line-height: 1.5;
+  display: inline-block;
   color: var(--color-secondary);
-  border-left: 2px solid var(--color-secondary);
-  padding-left: 2rem;
-  margin: 3.5rem 0;
+  border: none;
+  padding: 1.5rem 0;
+  margin: 3rem 0;
 }
 
-/* Magazine Image Treatment */
-.magazine-image-container {
-  position: relative;
-  padding-bottom: 60%; /* Consistent aspect ratio */
-  overflow: hidden;
-  border-radius: 4px;
-  box-shadow: 20px 20px 0px rgba(212, 175, 55, 0.1);
-  transition: transform 0.6s ease;
+.chapter-footer {
+  margin-top: 4rem;
 }
 
-.magazine-image-container.left {
-  box-shadow: -20px 20px 0px rgba(212, 175, 55, 0.1);
-}
-
-.magazine-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1s ease;
-}
-
-.magazine-image-container:hover .magazine-image {
-  transform: scale(1.05);
-}
-
-/* Footer Stats */
 .footer-stat {
-  font-size: 1rem;
-  letter-spacing: 0.05rem;
-  opacity: 0.8;
-}
-
-/* Narrative Section (Text only) */
-.narrative-section {
-  padding: 80px 0;
-  background-color: #fafafa;
-  border-bottom: 1px solid #eee;
-}
-
-/* Closing Section */
-.closing-section {
-  min-height: 100vh;
-  background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=2000&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  position: relative;
-}
-
-.closing-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(11, 25, 44, 0.75), rgba(11, 25, 44, 0.95));
-}
-
-.closing-text {
-  font-size: 5rem;
-  font-weight: 900;
-  letter-spacing: -0.15rem;
-}
-
-.closing-subtext {
-  font-size: 2.2rem;
-  font-weight: 300;
+  font-size: 1.1rem;
+  letter-spacing: 0.1rem;
   opacity: 0.9;
 }
 
 /* Animations */
 .fade-in-section {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(50px);
+  transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .fade-in-visible {
@@ -190,16 +126,22 @@
 }
 
 @media (max-width: 991px) {
-  .chapter-hero {
-    height: 80vh;
-  }
   .chapter-title {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
-  .magazine-image-container {
-    margin-bottom: 3rem;
+  .chapter-intro-text {
+    font-size: 1.1rem;
   }
-  .closing-text {
-    font-size: 3.5rem;
+  .footer-stat {
+    font-size: 0.9rem;
+  }
+  .about-page {
+    scroll-snap-type: none; /* Disable on mobile for better accessibility */
+    height: auto;
+  }
+  .chapter-hero {
+    height: auto;
+    min-height: 100vh;
+    padding: 100px 0;
   }
 }
