@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Marketplace.css';
 import thumb1 from '../assets/thumb1.png';
 import thumb2 from '../assets/thumb2.png';
@@ -68,61 +69,64 @@ const Marketplace = () => {
             <span className="dot active"></span>
             <span className="dot"></span>
             <span className="dot"></span>
+            <span className="dot"></span>
           </div>
         </div>
 
         <div className="marketplace-grid">
           {investments.map((item) => (
-            <div key={item.id} className="investment-card">
-              <div className="card-image-wrapper">
-                <img src={item.image} alt={item.title} className="card-image" />
-                <div className={`status-badge ${item.status === '모집완료' ? 'completed' : 'active'}`}>
-                  {item.status}
+            <Link key={item.id} to={`/investments/${item.id}`} className="investment-card-link">
+              <div className="investment-card">
+                <div className="card-image-wrapper">
+                  <img src={item.image} alt={item.title} className="card-image" />
+                  <div className={`status-badge ${item.status === '모집완료' ? 'completed' : 'active'}`}>
+                    {item.status}
+                  </div>
+                </div>
+                
+                <div className="card-content">
+                  <div className="card-header">
+                    <div className="card-category">
+                      <span>{item.category}</span>
+                      <span className="dot">•</span>
+                      <span>{item.type}</span>
+                    </div>
+                    <h3 className="card-title">{item.title}</h3>
+                  </div>
+
+                  <div className="card-details">
+                    <div className="detail-row">
+                      <span className="detail-label">총 모집액</span>
+                      <span className="detail-value">{item.totalAmount}</span>
+                    </div>
+                    <div className="detail-row">
+                      <span className="detail-label">총 모집구좌</span>
+                      <span className="detail-value">{item.totalAccounts}구좌</span>
+                    </div>
+                    <div className="detail-row highlight-row">
+                      <span className="detail-label">예상 수익률</span>
+                      <span className="detail-value text-danger">{item.returnRate}</span>
+                    </div>
+                  </div>
+
+                  <div className="progress-section">
+                    <div className="progress-header">
+                      <span className="progress-label">모집률 {item.progress}%</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                      <div 
+                        className={`progress-bar-fill ${item.status === '모집완료' ? 'completed' : 'active'}`} 
+                        style={{ width: `${item.progress}%` }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div className={`btn w-full mt-4 ${item.status === '모집완료' ? 'btn-outline disabled' : 'btn-primary'}`}>
+                    {item.status === '모집완료' ? '모집 완료' : '상세 보기'}
+                  </div>
                 </div>
               </div>
-              
-              <div className="card-content">
-                <div className="card-header">
-                  <div className="card-category">
-                    <span>{item.category}</span>
-                    <span className="dot">•</span>
-                    <span>{item.type}</span>
-                  </div>
-                  <h3 className="card-title">{item.title}</h3>
-                </div>
-
-                <div className="card-details">
-                  <div className="detail-row">
-                    <span className="detail-label">총 모집액</span>
-                    <span className="detail-value">{item.totalAmount}</span>
-                  </div>
-                  <div className="detail-row">
-                    <span className="detail-label">총 모집구좌</span>
-                    <span className="detail-value">{item.totalAccounts}구좌</span>
-                  </div>
-                  <div className="detail-row highlight-row">
-                    <span className="detail-label">예상 수익률</span>
-                    <span className="detail-value text-danger">{item.returnRate}</span>
-                  </div>
-                </div>
-
-                <div className="progress-section">
-                  <div className="progress-header">
-                    <span className="progress-label">모집률 {item.progress}%</span>
-                  </div>
-                  <div className="progress-bar-bg">
-                    <div 
-                      className={`progress-bar-fill ${item.status === '모집완료' ? 'completed' : 'active'}`} 
-                      style={{ width: `${item.progress}%` }}
-                    ></div>
-                  </div>
-                </div>
-
-                <button className={`btn w-full mt-4 ${item.status === '모집완료' ? 'btn-outline disabled' : 'btn-primary'}`}>
-                  {item.status === '모집완료' ? '모집 완료' : '상세 보기'}
-                </button>
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { User } from 'lucide-react';
 import './Navbar.css';
 import LoginModal from './LoginModal';
@@ -19,14 +20,14 @@ const Navbar = ({ onLogin }: NavbarProps) => {
     <>
       <nav className="navbar">
         <div className="container navbar-container">
-          <a href="/" className="navbar-logo">
+          <Link to="/" className="navbar-logo">
             <span className="text-secondary">O</span>wners <span className="text-secondary">K</span>orea
-          </a>
+          </Link>
           <div className="navbar-links center-links">
-            <a href="#marketplace">투자정보</a>
-            <a href="#partnership">입점협력</a>
-            <a href="#support">고객지원</a>
-            <a href="#career">채용공고</a>
+            <Link to="/investments">투자정보</Link>
+            <a href="/#partnership">입점협력</a>
+            <a href="/#support">고객지원</a>
+            <a href="/#career">채용공고</a>
           </div>
           <div className="navbar-actions right-actions">
             <button className="btn btn-outline-white" onClick={() => setIsLoginOpen(true)}>
