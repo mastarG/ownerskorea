@@ -142,33 +142,84 @@
   margin-bottom: 0.8rem;
 }
 
-/* Dual Value Section */
-.dual-value-section {
+/* Sub-Navigation */
+.about-subnav-container {
   background: white;
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 80px; /* Below Navbar */
+  z-index: 900;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.about-subnav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.about-subnav a {
+  color: var(--color-text-main);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.about-subnav a:hover {
+  background: #f1f5f9;
+  color: var(--color-primary);
+}
+
+/* Value Sections */
+.value-section {
   border-top: 1px solid var(--color-border);
 }
 
-.dual-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+.value-layout {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.value-layout.reverse-layout {
+  flex-direction: row-reverse;
 }
 
 @media (max-width: 992px) {
-  .dual-grid {
-    grid-template-columns: 1fr;
+  .value-layout, .value-layout.reverse-layout {
+    flex-direction: column;
+    gap: 2rem;
   }
 }
 
-.value-column {
-  background: #f8fafc;
-  padding: 3rem;
+.value-image {
+  flex: 1;
   border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.value-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.value-content {
+  flex: 1;
+  padding: 2rem;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 .investor-col {
   border: 1px solid rgba(212, 175, 55, 0.3);
-  box-shadow: 0 10px 40px rgba(212, 175, 55, 0.05);
 }
 
 .founder-col {
@@ -186,19 +237,11 @@
   font-weight: 800;
   color: var(--color-primary);
   margin-bottom: 1rem;
-}
-
-.catchphrase {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--color-text-main);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  font-style: italic;
+  line-height: 1.3;
 }
 
 .purpose-box {
-  background: white;
+  background: #f8fafc;
   padding: 1rem;
   border-radius: 8px;
   font-size: 0.95rem;
@@ -229,6 +272,7 @@
   justify-content: center;
   flex-shrink: 0;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border: 1px solid #e2e8f0;
 }
 
 .value-list h5 {

@@ -24,7 +24,14 @@ const Navbar = ({ onLogin }: NavbarProps) => {
             <span className="text-secondary">O</span>wners <span className="text-secondary">K</span>orea
           </Link>
           <div className="navbar-links center-links">
-            <Link to="/about">어바웃</Link>
+            <div className="nav-item-dropdown">
+              <Link to="/about" className="dropdown-trigger">어바웃</Link>
+              <div className="dropdown-menu">
+                <a href="/about#vision">우리는 (Vision & Mission)</a>
+                <a href="/about#investor">오너 가이드 (투자자)</a>
+                <a href="/about#founder">창업자 가이드</a>
+              </div>
+            </div>
             <Link to="/investments">투자정보</Link>
             <a href="/#partnership">입점협력</a>
             <a href="/#support">고객지원</a>
