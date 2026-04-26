@@ -90,47 +90,62 @@ const AboutPage = () => {
 
         {/* Policy & Mission */}
         <div className="policy-section py-5 bg-light">
-          <div className="container">
-            <div className="section-header text-center mb-5">
-              <h2 className="section-title">플랫폼의 정책적 취지와 미션</h2>
-              <p className="section-subtitle">오너스코리아가 해결하고자 하는 우리 사회의 4가지 핵심 과제</p>
-            </div>
-
+          <div className="container mt-4">
             <div className="mission-grid">
+              {/* Mission 1 */}
               <div className="mission-card">
-                <div className="mission-icon color-1"><LineChart size={28} /></div>
-                <h4>1. 소상공인 투자 사각지대 해소</h4>
-                <span className="mission-label">Finance Equity</span>
-                <p className="problem"><strong>문제:</strong> 기존 외식업/소상공인은 '벤처투자'에서 소외되어 고리 사채나 담보 대출에 의존.</p>
-                <p className="solution"><strong>해결:</strong> 외식업을 '투자형 벤처기업'으로 체계화하여 전문직 등 자산가의 자본이 합법적으로 유입되는 통로 개척.</p>
-                <p className="effect text-primary"><strong>효과:</strong> 거대 자본 없이도(1,000만 원) 창업할 수 있는 금융 민주화 실현.</p>
+                <div className="mission-image">
+                  <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Finance Equity" />
+                </div>
+                <div className="mission-content">
+                  <span className="mission-label">Finance Equity</span>
+                  <h4>1. 소상공인 투자 사각지대 해소</h4>
+                  <p className="problem"><strong>문제:</strong> 기존 외식업/소상공인은 '벤처투자'에서 소외되어 고리 사채나 담보 대출에 의존.</p>
+                  <p className="solution"><strong>해결:</strong> 외식업을 '투자형 벤처기업'으로 체계화하여 자본이 합법적으로 유입되는 통로 개척.</p>
+                  <p className="effect text-primary"><strong>효과:</strong> 거대 자본 없이도 창업할 수 있는 금융 민주화 실현.</p>
+                </div>
               </div>
 
+              {/* Mission 2 */}
               <div className="mission-card">
-                <div className="mission-icon color-2"><Building2 size={28} /></div>
-                <h4>2. 지자체 상가 공실 문제 해결</h4>
-                <span className="mission-label">Urban Regeneration</span>
-                <p className="problem"><strong>문제:</strong> 상가 공실률 급증으로 인한 지역 경제 침체 및 도시 미관 훼손.</p>
-                <p className="solution"><strong>해결:</strong> 건물주-마스터기업-오너를 연결해 '공실에 최적화된 킬러 브랜드'를 강제 매칭 및 자본 투입.</p>
-                <p className="effect text-primary"><strong>효과:</strong> 유령 상가를 맛집으로 변모시켜 상권을 재생하고 건물 가치 상승.</p>
+                <div className="mission-image">
+                  <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=800&q=80" alt="Urban Regeneration" />
+                </div>
+                <div className="mission-content">
+                  <span className="mission-label">Urban Regeneration</span>
+                  <h4>2. 지자체 상가 공실 문제 해결</h4>
+                  <p className="problem"><strong>문제:</strong> 상가 공실률 급증으로 인한 지역 경제 침체 및 도시 미관 훼손.</p>
+                  <p className="solution"><strong>해결:</strong> 건물주-마스터기업-오너를 연결해 '공실에 최적화된 킬러 브랜드' 매칭 및 자본 투입.</p>
+                  <p className="effect text-primary"><strong>효과:</strong> 유령 상가를 맛집으로 변모시켜 상권을 재생하고 건물 가치 상승.</p>
+                </div>
               </div>
 
+              {/* Mission 3 */}
               <div className="mission-card">
-                <div className="mission-icon color-3"><Users size={28} /></div>
-                <h4>3. 청년 및 시니어 고용 문제 해결</h4>
-                <span className="mission-label">Job Creation</span>
-                <p className="problem"><strong>문제:</strong> 준비되지 않은 창업의 폐업 양산 및 로봇/AI로 인한 일자리 감소.</p>
-                <p className="solution"><strong>해결:</strong> 마스터기업의 표준화된 운영 시스템 하에서 초보 창업자와 실무 인력을 교육 및 채용.</p>
-                <p className="effect text-primary"><strong>효과:</strong> 빚이 남지 않는 유한책임 창업 기회 및 안정적인 커리어 패스 제공.</p>
+                <div className="mission-image">
+                  <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=80" alt="Job Creation" />
+                </div>
+                <div className="mission-content">
+                  <span className="mission-label">Job Creation</span>
+                  <h4>3. 청년 및 시니어 고용 문제 해결</h4>
+                  <p className="problem"><strong>문제:</strong> 준비되지 않은 창업의 폐업 양산 및 로봇/AI로 인한 일자리 감소.</p>
+                  <p className="solution"><strong>해결:</strong> 마스터기업의 표준화된 운영 시스템 하에서 초보 창업자와 실무 인력을 교육 및 채용.</p>
+                  <p className="effect text-primary"><strong>효과:</strong> 빚이 남지 않는 유한책임 창업 기회 및 안정적인 커리어 패스 제공.</p>
+                </div>
               </div>
 
+              {/* Mission 4 */}
               <div className="mission-card">
-                <div className="mission-icon color-4"><Sprout size={28} /></div>
-                <h4>4. 자본의 선순환 생태계 구축</h4>
-                <span className="mission-label">Social Impact</span>
-                <p className="problem"><strong>문제:</strong> 전문직 자본이 부동산 투기 등에 머물러 실물 경제로 흐르지 않음.</p>
-                <p className="solution"><strong>해결:</strong> 절세 혜택(소득공제 100%)을 명분으로 고소득자의 자금을 골목 상권으로 유도.</p>
-                <p className="effect text-primary"><strong>효과:</strong> "내 세금이 우리 동네 가게를 살린다"는 자부심과 실물 경제 활성화.</p>
+                <div className="mission-image">
+                  <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80" alt="Social Impact" />
+                </div>
+                <div className="mission-content">
+                  <span className="mission-label">Social Impact</span>
+                  <h4>4. 자본의 선순환 생태계 구축</h4>
+                  <p className="problem"><strong>문제:</strong> 전문직 자본이 부동산 투기 등에 머물러 실물 경제로 흐르지 않음.</p>
+                  <p className="solution"><strong>해결:</strong> 절세 혜택(소득공제 100%)을 명분으로 고소득자의 자금을 골목 상권으로 유도.</p>
+                  <p className="effect text-primary"><strong>효과:</strong> "내 세금이 우리 동네 가게를 살린다"는 자부심과 실물 경제 활성화.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -146,8 +161,10 @@ const AboutPage = () => {
             </div>
             <div className="value-content investor-col">
               <div className="value-header">
-                <span className="badge badge-primary mb-2">오너(투자자) 가이드</span>
-                <h3>세무서로 가던 당신의 자본을<br/>우리 동네 맛집의 지분으로.</h3>
+                <h2 className="display-title mb-3" style={{ fontSize: '3rem', fontWeight: 900, color: 'var(--color-secondary)', letterSpacing: '-1px' }}>투자자(LP)</h2>
+                <h3 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-primary)', marginBottom: '1.5rem', lineHeight: '1.4' }}>
+                  세무서로 가던 당신의 자본을<br/>우리 동네 맛집의 지분으로.
+                </h3>
                 <div className="purpose-box mt-4">
                   <strong>이용 목적:</strong> 단순 재테크를 넘어선 <strong>'확정적 절세'</strong>와 <strong>'실물 자산 소유'</strong>의 결합
                 </div>
@@ -190,8 +207,10 @@ const AboutPage = () => {
             </div>
             <div className="value-content founder-col">
               <div className="value-header">
-                <span className="badge badge-primary mb-2" style={{ backgroundColor: 'var(--color-secondary)', color: 'var(--color-primary)' }}>창업자 가이드</span>
-                <h3>실력은 당신이, 자본은 오너스코리아가.<br/>1,000만 원으로 여는 당신의 첫 매장.</h3>
+                <h2 className="display-title mb-3" style={{ fontSize: '3rem', fontWeight: 900, color: 'var(--color-primary)', letterSpacing: '-1px' }}>창업자</h2>
+                <h3 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-primary)', marginBottom: '1.5rem', lineHeight: '1.4' }}>
+                  실력은 당신이, 자본은 오너스코리아가.<br/>1,000만 원으로 여는 당신의 첫 매장.
+                </h3>
                 <div className="purpose-box mt-4">
                   <strong>이용 목적:</strong> 거대 자본 없이도 '유한책임' 하에 자신의 브랜드와 실력을 마음껏 펼치는 창업
                 </div>
