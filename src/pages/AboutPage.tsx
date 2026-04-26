@@ -56,6 +56,7 @@ const AboutPage = () => {
                 </div>
                 <div className="cert-info">
                   <h5>창업기획자</h5>
+                  <span className="cert-agency">중소벤처기업부</span>
                   <p>제2025-16호</p>
                 </div>
               </div>
@@ -67,6 +68,7 @@ const AboutPage = () => {
                 </div>
                 <div className="cert-info">
                   <h5>창업보육센터</h5>
+                  <span className="cert-agency">중소벤처기업부</span>
                   <p>제2026호 30호</p>
                 </div>
               </div>
@@ -78,6 +80,7 @@ const AboutPage = () => {
                 </div>
                 <div className="cert-info">
                   <h5>원격평생교육시설</h5>
+                  <span className="cert-agency">교육부</span>
                   <p>세종-50호</p>
                 </div>
               </div>

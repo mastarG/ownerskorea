@@ -130,12 +130,20 @@
   font-size: 1.1rem;
   font-weight: 800;
   color: var(--color-primary);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.2rem;
   letter-spacing: -0.5px;
 }
 
+.cert-agency {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-bottom: 0.3rem;
+}
+
 .cert-info p {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-secondary);
   margin: 0;
