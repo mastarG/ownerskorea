@@ -213,92 +213,120 @@ const AboutPage = () => {
       </section>
 
       {/* Investor Value Section */}
-      <section id="investor" className="value-section py-5">
-        <div className="container">
-          <div className="value-layout">
-            <div className="value-image">
-              <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80" alt="Investor" />
+      {/* Investor Value Section (LP) */}
+      <section id="investor" className="value-banner-section py-5" style={{ backgroundImage: `linear-gradient(rgba(11, 25, 44, 0.85), rgba(11, 25, 44, 0.95)), url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=2000&q=80')` }}>
+        <div className="container text-light">
+          <div className="text-center mb-5">
+            <h2 className="display-title mb-3 text-secondary" style={{ fontSize: '3.5rem', fontWeight: 900, letterSpacing: '-1px' }}>투자자(LP)</h2>
+            <h3 style={{ fontSize: '2.2rem', fontWeight: 800, marginBottom: '1.5rem', lineHeight: '1.4' }}>
+              세금 낼 돈을 투자로 전환하여<br/>확정적 절세와 실물 자산의 주인이 됩니다.
+            </h3>
+            <div className="purpose-box glass-box mx-auto px-4 py-3">
+              <p className="mb-0 lh-lg">
+                1구좌 <strong>3,000만원 투자</strong> 기준, 3년 후 <strong>약 4,800만~5,600만원(ROI 160~190%)</strong> 회수를 목표로 합니다.<br/>
+                단순 배당을 넘어 세금 환급, 운영 배당, 권리금 차익이 결합된 총회수 구조입니다.
+              </p>
             </div>
-            <div className="value-content investor-col">
-              <div className="value-header">
-                <h2 className="display-title mb-3" style={{ fontSize: '3rem', fontWeight: 900, color: 'var(--color-secondary)', letterSpacing: '-1px' }}>투자자(LP)</h2>
-                <h3 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-primary)', marginBottom: '1.5rem', lineHeight: '1.4' }}>
-                  세무서로 가던 당신의 자본을<br />우리 동네 맛집의 지분으로.
-                </h3>
-                <div className="purpose-box mt-4">
-                  <strong>이용 목적:</strong> 단순 재테크를 넘어선 <strong>'확정적 절세'</strong>와 <strong>'실물 자산 소유'</strong>의 결합
-                </div>
+          </div>
+          
+          <div className="value-features-grid mt-5">
+            <div className="glass-card">
+              <div className="text-secondary fw-bold mb-2">투자 즉시</div>
+              <h5 className="fs-4">소득공제 환급</h5>
+              <h4 className="text-secondary fw-800 my-3">1,200 ~ 1,500만원</h4>
+              <p className="opacity-80">조세특례제한법 제16조에 따라 투자액 100% 소득공제 적용 (실질 수익 즉시 확보)</p>
+            </div>
+            <div className="glass-card">
+              <div className="text-secondary fw-bold mb-2">운영 기간 중</div>
+              <h5 className="fs-4">분기 배당 누적</h5>
+              <h4 className="text-secondary fw-800 my-3">300 ~ 500만원</h4>
+              <p className="opacity-80">점포 운영 성과에 따라 3년간 정기적으로 지급되는 실적 연동형 배당 수익</p>
+            </div>
+            <div className="glass-card">
+              <div className="text-secondary fw-bold mb-2">엑시트 발생 시</div>
+              <h5 className="fs-4">권리금 및 원금회수</h5>
+              <h4 className="text-secondary fw-800 my-3">3,300 ~ 3,600만원</h4>
+              <p className="opacity-80">권리금 차익 배당과 투자 원금(3,000만원)을 포함한 최종 자본 회수</p>
+            </div>
+          </div>
+          
+          <div className="glass-box mx-auto mt-5 p-4 rounded-4 border-secondary border-opacity-25" style={{ maxWidth: '900px', backgroundColor: 'rgba(212, 175, 55, 0.05)' }}>
+            <div className="row align-items-center text-start">
+              <div className="col-md-8">
+                <h5 className="text-secondary fw-bold mb-2">🛡️ 강력한 하방 보호 장치 (Downside Protection)</h5>
+                <p className="small mb-0 opacity-80">
+                  최악의 점포 실패 시에도 <strong>은행 에스크로 임대보증금 선순위 배분</strong>과 <strong>세금 환급</strong>을 통해 투자금의 <strong>60~85% 수준을 우선적으로 회수</strong>할 수 있는 안전장치가 마련되어 있습니다.
+                </p>
               </div>
-              <ul className="value-list">
-                <li>
-                  <div className="icon"><ShieldCheck size={24} /></div>
-                  <div className="content">
-                    <h5>100% 소득공제</h5>
-                    <p>투자금 전액 소득공제로 즉시 약 40% 이상의 실질 수익(환급)을 확보합니다.</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="icon"><TrendingUp size={24} /></div>
-                  <div className="content">
-                    <h5>보증금 선순위 상환</h5>
-                    <p>임대보증금 1배수를 LP 우선권으로 설정하여 원금 하방 리스크를 원천 방어합니다.</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="icon"><Store size={24} /></div>
-                  <div className="content">
-                    <h5>관전하는 재미</h5>
-                    <p>OMO-Vision과 실시간 매출 추적을 통해 '내가 주인인 가게'를 보는 경영의 즐거움을 드립니다.</p>
-                  </div>
-                </li>
-              </ul>
-              <button className="btn btn-primary w-full mt-4">투자 상품 보기 <ArrowRight size={16} className="ml-2 inline" /></button>
+              <div className="col-md-4 text-md-end mt-3 mt-md-0">
+                <button className="btn btn-primary px-4 py-2 rounded-pill fw-bold">투자 상세 가이드 <ArrowRight size={16} className="ml-2 inline" /></button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Founder Value Section */}
-      <section id="founder" className="value-section py-5 bg-light">
-        <div className="container">
-          <div className="value-layout reverse-layout">
-            <div className="value-image">
-              <img src="https://images.unsplash.com/photo-1556740714-a8395b3bf30f?auto=format&fit=crop&w=800&q=80" alt="Founder" />
+      {/* Founder Value Section */}
+      <section id="founder" className="value-banner-section py-5" style={{ backgroundImage: `linear-gradient(rgba(11, 25, 44, 0.85), rgba(11, 25, 44, 0.95)), url('https://images.unsplash.com/photo-1556740714-a8395b3bf30f?auto=format&fit=crop&w=2000&q=80')` }}>
+        <div className="container text-light">
+          <div className="text-center mb-5">
+            <h2 className="display-title mb-3" style={{ fontSize: '3.5rem', fontWeight: 900, color: '#f8fafc', letterSpacing: '-1px' }}>창업자</h2>
+            <h3 style={{ fontSize: '2.2rem', fontWeight: 800, marginBottom: '1.5rem', lineHeight: '1.4' }}>
+              거액의 자기자본 없이도 실력만 있다면<br/>자신의 매장을 운영하고 성공을 공유합니다.
+            </h3>
+            <div className="purpose-box glass-box mx-auto px-4 py-3" style={{ borderLeft: '4px solid #f8fafc' }}>
+              <p className="mb-0 lh-lg">
+                점포법인의 대표이사로서 실질적인 운영 주체가 됩니다.<br/>
+                기존의 보증금·권리금 부담을 법인 구조로 해결하여 <strong>무자본에 가까운 창업</strong>을 실현합니다.
+              </p>
             </div>
-            <div className="value-content founder-col">
-              <div className="value-header">
-                <h2 className="display-title mb-3" style={{ fontSize: '3rem', fontWeight: 900, color: 'var(--color-primary)', letterSpacing: '-1px' }}>창업자</h2>
-                <h3 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--color-primary)', marginBottom: '1.5rem', lineHeight: '1.4' }}>
-                  실력은 당신이, 자본은 오너스코리아가.<br />1,000만 원으로 여는 당신의 첫 매장.
-                </h3>
-                <div className="purpose-box mt-4">
-                  <strong>이용 목적:</strong> 거대 자본 없이도 '유한책임' 하에 자신의 브랜드와 실력을 마음껏 펼치는 창업
+          </div>
+          
+          <div className="value-features-grid mt-5">
+            <div className="glass-card light-glass">
+              <h5 className="fs-4 mb-3">안정적 현금흐름</h5>
+              <h4 className="fw-800 my-3" style={{ color: '#f8fafc' }}>월 500만원 수준</h4>
+              <p className="opacity-80">점포 대표이사로서의 정기 급여를 통해 창업 초기부터 안정적인 생활 기반을 확보합니다.</p>
+            </div>
+            <div className="glass-card light-glass">
+              <h5 className="fs-4 mb-3">운영 성과 보상</h5>
+              <h4 className="fw-800 my-3" style={{ color: '#f8fafc' }}>영업이익 기반</h4>
+              <p className="opacity-80">점포 운영 성과에 따른 인센티브와 영업이익 기반의 추가 보상을 통해 수익을 극대화합니다.</p>
+            </div>
+            <div className="glass-card light-glass">
+              <h5 className="fs-4 mb-3">엑시트 업사이드</h5>
+              <h4 className="fw-800 my-3" style={{ color: '#f8fafc' }}>권리금 배당</h4>
+              <p className="opacity-80">매장 양도(Exit) 시 발생하는 권리금에 대해 배당 또는 성과보수 형태로 큰 보상을 확보합니다.</p>
+            </div>
+          </div>
+          
+          <div className="mt-5 text-center">
+            <div className="d-inline-block p-4 rounded-4" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', maxWidth: '800px' }}>
+              <h5 className="fw-bold mb-3 text-secondary">📋 창업 참여 조건</h5>
+              <div className="row text-start g-3">
+                <div className="col-md-6">
+                  <div className="d-flex align-items-center gap-2">
+                    <ShieldCheck size={18} className="text-secondary" />
+                    <span>기본 신용등급 충족 (주류대출 가능 수준)</span>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="d-flex align-items-center gap-2">
+                    <ShieldCheck size={18} className="text-secondary" />
+                    <span>실무 운영 역량 및 풀타임 참여 가능자</span>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="d-flex align-items-center gap-2">
+                    <ShieldCheck size={18} className="text-secondary" />
+                    <span>필요 시 담보 설정 가능 여부 검토</span>
+                  </div>
+                </div>
+                <div className="col-md-6 text-md-end">
+                  <button className="btn btn-outline-light px-4 py-2 rounded-pill fw-bold">창업 프로세스 상담 <ArrowRight size={16} className="ml-2 inline" /></button>
                 </div>
               </div>
-              <ul className="value-list">
-                <li>
-                  <div className="icon"><Target size={24} /></div>
-                  <div className="content">
-                    <h5>자본 무부담</h5>
-                    <p>보증금과 인테리어비 등 초기 거대 자본을 오너스 펀드로 해결합니다. (본인 부담 단 1,000만 원)</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="icon"><ShieldCheck size={24} /></div>
-                  <div className="content">
-                    <h5>리스크 격리</h5>
-                    <p>벤처법인 구조를 통해 실패 시에도 신용불량 우려가 없는 극도로 안전한 도전을 지원합니다.</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="icon"><Users size={24} /></div>
-                  <div className="content">
-                    <h5>전문가 밀착 지원</h5>
-                    <p>20년 업력의 엑시톤 AC와 마스터기업의 운영 시스템을 그대로 전수받아 폐업률 0%를 지향합니다.</p>
-                  </div>
-                </li>
-              </ul>
-              <button className="btn btn-outline w-full mt-4">창업 문의하기 <ArrowRight size={16} className="ml-2 inline" /></button>
             </div>
           </div>
         </div>
