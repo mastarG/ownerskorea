@@ -17,7 +17,16 @@ const FounderSection = () => {
           자본금 1,000만원 유한책임 창업.<br />
           뛰어난 실력만 준비하세요. 나머지는 오너스코리아 파트너스가 돕겠습니다.
         </p>
-        <button className="btn btn-primary btn-large">입점 제안하기</button>
+        <div className="founder-cta-group">
+          <div className="cta-item">
+            <p className="cta-label">이미 매장을 운영 중이신가요?</p>
+            <button className="btn btn-outline-white btn-large">입점 제안하기</button>
+          </div>
+          <div className="cta-item">
+            <p className="cta-label">새로운 매장 창업을 꿈꾸시나요?</p>
+            <button className="btn btn-primary btn-large">창업 지원하기</button>
+          </div>
+        </div>
       </div>
     </section>
   );

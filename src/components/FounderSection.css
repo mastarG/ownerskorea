@@ -54,11 +54,37 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
+.founder-cta-group {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+.cta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cta-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 @media (max-width: 768px) {
   .founder-title {
     font-size: 2.25rem;
   }
   .founder-desc {
     font-size: 1.125rem;
+  }
+  .founder-cta-group {
+    flex-direction: column;
+    gap: 2rem;
   }
 }
