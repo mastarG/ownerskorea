@@ -12,6 +12,7 @@ import MyPage from './components/MyPage';
 import InvestmentsPage from './pages/InvestmentsPage';
 import InvestmentDetail from './pages/InvestmentDetail';
 import AboutPage from './pages/AboutPage';
+import StartupSupportPage from './pages/StartupSupportPage';
 import './App.css';
 
 // Landing Page (Home) component
@@ -44,6 +45,7 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/investments" element={<InvestmentsPage />} />
             <Route path="/investments/:id" element={<InvestmentDetail />} />
+            <Route path="/startup-support" element={<StartupSupportPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

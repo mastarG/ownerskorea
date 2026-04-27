@@ -26,7 +26,7 @@ const Navbar = ({ onLogin }: NavbarProps) => {
           <div className="navbar-links center-links">
             <Link to="/about">미션</Link>
             <Link to="/investments">투자정보</Link>
-            <a href="/#partnership">창업지원</a>
+            <Link to="/startup-support">창업지원</Link>
             <a href="/#support">고객지원</a>
           </div>
           <div className="navbar-actions right-actions">
