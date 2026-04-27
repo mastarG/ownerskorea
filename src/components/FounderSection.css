@@ -30,7 +30,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(11, 25, 44, 0.7); /* Deep Navy semi-transparent overlay */
+  background-color: rgba(11, 25, 44, 0.7);
+  /* Deep Navy semi-transparent overlay */
 }
 
 .founder-content {
@@ -80,9 +81,11 @@
   .founder-title {
     font-size: 2.25rem;
   }
+
   .founder-desc {
     font-size: 1.125rem;
   }
+
   .founder-cta-group {
     flex-direction: column;
     gap: 2rem;
