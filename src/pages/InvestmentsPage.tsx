@@ -158,6 +158,21 @@ const InvestmentsPage = () => {
                 )}
               </div>
 
+              {/* Brand */}
+              <div className="filter-dropdown-item">
+                <button className={`dropdown-toggle ${openDropdown === 'brand' ? 'open' : ''}`} onClick={() => toggleDropdown('brand')}>
+                  <span className="label">브랜드:</span> <span className="current-value">{filters.brand}</span>
+                  {openDropdown === 'brand' ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
+                </button>
+                {openDropdown === 'brand' && (
+                  <div className="dropdown-menu">
+                    {['전체 브랜드', '스시류', '메종드비프', '에스프레소바', '진진', '토리노', '사쿠라', '더맑은', '바른', '화이트', '리버스', '튼튼마디', '에스플란트'].map(opt => (
+                      <div key={opt} className="dropdown-opt" onClick={() => handleFilterSelect('brand', opt)}>{opt}</div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               {/* Region */}
               <div className="filter-dropdown-item">
                 <button className={`dropdown-toggle ${openDropdown === 'region' ? 'open' : ''}`} onClick={() => toggleDropdown('region')}>
