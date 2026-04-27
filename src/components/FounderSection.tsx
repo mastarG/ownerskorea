@@ -20,11 +20,11 @@ const FounderSection = () => {
         <div className="founder-cta-group">
           <div className="cta-item">
             <p className="cta-label">이미 매장을 운영 중이신가요?</p>
-            <button className="btn btn-outline-white btn-large">입점 제안하기</button>
+            <button className="btn btn-outline-white btn-large">투자유치제안</button>
           </div>
           <div className="cta-item">
             <p className="cta-label">새로운 매장 창업을 꿈꾸시나요?</p>
-            <button className="btn btn-outline-white btn-large">창업 지원하기</button>
+            <button className="btn btn-outline-white btn-large">창업지원</button>
           </div>
         </div>
       </div>
