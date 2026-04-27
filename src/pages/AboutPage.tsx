@@ -189,7 +189,7 @@ const AboutPage: React.FC = () => {
             
             <div className="mt-5 pt-5 pb-5">
               <Link to="/" className="btn btn-outline-white btn-large text-decoration-none">
-                함께하기 <ArrowRight size={24} className="ms-3 inline" />
+                참여하기 <ArrowRight size={24} className="ms-3 inline" />
               </Link>
             </div>
           </div>
