@@ -200,6 +200,102 @@ const INVESTMENTS_DATA: Record<string, any> = {
       address: '서울 송파구 올림픽로 32길 11',
       contact: '02-422-7766'
     }
+  },
+  "7": {
+    title: '더 맑은 피부과 강남점',
+    category: '의료서비스',
+    type: '피부과/에스테틱',
+    location: '서울 강남구 테헤란로 212',
+    totalAmount: '10억',
+    minInvestment: '5,000만 원',
+    returnRate: '11.5%',
+    progress: 40,
+    duration: '48개월',
+    payoutCycle: '매분기 정산',
+    description: '강남역 핵심 상권에 위치한 프리미엄 피부과입니다. 최첨단 레이저 장비와 프라이빗한 시술 공간을 바탕으로 고단가 미용 시술 중심의 안정적인 매출을 확보하고 있습니다.',
+    security: '의료기기 리스 담보 및 임대보증금 질권 설정',
+    images: ["https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: {
+      founder: '김민준 원장 (서울대 의대 졸업)',
+      area: '264㎡ (80평)',
+      tables: '시술실 10실, 상담실 3실',
+      avgRevenue: '월 2억 5,000만 원'
+    },
+    syndicateName: '오너스 메디컬 제1호 투자조합',
+    closingDate: '2026.07.20',
+    dDay: 'D-85',
+    companyInfo: {
+      name: '주식회사 맑은메디컬',
+      ceo: '김민준',
+      founded: '2022.04.15',
+      capital: '5억 0,000만 원',
+      address: '서울 강남구 테헤란로 212 5층',
+      contact: '02-555-1212'
+    }
+  },
+  "8": {
+    title: '바른 정형외과 센터',
+    category: '의료서비스',
+    type: '정형외과/재활',
+    location: '서울 서초구 사임당로 157',
+    totalAmount: '20억',
+    minInvestment: '1억 원',
+    returnRate: '10.2%',
+    progress: 65,
+    duration: '60개월',
+    payoutCycle: '매분기 정산',
+    description: '서초구 대단지 아파트 배후 수요를 독점하는 정형외과입니다. 도수치료 및 재활 센터 특화로 건강보험 급여와 비급여 수익의 조화로운 매출 구조를 가집니다.',
+    security: '병원 건물 1순위 전세권 설정',
+    images: ["https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: {
+      founder: '이성호 원장',
+      area: '495㎡ (150평)',
+      tables: '물리치료 베드 20개, 도수치료실 5실',
+      avgRevenue: '월 4억 2,000만 원'
+    },
+    syndicateName: '오너스 메디컬 제2호 투자조합',
+    closingDate: '2026.06.15',
+    dDay: 'D-50',
+    companyInfo: {
+      name: '바른의료재단',
+      ceo: '이성호',
+      founded: '2018.08.10',
+      capital: '10억 0,000만 원',
+      address: '서울 서초구 사임당로 157 2-3층',
+      contact: '02-222-3333'
+    }
+  },
+  "9": {
+    title: '연세 화이트 치과',
+    category: '의료서비스',
+    type: '치과/임플란트',
+    location: '경기 성남시 분당구 판교동 441',
+    totalAmount: '8억',
+    minInvestment: '3,000만 원',
+    returnRate: '12.8%',
+    progress: 90,
+    duration: '36개월',
+    payoutCycle: '매월 정산',
+    description: '판교 테크노밸리 직장인 수요가 집중되는 디지털 임플란트 특화 치과입니다. 당일 시술 시스템과 높은 만족도로 인근 대기업 임직원들의 주거래 병원으로 지정되어 있습니다.',
+    security: '카드 매출 채권 질권 설정',
+    images: ["https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: {
+      founder: '박서연 원장',
+      area: '148㎡ (45평)',
+      tables: '유니트 체어 8대',
+      avgRevenue: '월 1억 1,000만 원'
+    },
+    syndicateName: '오너스 메디컬 제3호 투자조합',
+    closingDate: '2026.05.25',
+    dDay: 'D-29',
+    companyInfo: {
+      name: '연세화이트치과그룹',
+      ceo: '박서연',
+      founded: '2021.12.01',
+      capital: '3억 0,000만 원',
+      address: '경기 성남시 분당구 판교로 22',
+      contact: '031-700-8800'
+    }
   }
 };
 
