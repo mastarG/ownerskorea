@@ -24,7 +24,7 @@ const FounderSection = () => {
           </div>
           <div className="cta-item">
             <p className="cta-label">새로운 매장 창업을 꿈꾸시나요?</p>
-            <button className="btn btn-primary btn-large">창업 지원하기</button>
+            <button className="btn btn-outline-white btn-large">창업 지원하기</button>
           </div>
         </div>
       </div>
