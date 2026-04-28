@@ -46,7 +46,8 @@
   transition: color var(--transition-fast);
 }
 
-.navbar-links a:hover {
+.navbar-links a:hover,
+.navbar-links a.active {
   color: var(--color-secondary);
 }
 

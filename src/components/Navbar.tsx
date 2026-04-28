@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { User } from 'lucide-react';
 import './Navbar.css';
 import LoginModal from './LoginModal';
@@ -10,11 +10,14 @@ interface NavbarProps {
 
 const Navbar = ({ onLogin }: NavbarProps) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const location = useLocation();
 
   const handleLoginSuccess = () => {
     setIsLoginOpen(false);
     onLogin();
   };
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <>
@@ -24,10 +27,10 @@ const Navbar = ({ onLogin }: NavbarProps) => {
             <span className="text-secondary">O</span>wners <span className="text-secondary">K</span>orea
           </Link>
           <div className="navbar-links center-links">
-            <Link to="/about">미션</Link>
-            <Link to="/investments">투자정보</Link>
-            <Link to="/startup-support">창업지원</Link>
-            <a href="/#support">고객지원</a>
+            <Link to="/about" className={isActive('/about') ? 'active' : ''}>미션</Link>
+            <Link to="/investments" className={isActive('/investments') ? 'active' : ''}>투자정보</Link>
+            <Link to="/startup-support" className={isActive('/startup-support') ? 'active' : ''}>창업지원</Link>
+            <Link to="/support" className={isActive('/support') ? 'active' : ''}>고객지원</Link>
           </div>
           <div className="navbar-actions right-actions">
             <button className="btn btn-outline-white" onClick={() => setIsLoginOpen(true)}>

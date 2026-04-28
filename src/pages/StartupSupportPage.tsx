@@ -134,7 +134,7 @@ const StartupSupportPage: React.FC = () => {
       <section className="chapter-hero-v5">
         <div className="hero-image-bg-v5">
           <img src={fnbChapter} alt="F&B Master Group" />
-          <div className="hero-overlay-v5 medium-overlay-v5"></div>
+          <div className="hero-overlay-v5 dark-overlay"></div>
         </div>
         <div className="container h-100 d-flex align-items-start justify-content-start pt-10-v5">
           <div className="hero-content-v5 fade-in-section w-100">
