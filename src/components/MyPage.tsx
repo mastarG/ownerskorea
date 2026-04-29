@@ -1,10 +1,11 @@
-// @ts-nocheck
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   LayoutDashboard, List, Store, Bell, MessageSquare, LogOut,
   FileText, TrendingUp, CircleDollarSign, Calendar, Target,
   ChevronRight, ChevronDown, ArrowUpRight, Trophy, Sparkles,
-  Settings, Printer, ShieldCheck, Clock, RefreshCw, Smartphone
+  Settings, Printer, ShieldCheck, Clock, RefreshCw, Smartphone,
+  MapPin, PieChart, Maximize
 } from 'lucide-react';
 import './MyPage.css';
 
@@ -66,9 +67,9 @@ const MyPage = ({ onLogout }: MyPageProps) => {
   const [selectedContractId, setSelectedContractId] = useState<number | null>(1);
 
   const CONTRACTS = [
-    { id: 1, title: "입점 협력 계약서 (시흥 횟집)", date: "2024.03.15", expiry: "2026.03.14", content: "제 1조 (목적)\n본 계약은 '오너스코리아'와 '투자자' 간의 상호 협력을 목적으로 하며...\n\n제 2조 (투자 금액 및 배당)\n투자자는 해당 매장에 대해 금 일천만 원을 투자하며, 매월 수익의 5%를 배당받는다...\n\n제 3조 (계약 기간)\n본 계약의 효력은 체결일로부터 2년간 유지되며...\n\n제 4조 (권리 및 의무)\n투자자는 매장의 경영에 직접 관여하지 않으나, 투명한 회계 보고를 받을 권리가 있다...\n\n제 5조 (해지)\n일방이 본 계약을 위반할 경우, 상대방은 서면 통지 후 계약을 해지할 수 있다." },
-    { id: 2, title: "투자 약정서 (판교 카페)", date: "2024.04.10", expiry: "2026.04.09", content: "제 1조 (투자금의 예치)\n투자자는 약정된 기일까지 지정된 계좌로 투자금을 예치하여야 한다...\n\n제 2조 (수익 배분 방식)\n수익 배분은 매월 25일에 정산하여 지급하는 것을 원칙으로 한다...\n\n제 3조 (비밀 유지)\n양 당사자는 본 계약과 관련하여 지득한 모든 정보를 제3자에게 누설해서는 안 된다..." },
-    { id: 3, title: "업무 제휴 계약서 (강남 오피스)", date: "2024.05.01", expiry: "2025.04.30", content: "제 1조 (제휴의 범위)\n본 계약은 강남 오피스 지점의 업무 환경 고도화를 위한 제휴를 다룬다...\n\n제 2조 (비용 분담)\n제휴에 따른 초기 구축 비용은 오너스코리아가 전액 부담하며..." }
+    { id: 1, title: "입점 협력 계약서 (시흥 횟집)", imageUrl: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=200&q=80", date: "2024.03.15", expiry: "2026.03.14", content: "제 1조 (목적)\n본 계약은 '오너스코리아'와 '투자자' 간의 상호 협력을 목적으로 하며...\n\n제 2조 (투자 금액 및 배당)\n투자자는 해당 매장에 대해 금 일천만 원을 투자하며, 매월 수익의 5%를 배당받는다...\n\n제 3조 (계약 기간)\n본 계약의 효력은 체결일로부터 2년간 유지되며...\n\n제 4조 (권리 및 의무)\n투자자는 매장의 경영에 직접 관여하지 않으나, 투명한 회계 보고를 받을 권리가 있다...\n\n제 5조 (해지)\n일방이 본 계약을 위반할 경우, 상대방은 서면 통지 후 계약을 해지할 수 있다." },
+    { id: 2, title: "투자 약정서 (판교 카페)", imageUrl: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=200&q=80", date: "2024.04.10", expiry: "2026.04.09", content: "제 1조 (투자금의 예치)\n투자자는 약정된 기일까지 지정된 계좌로 투자금을 예치하여야 한다...\n\n제 2조 (수익 배분 방식)\n수익 배분은 매월 25일에 정산하여 지급하는 것을 원칙으로 한다...\n\n제 3조 (비밀 유지)\n양 당사자는 본 계약과 관련하여 지득한 모든 정보를 제3자에게 누설해서는 안 된다..." },
+    { id: 3, title: "업무 제휴 계약서 (강남 오피스)", imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=200&q=80", date: "2024.05.01", expiry: "2025.04.30", content: "제 1조 (제휴의 범위)\n본 계약은 강남 오피스 지점의 업무 환경 고도화를 위한 제휴를 다룬다...\n\n제 2조 (비용 분담)\n제휴에 따른 초기 구축 비용은 오너스코리아가 전액 부담하며..." }
   ];
 
   const currentData = ASSET_DATA[selectedAsset];
@@ -97,9 +98,9 @@ const MyPage = ({ onLogout }: MyPageProps) => {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-header">
-          <a href="/" className="sidebar-logo" onClick={(e) => { e.preventDefault(); onLogout(); }}>
+          <Link to="/" className="sidebar-logo" onClick={onLogout}>
             <span className="text-secondary">O</span>wners <span className="text-secondary">K</span>orea
-          </a>
+          </Link>
         </div>
 
         <div className="sidebar-profile">
@@ -184,35 +185,24 @@ const MyPage = ({ onLogout }: MyPageProps) => {
 
         {activeMenu === 'dashboard' || activeMenu === 'investments' ? (
           <>
-            {/* Top Header */}
-            <header className="main-header">
-              <div>
-                <h1 className="page-title">{selectedAsset === 'all' ? '통합 자산 현황' : `${currentData?.name ?? ''} 현황`}</h1>
-              </div>
-            </header>
+            {/* Header removed as requested */}
 
 
 
             {/* Simplified Key Metrics */}
-            <div className="metrics-grid simple-metrics">
-              <div className="metric-card simple">
-                <div className="metric-content">
-                  <span className="metric-label">총 투자액</span>
-                  <h3 className="metric-value">{currentData?.investment}</h3>
-                </div>
+            <div className="metrics-grid simple-metrics-v2">
+              <div className="metric-card-v2">
+                <span className="metric-label-v2">총 투자액</span>
+                <h3 className="metric-value-v2">{currentData?.investment}</h3>
               </div>
-              <div className="metric-card simple">
-                <div className="metric-content">
-                  <span className="metric-label">누적 배당금 (수익)</span>
-                  <h3 className="metric-value text-orange">{currentData?.dividend}</h3>
-                </div>
+              <div className="metric-card-v2">
+                <span className="metric-label-v2">누적 배당이익</span>
+                <h3 className="metric-value-v2">{currentData?.dividend}</h3>
               </div>
-              <div className="metric-card simple">
-                <div className="metric-content">
-                  <span className="metric-label">실질 원금 (환급 차감 후)</span>
-                  <h3 className="metric-value">{currentData?.principal}</h3>
-                  <span className="metric-hint">소득공제 혜택 반영됨</span>
-                </div>
+              <div className="metric-card-v2">
+                <span className="metric-label-v2">실질 원금</span>
+                <h3 className="metric-value-v2">{currentData?.principal}</h3>
+                <span className="metric-hint-v2">소득공제 혜택 반영됨</span>
               </div>
             </div>
 
@@ -221,7 +211,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
               <div className="chart-integrated-section main-content-card">
                 <div className="chart-header-v6">
                   <div className="chart-title-area">
-                    <h3>{selectedAsset === 'all' ? '매출 및 방문객 추이' : `${currentData?.name ?? ''} 추이`}</h3>
+                    <h3>매출분석</h3>
                     <div className="chart-toggles">
                       <button className={`chart-toggle ${chartPeriod === 'daily' ? 'active' : ''}`} onClick={() => setChartPeriod('daily')}>일별</button>
                       <button className={`chart-toggle ${chartPeriod === 'weekly' ? 'active' : ''}`} onClick={() => setChartPeriod('weekly')}>주간</button>

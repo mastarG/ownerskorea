@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, MapPin, TrendingUp, ChevronRight, ChevronDown, Building2, ShieldCheck, PieChart, Maximize } from 'lucide-react';
 import './InvestmentsPage.css';
@@ -25,7 +25,7 @@ const InvestmentsPage = () => {
   const [activeIndustry, setActiveIndustry] = useState('전체');
   const [searchTerm, setSearchTerm] = useState('');
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  
+  const [expandedFilter, setExpandedFilter] = useState<string | null>(null);
   const [filters, setFilters] = useState({
     status: '전체 상태',
     industry: '전체 업종',
@@ -34,8 +34,8 @@ const InvestmentsPage = () => {
     region: '전체 지역'
   });
 
-  const toggleDropdown = (name: string) => {
-    setOpenDropdown(openDropdown === name ? null : name);
+  const toggleFilter = (name: string) => {
+    setExpandedFilter(expandedFilter === name ? null : name);
   };
 
   const handleFilterSelect = (type: string, value: string) => {
@@ -68,40 +68,73 @@ const InvestmentsPage = () => {
     return matchesIndustry && matchesStatus && matchesSubCategory && matchesRegion && matchesSearch;
   });
 
+  const heroImage = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80"; // Commercial Building Exterior
+
   return (
     <div className="investments-page">
       <section className="investments-hero-v3">
-        <img 
-          src="https://images.unsplash.com/photo-1538108149393-fdfd81895907?auto=format&fit=crop&w=1600&q=80" 
-          alt="Premium Investment" 
-          className="hero-bg-img"
-        />
+        <div className="hero-slideshow-v3">
+          <div 
+            className="hero-slide-v3 active"
+            style={{ backgroundImage: `url(${heroImage})` }}
+          />
+        </div>
         <div className="hero-overlay-v3"></div>
-        <div className="container hero-content-v3">
-          <h1 className="hero-title-v3">오너스코리아 프리미엄 투자</h1>
-          <div className="hero-menu-v3">
-            {['전체', '병원', '음식점'].map(cat => (
-              <button 
-                key={cat} 
-                className={`hero-menu-item-v3 ${activeIndustry === cat ? 'active' : ''}`}
-                onClick={() => {
-                  setActiveIndustry(cat);
-                  setFilters(prev => ({ ...prev, industry: cat === '전체' ? '전체 업종' : cat, subCategory: '전체 업태' }));
-                }}
-              >
-                {cat}
-              </button>
-            ))}
+        <div className="container hero-content-v4">
+          <div className="hero-text-area-v4">
+            <span className="hero-label-v4">오너스코리아 프리미엄 투자</span>
           </div>
-          <div className="hero-search-container-v3">
-            <div className="hero-search-bar-v3">
+          <div className="hero-search-container-v4">
+            <div className="hero-search-bar-v4">
               <input 
                 type="text" 
                 placeholder="관심 있는 매장명이나 지역을 입력해보세요." 
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <button className="hero-search-btn-v3"><Search size={22} className="text-secondary" /></button>
+              <button className="hero-search-btn-v4"><Search size={22} /></button>
+            </div>
+          </div>
+
+          {/* Simple Filter System: Left-aligned, No sub-options */}
+          <div className="hero-filters-v4 left-aligned">
+            <div className="filter-cats-v4">
+              <button 
+                className={`filter-cat-v4 ${activeIndustry === '전체' ? 'selected' : ''}`}
+                onClick={() => {
+                  setActiveIndustry('전체');
+                  setFilters({ ...filters, industry: '전체 업종', subCategory: '전체 업태', status: '전체 상태' });
+                }}
+              >
+                전체
+              </button>
+              <button 
+                className={`filter-cat-v4 ${activeIndustry === '병원' ? 'selected' : ''}`}
+                onClick={() => {
+                  setActiveIndustry('병원');
+                  setFilters({ ...filters, industry: '병원', subCategory: '전체 업태' });
+                }}
+              >
+                병원
+              </button>
+              <button 
+                className={`filter-cat-v4 ${activeIndustry === '음식점' ? 'selected' : ''}`}
+                onClick={() => {
+                  setActiveIndustry('음식점');
+                  setFilters({ ...filters, industry: '음식점', subCategory: '전체 업태' });
+                }}
+              >
+                음식점
+              </button>
+              <button 
+                className={`filter-cat-v4 ${activeIndustry === '상품' ? 'selected' : ''}`}
+                onClick={() => {
+                  setActiveIndustry('상품');
+                  setFilters({ ...filters, industry: '전체 업종', subCategory: '전체 업태', status: '모집' });
+                }}
+              >
+                상품
+              </button>
             </div>
           </div>
         </div>
@@ -110,85 +143,7 @@ const InvestmentsPage = () => {
 
       <main className="investments-main-v3">
         <div className="container">
-          <div className="list-top-area-v3">
-            <h2 className="premium-list-title-v3">프리미엄 투자 리스트</h2>
-            <div className="filter-dropdown-system">
-              {/* Status */}
-              <div className="filter-dropdown-item">
-                <button className={`dropdown-toggle ${openDropdown === 'status' ? 'open' : ''}`} onClick={() => toggleDropdown('status')}>
-                  <span className="label">상태:</span> <span className="current-value">{filters.status}</span>
-                  {openDropdown === 'status' ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
-                </button>
-                {openDropdown === 'status' && (
-                  <div className="dropdown-menu">
-                    {['전체 상태', '최신', '추천', '모집', '마감'].map(opt => (
-                      <div key={opt} className="dropdown-opt" onClick={() => handleFilterSelect('status', opt)}>{opt}</div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Industry (업종) */}
-              <div className="filter-dropdown-item">
-                <button className={`dropdown-toggle ${openDropdown === 'industry' ? 'open' : ''}`} onClick={() => toggleDropdown('industry')}>
-                  <span className="label">업종:</span> <span className="current-value">{filters.industry}</span>
-                  {openDropdown === 'industry' ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
-                </button>
-                {openDropdown === 'industry' && (
-                  <div className="dropdown-menu">
-                    {['전체 업종', '병원', '음식점'].map(opt => (
-                      <div key={opt} className="dropdown-opt" onClick={() => handleFilterSelect('industry', opt)}>{opt}</div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* SubCategory (업태) */}
-              <div className="filter-dropdown-item">
-                <button className={`dropdown-toggle ${openDropdown === 'subCategory' ? 'open' : ''}`} onClick={() => toggleDropdown('subCategory')}>
-                  <span className="label">업태:</span> <span className="current-value">{filters.subCategory}</span>
-                  {openDropdown === 'subCategory' ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
-                </button>
-                {openDropdown === 'subCategory' && (
-                  <div className="dropdown-menu">
-                    {getSubCategories().map(opt => (
-                      <div key={opt} className="dropdown-opt" onClick={() => handleFilterSelect('subCategory', opt)}>{opt}</div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Brand */}
-              <div className="filter-dropdown-item">
-                <button className={`dropdown-toggle ${openDropdown === 'brand' ? 'open' : ''}`} onClick={() => toggleDropdown('brand')}>
-                  <span className="label">브랜드:</span> <span className="current-value">{filters.brand}</span>
-                  {openDropdown === 'brand' ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
-                </button>
-                {openDropdown === 'brand' && (
-                  <div className="dropdown-menu">
-                    {['전체 브랜드', '스시류', '메종드비프', '에스프레소바', '진진', '토리노', '사쿠라', '더맑은', '바른', '화이트', '리버스', '튼튼마디', '에스플란트'].map(opt => (
-                      <div key={opt} className="dropdown-opt" onClick={() => handleFilterSelect('brand', opt)}>{opt}</div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Region */}
-              <div className="filter-dropdown-item">
-                <button className={`dropdown-toggle ${openDropdown === 'region' ? 'open' : ''}`} onClick={() => toggleDropdown('region')}>
-                  <span className="label">지역:</span> <span className="current-value">{filters.region}</span>
-                  {openDropdown === 'region' ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
-                </button>
-                {openDropdown === 'region' && (
-                  <div className="dropdown-menu">
-                    {['전체 지역', '서울', '경기', '부산', '인천'].map(opt => (
-                      <div key={opt} className="dropdown-opt" onClick={() => handleFilterSelect('region', opt)}>{opt}</div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          {/* Previous filter system removed */}
 
           <div className="investments-grid-v2">
             {filteredInvestments.map((item) => (

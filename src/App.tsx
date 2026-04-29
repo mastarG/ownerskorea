@@ -31,27 +31,26 @@ const Home = () => (
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // If logged in, show MyPage (Dashboard)
-  if (isLoggedIn) {
-    return <MyPage onLogout={() => setIsLoggedIn(false)} />;
-  }
-
   return (
     <Router>
       <div className="app">
-        <Navbar onLogin={() => setIsLoggedIn(true)} />
+        {!isLoggedIn && <Navbar onLogin={() => setIsLoggedIn(true)} />}
         <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/investments" element={<InvestmentsPage />} />
-            <Route path="/investments/:id" element={<InvestmentDetail />} />
-            <Route path="/startup-support" element={<StartupSupportPage />} />
-            <Route path="/support" element={<CustomerSupportPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          {isLoggedIn ? (
+            <MyPage onLogout={() => setIsLoggedIn(false)} />
+          ) : (
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/investments" element={<InvestmentsPage />} />
+              <Route path="/investments/:id" element={<InvestmentDetail />} />
+              <Route path="/startup-support" element={<StartupSupportPage />} />
+              <Route path="/support" element={<CustomerSupportPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          )}
         </main>
-        <Footer />
+        {!isLoggedIn && <Footer />}
       </div>
     </Router>
   );

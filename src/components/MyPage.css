@@ -2363,3 +2363,51 @@
   visibility: visible;
   top: -45px;
 }
+
+/* Simple Metrics V2 Styles */
+.simple-metrics-v2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.metric-card-v2 {
+  background: transparent;
+  padding: 1rem;
+  text-align: center;
+}
+
+.metric-label-v2 {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0b192c; /* Black */
+  margin-bottom: 0.25rem;
+}
+
+.metric-value-v2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #0b192c; /* Black */
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.metric-hint-v2 {
+  display: block;
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* Fix Asset Card Mini Text Color (White on White fix) */
+.asset-card-mini span {
+  color: #0b192c !important; /* Dark color for visibility on light bg */
+  font-weight: 800;
+}
+
+.asset-card-mini.active span {
+  color: #D4AF37 !important;
+}
