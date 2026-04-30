@@ -31,10 +31,10 @@ const ASSET_DATA: Record<'all' | 'sushi' | 'cafe', Asset> = {
   // ... existing asset data ...
 };
 
-const REVENUE_STATS: Record<'all' | 'sushi' | 'cafe', { totalInvestment: number, dailyDividend: number, accumulatedDividend: number, projectedProfit: number }> = {
-  all: { totalInvestment: 3000, dailyDividend: 25, accumulatedDividend: 250, projectedProfit: 3250 },
-  sushi: { totalInvestment: 2000, dailyDividend: 15, accumulatedDividend: 150, projectedProfit: 2150 },
-  cafe: { totalInvestment: 1000, dailyDividend: 10, accumulatedDividend: 100, projectedProfit: 1100 }
+const REVENUE_STATS: Record<'all' | 'sushi' | 'cafe', { dailyLabel: string, totalInvestment: number, dailyDividend: number, accumulatedDividend: number, projectedProfit: number }> = {
+  all: { dailyLabel: '일 배당액', totalInvestment: 6000, dailyDividend: 62.5, accumulatedDividend: 625, projectedProfit: 6625 },
+  sushi: { dailyLabel: '일 배당(10%)', totalInvestment: 3000, dailyDividend: 25, accumulatedDividend: 250, projectedProfit: 3250 },
+  cafe: { dailyLabel: '일 배당액(15%)', totalInvestment: 3000, dailyDividend: 37.5, accumulatedDividend: 375, projectedProfit: 3375 }
 };
 
 const INVESTMENTS_DATA: Record<string, any> = {
@@ -383,8 +383,8 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                           <span className="stat-value"><AnimatedNumber value={REVENUE_STATS[selectedAsset].totalInvestment} /><span className="unit-text">만원</span></span>
                         </div>
                         <div className="stat-card">
-                          <span className="stat-label">일 배당액</span>
-                          <span className="stat-value"><AnimatedNumber value={REVENUE_STATS[selectedAsset].dailyDividend} /><span className="unit-text">만원</span></span>
+                          <span className="stat-label">{REVENUE_STATS[selectedAsset].dailyLabel}</span>
+                          <span className="stat-value"><AnimatedNumber value={REVENUE_STATS[selectedAsset].dailyDividend} decimals={REVENUE_STATS[selectedAsset].dailyDividend % 1 === 0 ? 0 : 1} /><span className="unit-text">만원</span></span>
                         </div>
                         <div className="stat-card">
                           <span className="stat-label">② 배당 누적액</span>
