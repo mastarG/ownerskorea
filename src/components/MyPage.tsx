@@ -5,7 +5,7 @@ import {
   FileText, TrendingUp, CircleDollarSign, Calendar, Target,
   ChevronRight, ChevronDown, ArrowUpRight, Trophy, Sparkles,
   Settings, Printer, ShieldCheck, Clock, RefreshCw, Smartphone,
-  MapPin, PieChart, Maximize, User, Download, Share2, Calculator,
+  MapPin, PieChart, Maximize, User, Users, Download, Share2, Calculator,
   Building, CheckCircle2, ArrowLeft, AlertCircle, CalendarDays, Info
 } from 'lucide-react';
 import './MyPage.css';
