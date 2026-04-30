@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { User } from 'lucide-react';
 import './Navbar.css';
 import LoginModal from './LoginModal';
@@ -11,10 +11,12 @@ interface NavbarProps {
 const Navbar = ({ onLogin }: NavbarProps) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLoginSuccess = () => {
     setIsLoginOpen(false);
     onLogin();
+    navigate('/dashboard');
   };
 
   const isActive = (path: string) => location.pathname === path;

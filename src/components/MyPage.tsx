@@ -5,9 +5,10 @@ import {
   FileText, TrendingUp, CircleDollarSign, Calendar, Target,
   ChevronRight, ChevronDown, ArrowUpRight, Trophy, Sparkles,
   Settings, Printer, ShieldCheck, Clock, RefreshCw, Smartphone,
-  MapPin, PieChart, Maximize
+  MapPin, PieChart, Maximize, User
 } from 'lucide-react';
 import './MyPage.css';
+import IntegratedValue from './IntegratedValue';
 
 interface MyPageProps {
   onLogout: () => void;
@@ -57,19 +58,64 @@ const ASSET_DATA: Record<'all' | 'sushi' | 'cafe', Asset> = {
   }
 };
 
+
+// --- Animated Number Component ---
+const AnimatedNumber = ({ value, duration = 1000, suffix = "", decimals = 0 }: { value: string | number, duration?: number, suffix?: string, decimals?: number }) => {
+  const [displayValue, setDisplayValue] = useState(0);
+  const target = typeof value === 'string' ? parseFloat(value.replace(/,/g, '')) : value;
+
+  useEffect(() => {
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const current = progress * target;
+      setDisplayValue(current as any);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [target, duration]);
+
+  const formatted = decimals > 0 
+    ? displayValue.toFixed(decimals) 
+    : Math.floor(displayValue).toLocaleString();
+
+  return <span>{formatted}{suffix}</span>;
+};
+
 const MyPage = ({ onLogout }: MyPageProps) => {
   const [activeMenu, setActiveMenu] = useState('dashboard');
   const [chartPeriod, setChartPeriod] = useState<'daily' | 'weekly' | 'monthly' | 'yearly'>('monthly');
   const [selectedAsset, setSelectedAsset] = useState<'all' | 'sushi' | 'cafe'>('all');
+  const [analysisTab, setAnalysisTab] = useState<'revenue' | 'visitors' | 'info'>('revenue');
+  const [clickedMenuId, setClickedMenuId] = useState<number | null>(null);
+  const [recommendIndex, setRecommendIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [showEmailAuth, setShowEmailAuth] = useState(false);
   const [timer, setTimer] = useState(180); // 3 minutes
   const [selectedContractId, setSelectedContractId] = useState<number | null>(1);
+  const [myStoreTab, setMyStoreTab] = useState<'info' | 'revenue' | 'invest'>('info');
+  const [infoSubTab, setInfoSubTab] = useState<'amenities' | 'menu' | 'photos'>('amenities');
+  const [activeMyStoreId, setActiveMyStoreId] = useState(1);
+  const [showPhotoSelector, setShowPhotoSelector] = useState<{menuIdx: number} | null>(null);
+  const [myStores, setMyStores] = useState([
+    { id: 1, name: '시흥 어부 횟집', menus: [{ id: 1, name: '특선 모듬회', price: '65,000', img: '' }], photos: [] },
+    { id: 2, name: '판교 아티장 카페', menus: [], photos: [] }
+  ]);
+  const [amenities, setAmenities] = useState([
+    { id: 'parking', name: '주차', icon: <MapPin size={16}/>, checked: true },
+    { id: 'wifi', name: '와이파이', icon: <Smartphone size={16}/>, checked: true },
+    { id: 'delivery', name: '배달', icon: <RefreshCw size={16}/>, checked: false },
+    { id: 'pickup', name: '포장', icon: <Store size={16}/>, checked: true },
+    { id: 'reservation', name: '예약', icon: <Calendar size={16}/>, checked: true },
+  ]);
 
   const CONTRACTS = [
-    { id: 1, title: "입점 협력 계약서 (시흥 횟집)", imageUrl: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=200&q=80", date: "2024.03.15", expiry: "2026.03.14", content: "제 1조 (목적)\n본 계약은 '오너스코리아'와 '투자자' 간의 상호 협력을 목적으로 하며...\n\n제 2조 (투자 금액 및 배당)\n투자자는 해당 매장에 대해 금 일천만 원을 투자하며, 매월 수익의 5%를 배당받는다...\n\n제 3조 (계약 기간)\n본 계약의 효력은 체결일로부터 2년간 유지되며...\n\n제 4조 (권리 및 의무)\n투자자는 매장의 경영에 직접 관여하지 않으나, 투명한 회계 보고를 받을 권리가 있다...\n\n제 5조 (해지)\n일방이 본 계약을 위반할 경우, 상대방은 서면 통지 후 계약을 해지할 수 있다." },
-    { id: 2, title: "투자 약정서 (판교 카페)", imageUrl: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=200&q=80", date: "2024.04.10", expiry: "2026.04.09", content: "제 1조 (투자금의 예치)\n투자자는 약정된 기일까지 지정된 계좌로 투자금을 예치하여야 한다...\n\n제 2조 (수익 배분 방식)\n수익 배분은 매월 25일에 정산하여 지급하는 것을 원칙으로 한다...\n\n제 3조 (비밀 유지)\n양 당사자는 본 계약과 관련하여 지득한 모든 정보를 제3자에게 누설해서는 안 된다..." },
-    { id: 3, title: "업무 제휴 계약서 (강남 오피스)", imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=200&q=80", date: "2024.05.01", expiry: "2025.04.30", content: "제 1조 (제휴의 범위)\n본 계약은 강남 오피스 지점의 업무 환경 고도화를 위한 제휴를 다룬다...\n\n제 2조 (비용 분담)\n제휴에 따른 초기 구축 비용은 오너스코리아가 전액 부담하며..." }
+    { id: 1, title: "입점 협력 계약서 (시흥 횟집)", imageUrl: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=200&q=80", date: "2024.03.15", expiry: "2026.03.14", amount: "3,000만원(1구좌)", content: "제 1조 (목적)\n본 계약은 '오너스코리아'와 '투자자' 간의 상호 협력을 목적으로 하며...\n\n제 2조 (투자 금액 및 배당)\n투자자는 해당 매장에 대해 금 일천만 원을 투자하며, 매월 수익의 5%를 배당받는다...\n\n제 3조 (계약 기간)\n본 계약의 효력은 체결일로부터 2년간 유지되며...\n\n제 4조 (권리 및 의무)\n투자자는 매장의 경영에 직접 관여하지 않으나, 투명한 회계 보고를 받을 권리가 있다...\n\n제 5조 (해지)\n일방이 본 계약을 위반할 경우, 상대방은 서면 통지 후 계약을 해지할 수 있다." },
+    { id: 2, title: "투자 약정서 (판교 카페)", imageUrl: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=200&q=80", date: "2024.04.10", expiry: "2026.04.09", amount: "1,500만원(0.5구좌)", content: "제 1조 (투자금의 예치)\n투자자는 약정된 기일까지 지정된 계좌로 투자금을 예치하여야 한다...\n\n제 2조 (수익 배분 방식)\n수익 배분은 매월 25일에 정산하여 지급하는 것을 원칙으로 한다...\n\n제 3조 (비밀 유지)\n양 당사자는 본 계약과 관련하여 지득한 모든 정보를 제3자에게 누설해서는 안 된다..." },
+    { id: 3, title: "업무 제휴 계약서 (강남 오피스)", imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=200&q=80", date: "2024.05.01", expiry: "2025.04.30", amount: "5,000만원(1.5구좌)", content: "제 1조 (제휴의 범위)\n본 계약은 강남 오피스 지점의 업무 환경 고도화를 위한 제휴를 다룬다...\n\n제 2조 (비용 분담)\n제휴에 따른 초기 구축 비용은 오너스코리아가 전액 부담하며..." }
   ];
 
   const currentData = ASSET_DATA[selectedAsset];
@@ -153,13 +199,36 @@ const MyPage = ({ onLogout }: MyPageProps) => {
               </div>
             )}
 
-            <button
-              className={`nav-item ${activeMenu === 'mystore' ? 'active' : ''}`}
-              onClick={() => setActiveMenu('mystore')}
-            >
-              <ChevronRight size={18} className="chevron-icon" />
-              <span>나의 가게 (창업자 전용)</span>
-            </button>
+            <div className="nav-item-wrapper-v19">
+              <button
+                className={`nav-item ${activeMenu === 'mystore' ? 'active' : ''}`}
+                onClick={() => setActiveMenu('mystore')}
+              >
+                <ChevronRight size={activeMenu === 'mystore' ? 18 : 18} className={activeMenu === 'mystore' ? 'chevron-icon-down' : 'chevron-icon'} />
+                <span>나의 가계</span>
+              </button>
+              <button className="nav-add-btn-v19" onClick={(e) => {
+                e.stopPropagation();
+                const newId = Date.now();
+                setMyStores([...myStores, { id: newId, name: '신규 매장', menus: [], photos: [] }]);
+                setActiveMyStoreId(newId);
+                setActiveMenu('mystore');
+              }}>+</button>
+            </div>
+
+            {activeMenu === 'mystore' && (
+              <div className="sub-nav">
+                {myStores.map(store => (
+                  <button 
+                    key={store.id}
+                    className={`sub-nav-item ${activeMyStoreId === store.id ? 'active' : ''}`} 
+                    onClick={() => setActiveMyStoreId(store.id)}
+                  >
+                    {store.name}
+                  </button>
+                ))}
+              </div>
+            )}
 
           </div>
         </nav>
@@ -185,144 +254,248 @@ const MyPage = ({ onLogout }: MyPageProps) => {
 
         {activeMenu === 'dashboard' || activeMenu === 'investments' ? (
           <>
-            {/* Header removed as requested */}
-
-
-
-            {/* Simplified Key Metrics */}
-            <div className="metrics-grid simple-metrics-v2">
-              <div className="metric-card-v2">
-                <span className="metric-label-v2">총 투자액</span>
-                <h3 className="metric-value-v2">{currentData?.investment}</h3>
-              </div>
-              <div className="metric-card-v2">
-                <span className="metric-label-v2">누적 배당이익</span>
-                <h3 className="metric-value-v2">{currentData?.dividend}</h3>
-              </div>
-              <div className="metric-card-v2">
-                <span className="metric-label-v2">실질 원금</span>
-                <h3 className="metric-value-v2">{currentData?.principal}</h3>
-                <span className="metric-hint-v2">소득공제 혜택 반영됨</span>
-              </div>
-            </div>
-
-            <div className="dashboard-row-v6">
-              {/* Main Content: Chart + Stores Integrated */}
-              <div className="chart-integrated-section main-content-card">
-                <div className="chart-header-v6">
-                  <div className="chart-title-area">
-                    <h3>매출분석</h3>
-                    <div className="chart-toggles">
-                      <button className={`chart-toggle ${chartPeriod === 'daily' ? 'active' : ''}`} onClick={() => setChartPeriod('daily')}>일별</button>
-                      <button className={`chart-toggle ${chartPeriod === 'weekly' ? 'active' : ''}`} onClick={() => setChartPeriod('weekly')}>주간</button>
-                      <button className={`chart-toggle ${chartPeriod === 'monthly' ? 'active' : ''}`} onClick={() => setChartPeriod('monthly')}>월간</button>
-                    </div>
+            <div className="dashboard-row-v16">
+              {/* Full Width Content: Chart + Stores Integrated */}
+              <div className="chart-integrated-section-v16 main-content-card">
+                <div className="card-header-v8">
+                  {/* Title area: vertical bar + tabs + store selectors inline */}
+                  <div className="header-title-v8 tabs-v9">
+                    <span className="title-bar-v16"></span>
+                    <button 
+                      className={`analysis-tab-v9 ${analysisTab === 'revenue' ? 'active' : ''}`}
+                      onClick={() => setAnalysisTab('revenue')}
+                    >
+                      매출분석
+                    </button>
+                    <span className="tab-sep-v9">ㅣ</span>
+                    <button 
+                      className={`analysis-tab-v9 ${analysisTab === 'visitors' ? 'active' : ''}`}
+                      onClick={() => setAnalysisTab('visitors')}
+                    >
+                      방문고객
+                    </button>
+                    <span className="tab-sep-v9">ㅣ</span>
+                    <button 
+                      className={`analysis-tab-v9 ${analysisTab === 'info' ? 'active' : ''}`}
+                      onClick={() => setAnalysisTab('info')}
+                    >
+                      매장정보
+                    </button>
                   </div>
-
-                  {/* Asset Filter Cards (Integrated into Chart Header) */}
-                  <div className="asset-cards-integrated">
-                    <div
-                      className={`asset-card-mini ${selectedAsset === 'all' ? 'active' : ''}`}
-                      onClick={() => setSelectedAsset('all')}
-                    >
-                      <div className="mini-thumb bg-primary"><LayoutDashboard size={14} /></div>
-                      <span>전체</span>
-                    </div>
-                    <div
-                      className={`asset-card-mini ${selectedAsset === 'sushi' ? 'active' : ''}`}
-                      onClick={() => setSelectedAsset('sushi')}
-                    >
-                      <div className="mini-thumb">
-                        <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=100&q=80" alt="시흥" />
-                      </div>
-                      <span>시흥 횟집</span>
-                    </div>
-                    <div
-                      className={`asset-card-mini ${selectedAsset === 'cafe' ? 'active' : ''}`}
-                      onClick={() => setSelectedAsset('cafe')}
-                    >
-                      <div className="mini-thumb">
-                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=100&q=80" alt="판교" />
-                      </div>
-                      <span>판교 카페</span>
-                    </div>
+                  <div className="asset-cards-v8">
+                    <button className={`asset-btn-v8 ${selectedAsset === 'all' ? 'active' : ''}`} onClick={() => setSelectedAsset('all')}>전체</button>
+                    <button className={`asset-btn-v8 ${selectedAsset === 'sushi' ? 'active' : ''}`} onClick={() => setSelectedAsset('sushi')}>시흥 횟집</button>
+                    <button className={`asset-btn-v8 ${selectedAsset === 'cafe' ? 'active' : ''}`} onClick={() => setSelectedAsset('cafe')}>판교 카페</button>
                   </div>
                 </div>
 
-                <div className="enhanced-chart-container">
-                  <div className="chart-y-axis">
-                    <span>100%</span>
-                    <span>80%</span>
-                    <span>60%</span>
-                    <span>40%</span>
-                    <span>20%</span>
-                    <span>0</span>
-                  </div>
-                  <div className="chart-bars-v6">
-                    {(chartPeriod === 'daily' ? [45, 60, 85, 95, 80, 75, 90, 65] : currentData?.chartData || []).map((val, i) => (
-                      <div key={i} className="chart-column-v6">
-                        <div className="column-bars">
-                          {/* Revenue Bar */}
-                          <div className="bar-v6 revenue-bar-v6" style={{ height: `${val}%` }}>
-                            <div className="tooltip-v6">매출: {val * 10}만</div>
-                          </div>
-                          {/* Visitor Line (Mocked as a dot + line connection via CSS) */}
-                          <div className="visitor-point-v6" style={{ bottom: `${val * 0.8}%` }}>
-                            <div className="point-dot"></div>
-                            <div className="tooltip-v6">방문객: {Math.floor(val * 1.5)}명</div>
+                <div className="chart-body-v8">
+                  {analysisTab === 'revenue' && (
+                    <div className="revenue-analysis-v13">
+                      <div className="summary-stats-v17">
+                        <div className="stat-card">
+                          <span className="stat-label">총투자액</span>
+                          <span className="stat-value"><AnimatedNumber value={9000} /><span className="unit-text">만</span></span>
+                        </div>
+                        <div className="stat-card">
+                          <span className="stat-label">일배당액</span>
+                          <span className="stat-value"><AnimatedNumber value={3.2} decimals={1} /><span className="unit-text">만</span></span>
+                        </div>
+                        <div className="stat-card">
+                          <span className="stat-label">누적배당액</span>
+                          <span className="stat-value"><AnimatedNumber value={1240} /><span className="unit-text">만</span></span>
+                        </div>
+                        <div className="stat-card">
+                          <span className="stat-label">만기 예정수익</span>
+                          <span className="stat-value text-danger"><AnimatedNumber value={1.2} decimals={1} /><span className="unit-text">억</span></span>
+                        </div>
+                      </div>
+
+                      <div className="visitor-divider-v12"></div>
+
+                      <div className="chart-header-actions-v10">
+                        <div className="chart-legend-v8">
+                          <div className="legend-item"><span className="legend-box bg-revenue"></span> 매출액 (Bar)</div>
+                          <div className="legend-item"><span className="legend-line"></span> 방문객 (Line)</div>
+                        </div>
+                        <div className="chart-toggles-v8">
+                          <button className={`toggle-v8 ${chartPeriod === 'daily' ? 'active' : ''}`} onClick={() => setChartPeriod('daily')}>일별</button>
+                          <button className={`toggle-v8 ${chartPeriod === 'weekly' ? 'active' : ''}`} onClick={() => setChartPeriod('weekly')}>주간</button>
+                          <button className={`toggle-v8 ${chartPeriod === 'monthly' ? 'active' : ''}`} onClick={() => setChartPeriod('monthly')}>월간</button>
+                        </div>
+                      </div>
+
+                      <div className="enhanced-chart-container-v8">
+                        <div className="chart-y-axis-v8">
+                          <span className="y-unit-v8">단위:만원</span>
+                          <span>4000</span><span>3500</span><span>3000</span><span>2500</span><span>2000</span><span>1500</span><span>1000</span><span>500</span><span>0</span>
+                        </div>
+                        <div className="chart-bars-v8">
+                          <svg className="visitor-line-v8">
+                            {((chartPeriod === 'daily' ? [45, 60, 85, 95, 80, 75, 90] : Array.from({length: 30}, (_, i) => 40 + Math.sin(i) * 20))).map((val, i, arr) => {
+                              if (i === arr.length - 1) return null;
+                              const nextVal = arr[i + 1];
+                              const x1 = `${(i / (arr.length - 1)) * 100}%`;
+                              const x2 = `${((i + 1) / (arr.length - 1)) * 100}%`;
+                              const y1 = `${100 - (val * 0.8)}%`;
+                              const y2 = `${100 - (nextVal * 0.8)}%`;
+                              return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#EA580C" strokeWidth="2" />;
+                            })}
+                          </svg>
+
+                          {(chartPeriod === 'daily' ? [45, 60, 85, 95, 80, 75, 90] : Array.from({length: 30}, (_, i) => 40 + Math.sin(i) * 20)).map((val, i, arr) => (
+                            <div key={i} className="chart-column-v8" style={{ width: `${100 / arr.length}%` }}>
+                              <div className="column-bars-v8">
+                                <div className="bar-v8 revenue-bar-v8" style={{ height: `${val}%` }}></div>
+                                <div className="visitor-point-v8" style={{ bottom: `${val * 0.8}%` }}><div className="point-dot-v8"></div></div>
+                              </div>
+                              <span className="x-axis-label-v8">{i+1}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {analysisTab === 'visitors' && (
+                    <div className="visitors-analysis-v12">
+                      <div className="summary-stats-v17">
+                        <div className="stat-card">
+                          <span className="stat-label">일간 총계</span>
+                          <span className="stat-value"><AnimatedNumber value={124} /><span className="unit-text">명</span></span>
+                        </div>
+                        <div className="stat-card">
+                          <span className="stat-label">주간 총계</span>
+                          <span className="stat-value"><AnimatedNumber value={842} /><span className="unit-text">명</span></span>
+                        </div>
+                        <div className="stat-card">
+                          <span className="stat-label">월간 총계</span>
+                          <span className="stat-value"><AnimatedNumber value={3420} /><span className="unit-text">명</span></span>
+                        </div>
+                        <div className="stat-card">
+                          <span className="stat-label">성장 추이</span>
+                          <div className="stat-value multi-stat-v15">
+                            <span className="trend-up"><span className="small-label-v15">MoM</span> +<AnimatedNumber value={120} /></span>
+                            <span className="trend-up"><span className="small-label-v15">YoY</span> +<AnimatedNumber value={450} /></span>
                           </div>
                         </div>
-                        
-                        <span className="x-axis-label-v6">
-                          {chartPeriod === 'daily' 
-                            ? `${8 + (i * 2)}:00` 
-                            : `${i + 1}월`}
-                        </span>
                       </div>
-                    ))}
-                  </div>
+                      <div className="visitor-divider-v12"></div>
+                      {/* 방문고객 필터 */}
+                      <div className="chart-header-actions-v10" style={{ marginBottom: '0.75rem' }}>
+                        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#475569' }}>연령별 방문 분포</span>
+                        <div className="chart-toggles-v8">
+                          <button className={`toggle-v8 ${chartPeriod === 'daily' ? 'active' : ''}`} onClick={() => setChartPeriod('daily')}>일간</button>
+                          <button className={`toggle-v8 ${chartPeriod === 'weekly' ? 'active' : ''}`} onClick={() => setChartPeriod('weekly')}>주간</button>
+                          <button className={`toggle-v8 ${chartPeriod === 'monthly' ? 'active' : ''}`} onClick={() => setChartPeriod('monthly')}>월간</button>
+                        </div>
+                      </div>
+                      <div className="demographics-chart-v12">
+                        {[
+                          { age: '10대', male: 8,  female: 12 },
+                          { age: '20대', male: 25, female: 28 },
+                          { age: '30대', male: 32, female: 30 },
+                          { age: '40대', male: 20, female: 18 },
+                          { age: '50대', male: 10, female: 8  },
+                          { age: '60대', male: 5,  female: 4  },
+                        ].map((group, idx) => (
+                          <div key={idx} className="demo-group-v9">
+                            <div className="gender-pair-v9">
+                              <div className="gender-unit-v9 male"><span className="percentage-v9">{group.male}%</span><div className="icon-gauge-v12"><User size={36} className="icon-bg-v12" /><User size={36} className="icon-fill-v12" style={{ clipPath: `inset(${100 - group.male}% 0 0 0)` }} /></div></div>
+                              <div className="gender-unit-v9 female"><span className="percentage-v9">{group.female}%</span><div className="icon-gauge-v12"><User size={36} className="icon-bg-v12" /><User size={36} className="icon-fill-v12" style={{ clipPath: `inset(${100 - group.female}% 0 0 0)` }} /></div></div>
+                            </div>
+                            <span className="age-label-v9">{group.age}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-                  <div className="chart-legend-v6">
-                    <div className="legend-item"><span className="legend-box bg-revenue"></span> 매출액 (Bar)</div>
-                    <div className="legend-item"><span className="legend-line"></span> 방문객 (Line)</div>
-                  </div>
+                  {analysisTab === 'info' && (
+                    <div className="store-info-integrated-v15">
+                      <div className="info-column basic-info-v15">
+                        <h4>기본 정보</h4>
+                        <div className="info-list-v15">
+                          <div className="info-item"><Store size={18} /> <span>시흥 어부 횟집</span></div>
+                          <div className="info-item"><MapPin size={18} /> <span>경기도 시흥시 거북섬길 12</span></div>
+                          <div className="info-item"><Clock size={18} /> <span>10:00 - 22:00</span></div>
+                          <div className="info-item"><Smartphone size={18} /> <span>031-123-4567</span></div>
+                          <div className="info-item"><RefreshCw size={18} /> <span>주차, 와이파이, 배달 가능</span></div>
+                        </div>
+                      </div>
+                      <div className="info-column menu-ranking-v15">
+                        <h4>인기 메뉴</h4>
+                        <div className="menu-list-v15">
+                          {[
+                            { rank: 1, name: "특선 모듬회", price: "65,000", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=100&q=80" },
+                            { rank: 2, name: "물회 대야 세트", price: "45,000", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=100&q=80" },
+                          ].map(menu => (
+                            <div key={menu.rank} className="menu-item-v15">
+                              <div className="menu-rank">{menu.rank}</div>
+                              <img src={menu.img} alt={menu.name} />
+                              <div className="menu-text"><span className="name">{menu.name}</span><span className="price">{menu.price}원</span></div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="info-column store-gallery-v15">
+                        <h4>매장 갤러리</h4>
+                        <div className="polaroid-stack-v15">
+                          <div className="polaroid photo-1"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=200&q=80" /><p>Cafe View</p></div>
+                          <div className="polaroid photo-2"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=200&q=80" /><p>Interior</p></div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
 
-            {/* Recommended Investments Section (Matching InvestmentsPage Style) */}
-            <section className="recommended-section-v6">
-              <h3 className="section-title">추천 투자처</h3>
-              <div className="investments-grid-v2">
+            <div className="recommendation-section-v16 main-content-card">
+              <div className="recommendation-header-v16">
+                <div className="recommendation-title-v16"><span className="title-bar-v16"></span><h3>추천매칭</h3></div>
+                <div className="recommendation-nav-v16">
+                  {[0, 3].map((start, i) => (
+                    <button key={i} className={`nav-dot-v16 ${recommendIndex === start ? "active" : ""}`} onClick={() => setRecommendIndex(start)} />
+                  ))}
+                </div>
+              </div>
+              <div className="recommendation-grid-v16">
                 {[
-                  { id: 4, title: '광교 베이커리 하우스', industry: '음식점', subCategory: '베이커리', location: '경기 수원시', deposit: '15,000만 원', totalAmount: '35,000만 원', size: '45평', returnRate: '12.5%', progress: 70, image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80", status: '추천' },
-                  { id: 6, title: '송도 이자카야 모리', industry: '음식점', subCategory: '일식', location: '인천 연수구', deposit: '12,000만 원', totalAmount: '24,000만 원', size: '32평', returnRate: '11.2%', progress: 85, image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80", status: '모집중' },
-                  { id: 10, title: '해운대 마린 펜트하우스', industry: '부동산', subCategory: '숙박', location: '부산 해운대구', deposit: '50,000만 원', totalAmount: '15억', size: '60평', returnRate: '15.8%', progress: 40, image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80", status: '신규' },
-                ].map((item) => (
-                  <Link to={`/investments/${item.id}`} key={item.id} className="investment-card investment-card-link" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  { id: 1, title: "시흥 어부 횟집", subCategory: "수산물", location: "경기 시흥시", deposit: "12,000만 원", totalAmount: "9억", size: "35평", returnRate: "15.2%", progress: 85, status: "모집중", image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=400&q=80" },
+                  { id: 2, title: "판교 아티장 카페", subCategory: "카페", location: "경기 성남시", deposit: "8,000만 원", totalAmount: "6억", size: "18평", returnRate: "12.8%", progress: 45, status: "모집중", image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=400&q=80" },
+                  { id: 3, title: "류 스시 오마카세", subCategory: "일식", location: "서울 강남구", deposit: "15,000만 원", totalAmount: "12억", size: "42평", returnRate: "14.5%", progress: 100, status: "마감", image: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=400&q=80" },
+                  { id: 4, title: "강남 비프 앤 와인", subCategory: "양식", location: "서울 강남구", deposit: "20,000만 원", totalAmount: "15억", size: "55평", returnRate: "13.1%", progress: 25, status: "모집중", image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=400&q=80" },
+                  { id: 5, title: "성수 베이커리 랩", subCategory: "제과", location: "서울 성동구", deposit: "7,000만 원", totalAmount: "8억", size: "22평", returnRate: "16.4%", progress: 70, status: "모집중", image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=400&q=80" },
+                  { id: 6, title: "청담 파인다이닝", subCategory: "양식", location: "서울 강남구", deposit: "40,000만 원", totalAmount: "20억", size: "120평", returnRate: "11.8%", progress: 15, status: "모집중", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" }
+                ].slice(recommendIndex, recommendIndex + 3).map(match => (
+                  <div key={match.id} className="investment-card fade-in">
                     <div className="card-top-bar">
-                      <span className="biz-name">{item.title}</span>
-                      <span className="badge badge-secondary" style={{ fontSize: '0.7rem' }}>{item.subCategory}</span>
+                      <span className="biz-name">{match.title}</span>
+                      <span className="badge badge-secondary" style={{ fontSize: '0.7rem' }}>{match.subCategory}</span>
                     </div>
                     <div className="card-image-wrapper">
-                      <img src={item.image} alt={item.title} className="card-image" />
+                      <img src={match.image} alt={match.title} className="card-image" />
                     </div>
                     <div className="card-content">
                       <div style={{ marginBottom: '1rem' }}>
-                        <span className={`status-tag-chip ${item.status === '추천' ? 'recommend' : item.status === '신규' ? 'new' : 'active'}`}>{item.status}</span>
+                        <span className={`status-tag-chip ${match.status === '마감' ? '마감' : '모집중'}`}>
+                          {match.status === '마감' ? '모집완료' : '모집중'}
+                        </span>
                       </div>
                       <div className="card-details">
-                        <div className="detail-row"><span className="detail-label"><MapPin size={14} /> 소재지</span><span className="detail-value">{item.location}</span></div>
-                        <div className="detail-row"><span className="detail-label"><ShieldCheck size={14} /> 임대보증금</span><span className="detail-value">{item.deposit}</span></div>
-                        <div className="detail-row"><span className="detail-label"><PieChart size={14} /> 모집금액</span><span className="detail-value">{item.totalAmount}</span></div>
-                        <div className="detail-row"><span className="detail-label"><Maximize size={14} /> 규모</span><span className="detail-value">{item.size}</span></div>
-                        <div className="detail-row highlight-row"><span className="detail-label"><TrendingUp size={14} /> 예상 수익률</span><span className="detail-value text-danger">{item.returnRate}</span></div>
+                        <div className="detail-row"><span className="detail-label"><MapPin size={14} /> 소재지</span><span className="detail-value">{match.location}</span></div>
+                        <div className="detail-row"><span className="detail-label"><ShieldCheck size={14} /> 임대보증금</span><span className="detail-value">{match.deposit}</span></div>
+                        <div className="detail-row"><span className="detail-label"><PieChart size={14} /> 모집금액</span><span className="detail-value">{match.totalAmount}</span></div>
+                        <div className="detail-row"><span className="detail-label"><Maximize size={14} /> 규모</span><span className="detail-value">{match.size}</span></div>
+                        <div className="detail-divider-dotted"></div>
+                        <div className="detail-row highlight-row"><span className="detail-label"><TrendingUp size={14} /> 예상 수익률</span><span className="detail-value text-danger">{match.returnRate}</span></div>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
-            </section>
+            </div>
           </>
         ) : activeMenu === 'memberInfo' ? (
           <section className="member-info-section fade-in">
@@ -413,10 +586,10 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                           <div className="phone-inputs">
                             <select className="unified-input phone-select">
                               <option>+82</option>
+                              <option>+1</option>
+                              <option>+81</option>
                             </select>
-                            <input type="text" value="010" className="unified-input phone-part" readOnly />
-                            <input type="text" value="1234" className="unified-input phone-part" readOnly />
-                            <input type="text" value="5678" className="unified-input phone-part" readOnly />
+                            <input type="text" placeholder="010-0000-0000" className="unified-input phone-input" />
                           </div>
                           <button className="btn-unified-action">휴대폰 인증</button>
                         </div>
@@ -519,8 +692,10 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                             <h3 className="detail-full-title">{activeContract.title}</h3>
                             <div className="detail-dates">
                               <span>계약일: {activeContract.date}</span>
-                              <span className="date-sep">|</span>
+                              <span className="date-sep">ㅣ</span>
                               <span>마감일: {activeContract.expiry}</span>
+                              <span className="date-sep">ㅣ</span>
+                              <span>계약금액: {activeContract.amount}</span>
                             </div>
                           </div>
                           <button className="btn-print-v3">
@@ -540,10 +715,257 @@ const MyPage = ({ onLogout }: MyPageProps) => {
               </div>
             </div>
           </section>
+        ) : activeMenu === 'mystore' ? (
+          <section className="mystore-section-v18 fade-in">
+            <div className="mystore-container-single-v20">
+              {/* Main Management Area */}
+              <div className="mystore-content-v18 glass-content-card">
+                <header className="card-top-header">
+                  <div className="header-title-area">
+                    <h2 className="card-main-title">{myStores.find(s => s.id === activeMyStoreId)?.name} 관리</h2>
+                    <div className="header-divider"></div>
+                  </div>
+                  <div className="mystore-tabs-v17">
+                    <button className={`mystore-tab ${myStoreTab === 'info' ? 'active' : ''}`} onClick={() => setMyStoreTab('info')}>매장정보</button>
+                    <span className="sep">ㅣ</span>
+                    <button className={`mystore-tab ${myStoreTab === 'revenue' ? 'active' : ''}`} onClick={() => setMyStoreTab('revenue')}>매출분석</button>
+                    <span className="sep">ㅣ</span>
+                    <button className={`mystore-tab ${myStoreTab === 'invest' ? 'active' : ''}`} onClick={() => setMyStoreTab('invest')}>투자정보</button>
+                  </div>
+                </header>
+
+                <div className="mystore-body-v17">
+                  {myStoreTab === 'info' && (
+                    <div className="mystore-tab-content info-edit-v18">
+                      {/* 1. Basic Business Fields */}
+                      <div className="section-title-v18">상세 정보</div>
+                      <div className="input-grid-v18">
+                        <div className="input-field"><label>업종</label><input type="text" className="unified-input" defaultValue="음식점" /></div>
+                        <div className="input-field"><label>업태</label><input type="text" className="unified-input" defaultValue="일식/횟집" /></div>
+                        <div className="input-field"><label>사업자번호</label><input type="text" className="unified-input" defaultValue="123-45-67890" /></div>
+                        <div className="input-field"><label>대표자명</label><input type="text" className="unified-input" defaultValue="김오너" /></div>
+                        <div className="input-field"><label>매니저 연락처</label><input type="text" className="unified-input" defaultValue="010-1111-2222" /></div>
+                        <div className="input-field"><label>상호명</label><input type="text" className="unified-input" defaultValue="시흥 어부 횟집" /></div>
+                        <div className="input-field"><label>임대 보증금</label><input type="text" className="unified-input" defaultValue="30,000" placeholder="만원 단위" /></div>
+                        <div className="input-field"><label>상가 권리금</label><input type="text" className="unified-input" defaultValue="0" placeholder="만원 단위" /></div>
+                        <div className="input-field"><label>임대 기간</label><input type="text" className="unified-input" defaultValue="3년" placeholder="예: 2년" /></div>
+                        <div className="input-field full-width"><label>주소</label><input type="text" className="unified-input" defaultValue="경기도 시흥시 거북섬길 12" /></div>
+                        <div className="input-field full-width">
+                          <label>상세 정보</label>
+                          <textarea className="unified-textarea-v21" defaultValue="시흥 거북섬의 대표 횟집으로 신선한 제철 회와 최고의 서비스를 제공합니다." />
+                        </div>
+                      </div>
+                      {/* 2. Sub-Tabs for detailed upload */}
+                      <div className="info-sub-tabs-v19">
+                        <button className={`sub-tab ${infoSubTab === 'amenities' ? 'active' : ''}`} onClick={() => setInfoSubTab('amenities')}>편의시설</button>
+                        <span className="sep">ㅣ</span>
+                        <button className={`sub-tab ${infoSubTab === 'menu' ? 'active' : ''}`} onClick={() => setInfoSubTab('menu')}>메뉴관리</button>
+                        <span className="sep">ㅣ</span>
+                        <button className={`sub-tab ${infoSubTab === 'photos' ? 'active' : ''}`} onClick={() => setInfoSubTab('photos')}>사진등록</button>
+                      </div>
+
+                      <div className="info-sub-content-v19">
+                        {infoSubTab === 'amenities' && (
+                          <div className="amenity-checks-v19">
+                            {amenities.map(amenity => (
+                              <label key={amenity.id} className="amenity-checkbox-v19">
+                                <input 
+                                  type="checkbox" 
+                                  checked={amenity.checked} 
+                                  onChange={() => setAmenities(amenities.map(a => a.id === amenity.id ? {...a, checked: !a.checked} : a))}
+                                />
+                                <span className="custom-check"></span>
+                                {amenity.icon}
+                                <span>{amenity.name}</span>
+                              </label>
+                            ))}
+                          </div>
+                        )}
+
+                        {infoSubTab === 'menu' && (
+                          <table className="menu-edit-table-v18">
+                            <thead>
+                              <tr>
+                                <th>사진</th>
+                                <th>음식명</th>
+                                <th>가격</th>
+                                <th style={{ width: '80px' }}>판매중</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {myStores.find(s => s.id === activeMyStoreId)?.menus.map((menu, i) => (
+                                <tr key={i}>
+                                  <td><div className="menu-thumb-v18"><Smartphone size={16} /></div></td>
+                                  <td><input type="text" className="unified-input" defaultValue={menu.name} /></td>
+                                  <td><input type="text" className="unified-input" defaultValue={menu.price} /></td>
+                                  <td>
+                                    <button className="row-del-btn" onClick={() => {
+                                      const updated = myStores.map(s => s.id === activeMyStoreId ? {...s, menus: s.menus.filter((_, idx) => idx !== i)} : s);
+                                      setMyStores(updated);
+                                    }}>-</button>
+                                  </td>
+                                </tr>
+                              ))}
+                              <tr>
+                                <td colSpan={4}>
+                                  <button className="row-add-btn" onClick={() => {
+                                    const updated = myStores.map(s => s.id === activeMyStoreId ? {...s, menus: [...s.menus, { id: Date.now(), name: '', price: '', img: '' }]} : s);
+                                    setMyStores(updated);
+                                  }}>+ 메뉴 추가</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        )}
+
+                        {infoSubTab === 'photos' && (
+                          <div className="photo-gallery-v18">
+                            {myStores.find(s => s.id === activeMyStoreId)?.photos.map((photo, i) => (
+                              <div key={i} className="photo-item-v18" onClick={() => {
+                                 const updated = myStores.map(s => s.id === activeMyStoreId ? {...s, photos: s.photos.filter((_, idx) => idx !== i)} : s);
+                                 setMyStores(updated);
+                              }}>
+                                <img src={photo} alt="Store" />
+                                <div className="delete-overlay"><TrendingUp size={24} /></div>
+                              </div>
+                            ))}
+                            <button className="photo-add-btn-v18" onClick={() => {
+                               const updated = myStores.map(s => s.id === activeMyStoreId ? {...s, photos: [...s.photos, "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=400&q=80"]} : s);
+                               setMyStores(updated);
+                            }}>
+                              <Sparkles size={20} />
+                              <span>사진 추가</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="form-actions-v17" style={{ marginTop: '3rem' }}>
+                        <button className="btn-save-v17">매장 정보 전체 저장</button>
+                      </div>
+                    </div>
+                  )}
+
+                  {myStoreTab === 'revenue' && (
+                    <div className="mystore-tab-content revenue-upload-v17">
+                      <div className="upload-box-v17">
+                        <h4 className="box-title">일일 매출 수기 업로드</h4>
+                        <div className="upload-form-v17">
+                          <div className="input-field">
+                            <label>날짜</label>
+                            <input type="date" className="unified-input" />
+                          </div>
+                          <div className="input-field">
+                            <label>매출액 (만원)</label>
+                            <input type="number" className="unified-input" placeholder="예: 250" />
+                          </div>
+                          <div className="input-field">
+                            <label>방문 고객수</label>
+                            <input type="number" className="unified-input" placeholder="예: 45" />
+                          </div>
+                          <button className="btn-upload-v17">업로드 하기</button>
+                        </div>
+                      </div>
+
+                      <div className="revenue-history-v17">
+                        <h4 className="box-title">최근 업로드 내역</h4>
+                        <table className="history-table-v17">
+                          <thead>
+                            <tr>
+                              <th>날짜</th>
+                              <th>매출액</th>
+                              <th>고객수</th>
+                              <th>상태</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>2024.04.29</td>
+                              <td>320만원</td>
+                              <td>52명</td>
+                              <td><span className="status-badge success">완료</span></td>
+                            </tr>
+                            <tr>
+                              <td>2024.04.28</td>
+                              <td>280만원</td>
+                              <td>48명</td>
+                              <td><span className="status-badge success">완료</span></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+
+                  {myStoreTab === 'invest' && (
+                    <div className="mystore-tab-content invest-tracking-v17">
+                      <div className="lease-info-grid-v17">
+                        <div className="lease-card">
+                          <span className="label">임대 보증금</span>
+                          <span className="value">3억원</span>
+                        </div>
+                        <div className="lease-card">
+                          <span className="label">상가 권리금</span>
+                          <span className="value">-</span>
+                        </div>
+                        <div className="lease-card">
+                          <span className="label">펀딩명</span>
+                          <span className="value">어부 펀드 1호</span>
+                        </div>
+                        <div className="lease-card">
+                          <span className="label">투자 계약일</span>
+                          <span className="value">24.03.15 ~ 27.03.14 (3년)</span>
+                        </div>
+                        <div className="lease-card">
+                          <span className="label">투자 유치금</span>
+                          <span className="value">6억원 (20구좌)</span>
+                        </div>
+                        <div className="lease-card">
+                          <span className="label">배당</span>
+                          <span className="value">투자금의 10%</span>
+                        </div>
+                        <div className="lease-card">
+                          <span className="label">투자자 총원</span>
+                          <span className="value">14명</span>
+                        </div>
+                      </div>
+
+                      <div className="investor-list-section-v17">
+                        <h4 className="box-title">투자자 리스트</h4>
+                        <table className="investor-table-v17">
+                          <thead>
+                            <tr>
+                              <th>투자자명</th>
+                              <th>구좌</th>
+                              <th>금액</th>
+                              <th>계약 상태</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {[
+                              { name: '김*현', units: '2구좌', amount: '6,000만원', status: '계약완료' },
+                              { name: '이*우', units: '1구좌', amount: '3,000만원', status: '계약완료' },
+                              { name: '박*아', units: '3구좌', amount: '9,000만원', status: '계약완료' },
+                              { name: '최*호', units: '1구좌', amount: '3,000만원', status: '대기중' },
+                            ].map((investor, i) => (
+                              <tr key={i}>
+                                <td>{investor.name}</td>
+                                <td>{investor.units}</td>
+                                <td>{investor.amount}</td>
+                                <td><span className={`status-text ${investor.status === '대기중' ? 'pending' : ''}`}>{investor.status}</span></td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </section>
         ) : null}
       </main>
-
-      {/* Resume UI Popup Removed */}
     </div>
   );
 };
