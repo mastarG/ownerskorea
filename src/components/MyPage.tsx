@@ -646,48 +646,6 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                             </div>
                           </div>
 
-                          <div className="weather-forecast-table-v19 monthly-mode-v21">
-                            <div className="wft-scroll-container">
-                              {Array.from({length: 5}, (_, i) => {
-                                const baseDate = new Date('2026-04-01');
-                                baseDate.setMonth(baseDate.getMonth() + monthOffset);
-                                const monthVal = (baseDate.getMonth() + 1).toString().padStart(2, '0');
-                                const startDay = i * 7 + 1;
-                                const endDay = Math.min((i + 1) * 7, new Date(baseDate.getFullYear(), baseDate.getMonth() + 1, 0).getDate());
-                                
-                                const total = 600 + Math.floor(Math.abs(Math.sin(i + monthOffset * 2)) * 300);
-                                const malePercent = Math.floor(40 + Math.abs(Math.cos(i + monthOffset)) * 40);
-                                const femalePercent = 100 - malePercent;
-                                const male = Math.round(total * (malePercent / 100));
-                                const female = total - male;
-                                const topAge = ['20대', '30대', '40대', '50대'][Math.floor(Math.abs(Math.sin(i)) * 4) % 4];
-
-                                return (
-                                  <div key={i} className="wft-col monthly-col-v21">
-                                    <div className="wft-cell header-cell weekly-header-v20">
-                                      <span className="wft-day-name">{i+1}주차</span>
-                                      <span className="wft-date-val">{monthVal}.{startDay.toString().padStart(2, '0')}~{monthVal}.{endDay.toString().padStart(2, '0')}</span>
-                                    </div>
-                                    
-                                    <div className="wft-cell top-age-cell-v21">
-                                      <div className="age-badge-v21">
-                                        <User size={14} style={{display: 'inline', marginRight: '2px'}}/>
-                                        {topAge}
-                                      </div>
-                                    </div>
-                                    
-                                    <div className="wft-cell percent-cell-v20">
-                                      <span className="m">{malePercent}%</span> / <span className="f">{femalePercent}%</span>
-                                    </div>
-                                    
-                                    <div className="wft-cell count-cell-v20">
-                                      <span className="total-val-v21">{total}명</span>
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
                         </div>
                       )}
                     </div>
