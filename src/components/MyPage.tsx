@@ -33,8 +33,8 @@ const ASSET_DATA: Record<'all' | 'sushi' | 'cafe', Asset> = {
 
 const REVENUE_STATS: Record<'all' | 'sushi' | 'cafe', { dailyLabel: string, totalInvestment: number, dailyDividend: number, accumulatedDividend: number, projectedProfit: number }> = {
   all: { dailyLabel: '일 배당액', totalInvestment: 6000, dailyDividend: 62.5, accumulatedDividend: 625, projectedProfit: 6625 },
-  sushi: { dailyLabel: '일 배당(10%)', totalInvestment: 3000, dailyDividend: 25, accumulatedDividend: 250, projectedProfit: 3250 },
-  cafe: { dailyLabel: '일 배당액(15%)', totalInvestment: 3000, dailyDividend: 37.5, accumulatedDividend: 375, projectedProfit: 3375 }
+  sushi: { dailyLabel: '일 배당액', totalInvestment: 3000, dailyDividend: 25, accumulatedDividend: 250, projectedProfit: 3250 },
+  cafe: { dailyLabel: '일 배당액', totalInvestment: 3000, dailyDividend: 37.5, accumulatedDividend: 375, projectedProfit: 3375 }
 };
 
 const INVESTMENTS_DATA: Record<string, any> = {
@@ -379,20 +379,20 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                     <div className="revenue-analysis-v13">
                       <div className="summary-stats-v17">
                         <div className="stat-card">
-                          <span className="stat-label">① 총 투자액</span>
+                          <span className="stat-label">만기 예상수익</span>
+                          <span className="stat-value text-blue"><AnimatedNumber value={REVENUE_STATS[selectedAsset].projectedProfit} /><span className="unit-text">만원</span></span>
+                        </div>
+                        <div className="stat-card">
+                          <span className="stat-label">총 투자액</span>
                           <span className="stat-value"><AnimatedNumber value={REVENUE_STATS[selectedAsset].totalInvestment} /><span className="unit-text">만원</span></span>
                         </div>
                         <div className="stat-card">
                           <span className="stat-label">{REVENUE_STATS[selectedAsset].dailyLabel}</span>
-                          <span className="stat-value"><AnimatedNumber value={REVENUE_STATS[selectedAsset].dailyDividend} decimals={REVENUE_STATS[selectedAsset].dailyDividend % 1 === 0 ? 0 : 1} /><span className="unit-text">만원</span></span>
+                          <span className="stat-value text-orange"><AnimatedNumber value={REVENUE_STATS[selectedAsset].dailyDividend} decimals={REVENUE_STATS[selectedAsset].dailyDividend % 1 === 0 ? 0 : 1} /><span className="unit-text">만원</span></span>
                         </div>
                         <div className="stat-card">
-                          <span className="stat-label">② 배당 누적액</span>
-                          <span className="stat-value"><AnimatedNumber value={REVENUE_STATS[selectedAsset].accumulatedDividend} /><span className="unit-text">만원</span></span>
-                        </div>
-                        <div className="stat-card">
-                          <span className="stat-label">만기 예상수익(①+②)</span>
-                          <span className="stat-value text-danger"><AnimatedNumber value={REVENUE_STATS[selectedAsset].projectedProfit} /><span className="unit-text">만원</span></span>
+                          <span className="stat-label">배당 누적액</span>
+                          <span className="stat-value text-red"><AnimatedNumber value={REVENUE_STATS[selectedAsset].accumulatedDividend} /><span className="unit-text">만원</span></span>
                         </div>
                       </div>
 
@@ -417,26 +417,50 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                         </div>
                         <div className="chart-bars-v8">
                           <svg className="visitor-line-v8">
-                            {((chartPeriod === 'daily' ? [45, 60, 85, 95, 80, 75, 90] : Array.from({length: 30}, (_, i) => 40 + Math.sin(i) * 20))).map((val, i, arr) => {
-                              if (i === arr.length - 1) return null;
-                              const nextVal = arr[i + 1];
-                              const x1 = `${(i / (arr.length - 1)) * 100}%`;
-                              const x2 = `${((i + 1) / (arr.length - 1)) * 100}%`;
-                              const y1 = `${100 - (val * 0.8)}%`;
-                              const y2 = `${100 - (nextVal * 0.8)}%`;
-                              return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#EA580C" strokeWidth="2" />;
-                            })}
+                            {(() => {
+                              const base = REVENUE_STATS[selectedAsset].dailyDividend;
+                              const count = chartPeriod === 'daily' ? 7 : chartPeriod === 'weekly' ? 14 : 30;
+                              const seed = selectedAsset === 'all' ? 1 : selectedAsset === 'sushi' ? 2 : 3;
+                              const data = Array.from({ length: count }, (_, i) => {
+                                const var1 = Math.sin(i * 0.8 + seed);
+                                const var2 = Math.cos(i * 0.4);
+                                return base * (0.8 + var1 * 0.15 + var2 * 0.1);
+                              });
+                              
+                              return data.map((val, i, arr) => {
+                                if (i === arr.length - 1) return null;
+                                const nextVal = arr[i + 1];
+                                const x1 = `${(i / (arr.length - 1)) * 100}%`;
+                                const x2 = `${((i + 1) / (arr.length - 1)) * 100}%`;
+                                // Scale visually: 30x to fit 4000 scale
+                                const y1 = `${100 - (val * 30 / 4000 * 100)}%`;
+                                const y2 = `${100 - (nextVal * 30 / 4000 * 100)}%`;
+                                return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#EA580C" strokeWidth="2" />;
+                              });
+                            })()}
                           </svg>
 
-                          {(chartPeriod === 'daily' ? [45, 60, 85, 95, 80, 75, 90] : Array.from({length: 30}, (_, i) => 40 + Math.sin(i) * 20)).map((val, i, arr) => (
-                            <div key={i} className="chart-column-v8" style={{ width: `${100 / arr.length}%` }}>
-                              <div className="column-bars-v8">
-                                <div className="bar-v8 revenue-bar-v8" style={{ height: `${val}%` }}></div>
-                                <div className="visitor-point-v8" style={{ bottom: `${val * 0.8}%` }}><div className="point-dot-v8"></div></div>
-                              </div>
-                              <span className="x-axis-label-v8">{i+1}</span>
-                            </div>
-                          ))}
+                          {(() => {
+                            const base = REVENUE_STATS[selectedAsset].dailyDividend;
+                            const count = chartPeriod === 'daily' ? 7 : chartPeriod === 'weekly' ? 14 : 30;
+                            const seed = selectedAsset === 'all' ? 1 : selectedAsset === 'sushi' ? 2 : 3;
+                            return Array.from({ length: count }, (_, i) => {
+                              const var1 = Math.sin(i * 0.8 + seed);
+                              const var2 = Math.cos(i * 0.4);
+                              const val = base * (0.8 + var1 * 0.15 + var2 * 0.1);
+                              const heightPercent = (val * 30 / 4000) * 100;
+                              
+                              return (
+                                <div key={i} className="chart-column-v8" style={{ width: `${100 / count}%` }}>
+                                  <div className="column-bars-v8">
+                                    <div className="bar-v8 revenue-bar-v8" style={{ height: `${heightPercent}%` }}></div>
+                                    <div className="visitor-point-v8" style={{ bottom: `${heightPercent}%` }}><div className="point-dot-v8"></div></div>
+                                  </div>
+                                  <span className="x-axis-label-v8">{i+1}</span>
+                                </div>
+                              );
+                            });
+                          })()}
                         </div>
                       </div>
                     </div>
@@ -447,21 +471,21 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                       <div className="summary-stats-v17">
                         <div className="stat-card">
                           <span className="stat-label">일간 총계</span>
-                          <span className="stat-value"><AnimatedNumber value={124} /><span className="unit-text">명</span></span>
+                          <span className="stat-value"><AnimatedNumber value={Math.round(124 * (selectedAsset === 'all' ? 1 : selectedAsset === 'sushi' ? 0.4 : 0.6))} /><span className="unit-text">명</span></span>
                         </div>
                         <div className="stat-card">
                           <span className="stat-label">주간 총계</span>
-                          <span className="stat-value"><AnimatedNumber value={842} /><span className="unit-text">명</span></span>
+                          <span className="stat-value"><AnimatedNumber value={Math.round(842 * (selectedAsset === 'all' ? 1 : selectedAsset === 'sushi' ? 0.45 : 0.55))} /><span className="unit-text">명</span></span>
                         </div>
                         <div className="stat-card">
                           <span className="stat-label">월간 총계</span>
-                          <span className="stat-value"><AnimatedNumber value={3420} /><span className="unit-text">명</span></span>
+                          <span className="stat-value"><AnimatedNumber value={Math.round(3420 * (selectedAsset === 'all' ? 1 : selectedAsset === 'sushi' ? 0.4 : 0.6))} /><span className="unit-text">명</span></span>
                         </div>
                         <div className="stat-card">
                           <span className="stat-label">성장 추이</span>
                           <div className="stat-value multi-stat-v15">
-                            <span className="trend-up"><span className="small-label-v15">MoM</span> +<AnimatedNumber value={120} /></span>
-                            <span className="trend-up"><span className="small-label-v15">YoY</span> +<AnimatedNumber value={450} /></span>
+                            <span className="trend-up"><span className="small-label-v15">MoM</span> +<AnimatedNumber value={selectedAsset === 'all' ? 120 : selectedAsset === 'sushi' ? 45 : 75} /></span>
+                            <span className="trend-up"><span className="small-label-v15">YoY</span> +<AnimatedNumber value={selectedAsset === 'all' ? 450 : selectedAsset === 'sushi' ? 180 : 270} /></span>
                           </div>
                         </div>
                       </div>
@@ -508,8 +532,9 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                                 const weather = weatherTypes[(i + dayOffset * 3) % weatherTypes.length];
                                 const temp = `${15 + Math.floor(Math.abs(Math.sin(i/4)) * 5)}°`;
                                 const humidity = `${40 + (i * 5 + dayOffset * 10) % 30}%`;
-                                const male = Math.floor(1 + Math.abs(Math.sin(i/3)) * 4);
-                                const female = Math.floor(2 + Math.abs(Math.cos(i/3)) * 4);
+                                const multiplier = selectedAsset === 'all' ? 1 : selectedAsset === 'sushi' ? 0.4 : 0.6;
+                                const male = Math.floor((1 + Math.abs(Math.sin(i/3)) * 4) * multiplier);
+                                const female = Math.floor((2 + Math.abs(Math.cos(i/3)) * 4) * multiplier);
                                 const total = male + female;
 
                                 return (
@@ -582,7 +607,8 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                                 const dayName = ['일', '월', '화', '수', '목', '금', '토'][i];
                                 const dateStr = `${d.getMonth() + 1}.${d.getDate()}.`;
                                 
-                                const total = 50 + Math.floor(Math.abs(Math.sin(i + weekOffset * 3)) * 40);
+                                const multiplier = selectedAsset === 'all' ? 1 : selectedAsset === 'sushi' ? 0.4 : 0.6;
+                                const total = Math.round((50 + Math.floor(Math.abs(Math.sin(i + weekOffset * 3)) * 40)) * multiplier);
                                 const malePercent = Math.floor(40 + Math.abs(Math.cos(i + weekOffset)) * 40);
                                 const femalePercent = 100 - malePercent;
                                 const male = Math.round(total * (malePercent / 100));
@@ -637,18 +663,18 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                           <div className="monthly-insights-v21">
                             <div className="insight-card-v21">
                               <span className="i-label">총 방문객</span>
-                              <span className="i-value">3,420<span className="text-sm">명</span></span>
-                              <span className="i-trend up"><ArrowUpRight size={14}/> 12% 증가</span>
+                              <span className="i-value"><AnimatedNumber value={Math.round(3420 * (selectedAsset === 'all' ? 1 : selectedAsset === 'sushi' ? 0.4 : 0.6))} /><span className="text-sm">명</span></span>
+                              <span className="i-trend up"><ArrowUpRight size={14}/> {selectedAsset === 'all' ? '12%' : selectedAsset === 'sushi' ? '8%' : '15%'} 증가</span>
                             </div>
                             <div className="insight-card-v21">
                               <span className="i-label">핵심 고객층</span>
-                              <span className="i-value text-blue-600">30대 남자</span>
-                              <span className="i-desc">전체 방문의 35% 차지</span>
+                              <span className="i-value text-blue-600">{selectedAsset === 'all' ? '30대 남자' : selectedAsset === 'sushi' ? '40대 남자' : '20대 여자'}</span>
+                              <span className="i-desc">전체 방문의 {selectedAsset === 'all' ? '35%' : selectedAsset === 'sushi' ? '42%' : '38%'} 차지</span>
                             </div>
                             <div className="insight-card-v21">
                               <span className="i-label">최고 방문 주간</span>
-                              <span className="i-value text-amber-500">3주차</span>
-                              <span className="i-desc">총 920명 방문</span>
+                              <span className="i-value text-amber-500">{selectedAsset === 'all' ? '3주차' : selectedAsset === 'sushi' ? '2주차' : '4주차'}</span>
+                              <span className="i-desc">총 {Math.round(920 * (selectedAsset === 'all' ? 1 : selectedAsset === 'sushi' ? 0.35 : 0.65))}명 방문</span>
                             </div>
                           </div>
 
@@ -697,7 +723,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
               </div>
             </div>
 
-            <div className="recommendation-section-v16 main-content-card">
+            <div className="recommendation-section-v19">
               <div className="recommendation-header-v16">
                 <div className="recommendation-title-v16"><span className="title-bar-v16"></span><h3>추천매칭</h3></div>
                 <div className="recommendation-nav-v16">
@@ -706,7 +732,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                   ))}
                 </div>
               </div>
-              <div className="recommendation-grid-v16">
+              <div className="recommendation-grid-v19">
                 {[
                   { id: 1, title: "시흥 어부 횟집", subCategory: "수산물", location: "경기 시흥시", deposit: "12,000만 원", totalAmount: "9억", size: "35평", returnRate: "15.2%", progress: 85, status: "모집중", image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=400&q=80" },
                   { id: 2, title: "판교 아티장 카페", subCategory: "카페", location: "경기 성남시", deposit: "8,000만 원", totalAmount: "6억", size: "18평", returnRate: "12.8%", progress: 45, status: "모집중", image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=400&q=80" },
@@ -715,28 +741,22 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                   { id: 5, title: "성수 베이커리 랩", subCategory: "제과", location: "서울 성동구", deposit: "7,000만 원", totalAmount: "8억", size: "22평", returnRate: "16.4%", progress: 70, status: "모집중", image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=400&q=80" },
                   { id: 6, title: "청담 파인다이닝", subCategory: "양식", location: "서울 강남구", deposit: "40,000만 원", totalAmount: "20억", size: "120평", returnRate: "11.8%", progress: 15, status: "모집중", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" }
                 ].slice(recommendIndex, recommendIndex + 3).map(match => (
-                  <div key={match.id} className="investment-card fade-in" onClick={() => setSelectedInvestmentId(match.id)} style={{ cursor: 'pointer' }}>
-                    <div className="card-top-bar">
-                      <span className="biz-name">{match.title}</span>
-                      <span className="badge badge-secondary" style={{ fontSize: '0.7rem' }}>{match.subCategory}</span>
-                    </div>
+                  <div key={match.id} className="investment-card fade-in" onClick={() => setSelectedInvestmentId(match.id)}>
                     <div className="card-image-wrapper">
                       <img src={match.image} alt={match.title} className="card-image" />
+                      <div className="status-badge">
+                        {match.status === '마감' ? '모집완료' : '모집중'}
+                      </div>
                     </div>
                     <div className="card-content">
-                      <div style={{ marginBottom: '1rem' }}>
-                        <span className={`status-tag-chip ${match.status === '마감' ? '마감' : '모집중'}`}>
-                          {match.status === '마감' ? '모집완료' : '모집중'}
-                        </span>
-                      </div>
+                      <div className="card-category">{match.subCategory}</div>
+                      <h4 className="card-title">{match.title}</h4>
                       <div className="card-details">
                         <div className="detail-row"><span className="detail-label"><MapPin size={14} /> 소재지</span><span className="detail-value">{match.location}</span></div>
-                        <div className="detail-row"><span className="detail-label"><ShieldCheck size={14} /> 임대보증금</span><span className="detail-value">{match.deposit}</span></div>
                         <div className="detail-row"><span className="detail-label"><PieChart size={14} /> 모집금액</span><span className="detail-value">{match.totalAmount}</span></div>
-                        <div className="detail-row"><span className="detail-label"><Maximize size={14} /> 규모</span><span className="detail-value">{match.size}</span></div>
-                        <div className="detail-divider-dotted"></div>
-                        <div className="detail-row highlight-row"><span className="detail-label"><TrendingUp size={14} /> 예상 수익률</span><span className="detail-value text-danger">{match.returnRate}</span></div>
+                        <div className="detail-row highlight-row"><span className="detail-label"><TrendingUp size={14} /> 예상 수익률</span><span className="roi-value">{match.returnRate}</span></div>
                       </div>
+                      <button className="btn-more">상세 보기</button>
                     </div>
                   </div>
                 ))}
