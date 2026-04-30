@@ -5,7 +5,8 @@ import {
   FileText, TrendingUp, CircleDollarSign, Calendar, Target,
   ChevronRight, ChevronDown, ArrowUpRight, Trophy, Sparkles,
   Settings, Printer, ShieldCheck, Clock, RefreshCw, Smartphone,
-  MapPin, PieChart, Maximize, User
+  MapPin, PieChart, Maximize, User, Download, Share2, Calculator,
+  Building, CheckCircle2, ArrowLeft, AlertCircle, CalendarDays, Info
 } from 'lucide-react';
 import './MyPage.css';
 import IntegratedValue from './IntegratedValue';
@@ -26,35 +27,105 @@ interface Asset {
 }
 
 const ASSET_DATA: Record<'all' | 'sushi' | 'cafe', Asset> = {
-  all: {
-    name: "통합 지표",
-    investment: "9,000만 원",
-    dividend: "1,240만 원",
-    principal: "5,238만 원",
-    duration: "1년 4개월",
-    roi: 42,
-    nextPayout: "D-12 (예상 180만 원)",
-    chartData: [40, 60, 45, 80, 55, 90, 70, 85, 65, 95, 75, 100]
+  // ... existing asset data ...
+};
+
+const INVESTMENTS_DATA: Record<string, any> = {
+  "1": {
+    title: '시흥 어부 횟집',
+    category: '외식업',
+    type: '수산물',
+    location: '경기도 시흥시 거북섬길 12',
+    totalAmount: '9억',
+    minInvestment: '3,000만 원',
+    returnRate: '15.2%',
+    progress: 85,
+    duration: '36개월',
+    description: '시흥 거북섬에 위치한 프리미엄 횟집입니다. 풍부한 해산물과 탁월한 전망을 자랑합니다.',
+    images: ["https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: { founder: '류현우 셰프', area: '115㎡ (35평)', tables: '홀 20석', avgRevenue: '월 1억 2,000만 원' },
+    syndicateName: '오너스 제1호 외식업 투자조합',
+    companyInfo: { name: '주식회사 류푸드', ceo: '류현우', address: '서울 강남구 테헤란로 123' }
   },
-  sushi: {
-    name: "시흥 횟집",
-    investment: "6,000만 원",
-    dividend: "820만 원",
-    principal: "3,500만 원",
-    duration: "1년 2개월",
-    roi: 45,
-    nextPayout: "D-12 (예상 120만 원)",
-    chartData: [25, 40, 30, 55, 35, 60, 45, 55, 40, 65, 50, 70]
+  "2": {
+    title: '판교 아티장 카페',
+    category: '외식업',
+    type: '카페',
+    location: '경기 성남시 분당구 판교역로',
+    totalAmount: '6억',
+    minInvestment: '3,000만 원',
+    returnRate: '12.8%',
+    progress: 45,
+    duration: '24개월',
+    description: '판교 테크노밸리의 중심에 위치한 예술적인 카페입니다.',
+    images: ["https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: { founder: '박지민 바리스타', area: '60㎡ (18평)', tables: '홀 12석', avgRevenue: '월 4,500만 원' },
+    syndicateName: '오너스 제3호 베이커리 투자조합',
+    companyInfo: { name: '주식회사 판교커피', ceo: '박지민', address: '경기 성남시 분당구 판교역로' }
   },
-  cafe: {
-    name: "판교 카페",
-    investment: "3,000만 원",
-    dividend: "420만 원",
-    principal: "1,738만 원",
-    duration: "2개월",
-    roi: 35,
-    nextPayout: "D-12 (예상 60만 원)",
-    chartData: [15, 20, 15, 25, 20, 30, 25, 30, 25, 30, 25, 30]
+  "3": {
+    title: '류 스시 오마카세',
+    category: '외식업',
+    type: '일식',
+    location: '서울 강남구 역삼동',
+    totalAmount: '12억',
+    minInvestment: '3,000만 원',
+    returnRate: '14.5%',
+    progress: 100,
+    duration: '36개월',
+    description: '강남구 역삼동의 최고급 스시 오마카세입니다.',
+    images: ["https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: { founder: '류현우 셰프', area: '138㎡ (42평)', tables: '카운터 12석', avgRevenue: '월 1억 8,000만 원' },
+    syndicateName: '오너스 제10호 일식 투자조합',
+    companyInfo: { name: '주식회사 류푸드', ceo: '류현우', address: '서울 강남구 테헤란로 123' }
+  },
+  "4": {
+    title: '강남 비프 앤 와인',
+    category: '외식업',
+    type: '양식',
+    location: '서울 강남구 청담동',
+    totalAmount: '15억',
+    minInvestment: '3,000만 원',
+    returnRate: '13.1%',
+    progress: 25,
+    duration: '48개월',
+    description: '청담동의 럭셔리 스테이크 하우스입니다.',
+    images: ["https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: { founder: '이성호 셰프', area: '181㎡ (55평)', tables: '홀 20석', avgRevenue: '월 2억 1,000만 원' },
+    syndicateName: '오너스 제15호 스테이크 투자조합',
+    companyInfo: { name: '주식회사 강남푸드', ceo: '이성호', address: '서울 강남구 청담동' }
+  },
+  "5": {
+    title: '성수 베이커리 랩',
+    category: '외식업',
+    type: '제과',
+    location: '서울 성동구 성수동',
+    totalAmount: '8억',
+    minInvestment: '3,000만 원',
+    returnRate: '16.4%',
+    progress: 70,
+    duration: '36개월',
+    description: '성수동의 트렌디한 베이커리 카페입니다.',
+    images: ["https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: { founder: '김미영 제빵사', area: '72㎡ (22평)', tables: '홀 10석', avgRevenue: '월 7,200만 원' },
+    syndicateName: '오너스 제22호 베이커리 투자조합',
+    companyInfo: { name: '주식회사 성수브레드', ceo: '김미영', address: '서울 성동구 성수동' }
+  },
+  "6": {
+    title: '청담 파인다이닝',
+    category: '외식업',
+    type: '양식',
+    location: '서울 강남구 청담동',
+    totalAmount: '20억',
+    minInvestment: '5,000만 원',
+    returnRate: '11.8%',
+    progress: 15,
+    duration: '60개월',
+    description: '청담동 정통 프렌치 파인다이닝입니다.',
+    images: ["https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80"],
+    businessInfo: { founder: '장 피에르 셰프', area: '396㎡ (120평)', tables: '홀 40석', avgRevenue: '월 3억 5,000만 원' },
+    syndicateName: '오너스 제30호 파인다이닝 투자조합',
+    companyInfo: { name: '주식회사 청담푸드', ceo: '강성훈', address: '서울 강남구 청담동' }
   }
 };
 
@@ -98,6 +169,10 @@ const MyPage = ({ onLogout }: MyPageProps) => {
   const [selectedContractId, setSelectedContractId] = useState<number | null>(1);
   const [myStoreTab, setMyStoreTab] = useState<'info' | 'revenue' | 'invest'>('info');
   const [infoSubTab, setInfoSubTab] = useState<'amenities' | 'menu' | 'photos'>('amenities');
+  const [selectedInvestmentId, setSelectedInvestmentId] = useState<number | null>(null);
+  const [modalTab, setModalTab] = useState('store');
+  const [modalUnits, setModalUnits] = useState(1);
+
   const [activeMyStoreId, setActiveMyStoreId] = useState(1);
   const [showPhotoSelector, setShowPhotoSelector] = useState<{menuIdx: number} | null>(null);
   const [myStores, setMyStores] = useState([
@@ -469,7 +544,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                   { id: 5, title: "성수 베이커리 랩", subCategory: "제과", location: "서울 성동구", deposit: "7,000만 원", totalAmount: "8억", size: "22평", returnRate: "16.4%", progress: 70, status: "모집중", image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=400&q=80" },
                   { id: 6, title: "청담 파인다이닝", subCategory: "양식", location: "서울 강남구", deposit: "40,000만 원", totalAmount: "20억", size: "120평", returnRate: "11.8%", progress: 15, status: "모집중", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" }
                 ].slice(recommendIndex, recommendIndex + 3).map(match => (
-                  <div key={match.id} className="investment-card fade-in">
+                  <div key={match.id} className="investment-card fade-in" onClick={() => setSelectedInvestmentId(match.id)} style={{ cursor: 'pointer' }}>
                     <div className="card-top-bar">
                       <span className="biz-name">{match.title}</span>
                       <span className="badge badge-secondary" style={{ fontSize: '0.7rem' }}>{match.subCategory}</span>
@@ -964,7 +1039,160 @@ const MyPage = ({ onLogout }: MyPageProps) => {
               </div>
             </div>
           </section>
+        ) : activeMenu === 'memberInfo' ? (
+          <section className="member-info-section fade-in">
+            {/* ... member info code ... */}
+          </section>
         ) : null}
+
+        {/* Investment Detail Modal */}
+        {selectedInvestmentId && (
+          <div className="investment-modal-overlay fade-in" onClick={() => setSelectedInvestmentId(null)}>
+            <div className="investment-modal-container" onClick={e => e.stopPropagation()}>
+              <button className="modal-close-btn" onClick={() => setSelectedInvestmentId(null)}>×</button>
+              
+              {(() => {
+                const data = INVESTMENTS_DATA[selectedInvestmentId.toString()];
+                if (!data) return null;
+                const unitPriceValue = parseInt(data.minInvestment.replace(/[^0-9]/g, '')) || 0;
+                const totalInvestmentPrice = (modalUnits * unitPriceValue).toLocaleString();
+
+                return (
+                  <div className="modal-scroll-content">
+                    <div className="detail-layout-v18">
+                      {/* Left: Content */}
+                      <div className="detail-main-v18">
+                        <div className="detail-header-v18">
+                          <div className="detail-meta-v18">
+                            <span className="badge-v18 primary">{data.category}</span>
+                            <span className="badge-v18 outline">{data.type}</span>
+                          </div>
+                          <h1 className="detail-title-v18">{data.title}</h1>
+                          <div className="detail-location-v18">
+                            <MapPin size={16} /> {data.location}
+                          </div>
+                        </div>
+
+                        <div className="detail-gallery-v18">
+                          <img src={data.images[0]} alt={data.title} className="main-image-v18" />
+                        </div>
+
+                        <div className="detail-tabs-v18">
+                          <button className={`tab-v18 ${modalTab === 'store' ? 'active' : ''}`} onClick={() => setModalTab('store')}>매장 상세</button>
+                          <button className={`tab-v18 ${modalTab === 'structure' ? 'active' : ''}`} onClick={() => setModalTab('structure')}>투자 구조</button>
+                          <button className={`tab-v18 ${modalTab === 'analysis' ? 'active' : ''}`} onClick={() => setModalTab('analysis')}>상권 분석</button>
+                          <button className={`tab-v18 ${modalTab === 'risk' ? 'active' : ''}`} onClick={() => setModalTab('risk')}>리스크 관리</button>
+                          <button className={`tab-v18 ${modalTab === 'company' ? 'active' : ''}`} onClick={() => setModalTab('company')}>기업 정보</button>
+                        </div>
+
+                        <div className="detail-body-v18 fade-in">
+                          {modalTab === 'store' && (
+                            <div className="tab-pane-v18">
+                              <h3 className="pane-title-v18">오너스코리아가 선택한 프리미엄 다이닝</h3>
+                              <p className="pane-desc-v18">{data.description}</p>
+                              
+                              <div className="chef-profile-v18">
+                                <div className="chef-avatar-v18">
+                                  <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=150&q=80" alt="Chef" />
+                                </div>
+                                <div className="chef-info-v18">
+                                  <h4>{data.businessInfo.founder}</h4>
+                                  <p className="chef-bio-v18">"타협 없는 맛과 접객을 선보입니다."</p>
+                                </div>
+                              </div>
+
+                              <div className="business-stats-v18">
+                                <div className="stat-item-v18"><Building size={20} /> <div className="si-v18"><span className="l">전용 면적</span><span className="v">{data.businessInfo.area}</span></div></div>
+                                <div className="stat-item-v18"><Users size={20} /> <div className="si-v18"><span className="l">좌석 규모</span><span className="v">{data.businessInfo.tables}</span></div></div>
+                                <div className="stat-item-v18"><TrendingUp size={20} /> <div className="si-v18"><span className="l">최근 월 매출</span><span className="v">{data.businessInfo.avgRevenue}</span></div></div>
+                              </div>
+                            </div>
+                          )}
+                          {modalTab === 'structure' && (
+                            <div className="tab-pane-v18">
+                              <h3 className="pane-title-v18">투명하고 안정적인 투자 구조</h3>
+                              <div className="simulation-card-v18">
+                                <div className="sim-header-v18"><h4><Calculator size={20} /> 예상 배당 시뮬레이션</h4><span className="sim-badge-v18">{data.returnRate}</span></div>
+                                <div className="sim-row-v18"><span>투자 원금</span><strong>3,000만 원 (1구좌)</strong></div>
+                                <div className="sim-row-v18"><span>계약 기간</span><strong>{data.duration}</strong></div>
+                                <div className="sim-row-v18 highlight-v18"><span>매월 예상 세후 배당금</span><strong className="text-danger">약 312,500 원</strong></div>
+                              </div>
+                            </div>
+                          )}
+                          {modalTab === 'analysis' && (
+                            <div className="tab-pane-v18">
+                              <h3 className="pane-title-v18">데이터로 증명된 최상급 상권</h3>
+                              <div className="location-points-v18">
+                                <div className="point-box-v18"><MapPin size={24} /><h4>접근성</h4><p>지하철역 도보 3분 거리 초역세권.</p></div>
+                                <div className="point-box-v18"><Users size={24} /><h4>배후 수요</h4><p>풍부한 법인 카드 결제 수요.</p></div>
+                              </div>
+                            </div>
+                          )}
+                          {modalTab === 'risk' && (
+                            <div className="tab-pane-v18">
+                              <h3 className="pane-title-v18">철저한 3중 안전 장치</h3>
+                              <div className="safety-net-v18">
+                                <div className="safety-card-v18"><div className="step-v18">1</div><div className="sc-v18"><h4>임대보증금 담보권 설정</h4><p>1순위 근저당 및 질권을 설정합니다.</p></div></div>
+                                <div className="safety-card-v18"><div className="step-v18">2</div><div className="sc-v18"><h4>권리금 양수도 계약 우선권</h4><p>사전 계약이 체결되어 있습니다.</p></div></div>
+                              </div>
+                            </div>
+                          )}
+                          {modalTab === 'company' && (
+                            <div className="tab-pane-v18">
+                              <h3 className="pane-title-v18">운영 법인 및 대표자 정보</h3>
+                              <div className="company-card-v18">
+                                <div className="cc-row-v18"><span>법인명</span><strong>{data.companyInfo.name}</strong></div>
+                                <div className="cc-row-v18"><span>대표자</span><strong>{data.companyInfo.ceo}</strong></div>
+                                <div className="cc-row-v18"><span>소재지</span><strong>{data.companyInfo.address}</strong></div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Right: Sticky Sidebar Style */}
+                      <aside className="detail-sidebar-v18">
+                        <div className="sticky-card-v18">
+                          <h3 className="syndicate-name-v18">{data.syndicateName}</h3>
+                          <div className="fund-summary-v18">
+                            <div className="fs-item-v18"><span>총 모집금액</span><strong>{data.totalAmount}</strong></div>
+                            <div className="fs-item-v18"><span>투자기간</span><strong>{data.duration}</strong></div>
+                            <div className="fs-item-v18"><span>수익률</span><strong className="text-danger">{data.returnRate}</strong></div>
+                          </div>
+                          
+                          <div className="progress-area-v18">
+                            <div className="p-header-v18"><span>{data.progress}% 모집 중</span></div>
+                            <div className="p-bar-v18"><div className="p-fill-v18" style={{ width: `${data.progress}%` }}></div></div>
+                          </div>
+
+                          <div className="selector-area-v18">
+                            <span className="l">투자금액 선택</span>
+                            <div className="u-selector-v18">
+                              <button onClick={() => setModalUnits(Math.max(1, modalUnits - 1))}>-</button>
+                              <span>{modalUnits}구좌</span>
+                              <button onClick={() => setModalUnits(modalUnits + 1)}>+</button>
+                            </div>
+                          </div>
+                          
+                          <div className="total-area-v18">
+                            <span>총 투자금액</span>
+                            <strong>{totalInvestmentPrice}만 원</strong>
+                          </div>
+
+                          <button className="btn-invest-v18">계약하기</button>
+                          
+                          <div className="sidebar-footer-v18">
+                            <Info size={14} /> 벤처투자 소득공제 100% 대상
+                          </div>
+                        </div>
+                      </aside>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
