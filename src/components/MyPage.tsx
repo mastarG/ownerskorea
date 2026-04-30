@@ -31,6 +31,12 @@ const ASSET_DATA: Record<'all' | 'sushi' | 'cafe', Asset> = {
   // ... existing asset data ...
 };
 
+const REVENUE_STATS: Record<'all' | 'sushi' | 'cafe', { totalInvestment: number, dailyDividend: number, accumulatedDividend: number, projectedProfit: number }> = {
+  all: { totalInvestment: 3000, dailyDividend: 25, accumulatedDividend: 250, projectedProfit: 3250 },
+  sushi: { totalInvestment: 2000, dailyDividend: 15, accumulatedDividend: 150, projectedProfit: 2150 },
+  cafe: { totalInvestment: 1000, dailyDividend: 10, accumulatedDividend: 100, projectedProfit: 1100 }
+};
+
 const INVESTMENTS_DATA: Record<string, any> = {
   "1": {
     title: '시흥 어부 횟집',
@@ -373,20 +379,20 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                     <div className="revenue-analysis-v13">
                       <div className="summary-stats-v17">
                         <div className="stat-card">
-                          <span className="stat-label">총투자액</span>
-                          <span className="stat-value"><AnimatedNumber value={3000} /><span className="unit-text">만원</span></span>
+                          <span className="stat-label">① 총 투자액</span>
+                          <span className="stat-value"><AnimatedNumber value={REVENUE_STATS[selectedAsset].totalInvestment} /><span className="unit-text">만원</span></span>
                         </div>
                         <div className="stat-card">
-                          <span className="stat-label">일배당액</span>
-                          <span className="stat-value"><AnimatedNumber value={25} /><span className="unit-text">만원</span></span>
+                          <span className="stat-label">일 배당액</span>
+                          <span className="stat-value"><AnimatedNumber value={REVENUE_STATS[selectedAsset].dailyDividend} /><span className="unit-text">만원</span></span>
                         </div>
                         <div className="stat-card">
-                          <span className="stat-label">누적배당액</span>
-                          <span className="stat-value"><AnimatedNumber value={250} /><span className="unit-text">만원</span></span>
+                          <span className="stat-label">② 배당 누적액</span>
+                          <span className="stat-value"><AnimatedNumber value={REVENUE_STATS[selectedAsset].accumulatedDividend} /><span className="unit-text">만원</span></span>
                         </div>
                         <div className="stat-card">
-                          <span className="stat-label">만기예정수익(1+2+3)</span>
-                          <span className="stat-value text-danger"><AnimatedNumber value={3275} /><span className="unit-text">만원</span></span>
+                          <span className="stat-label">만기 예상수익(①+②)</span>
+                          <span className="stat-value text-danger"><AnimatedNumber value={REVENUE_STATS[selectedAsset].projectedProfit} /><span className="unit-text">만원</span></span>
                         </div>
                       </div>
 
