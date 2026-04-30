@@ -374,19 +374,19 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                       <div className="summary-stats-v17">
                         <div className="stat-card">
                           <span className="stat-label">총투자액</span>
-                          <span className="stat-value"><AnimatedNumber value={9000} /><span className="unit-text">만</span></span>
+                          <span className="stat-value"><AnimatedNumber value={3000} /><span className="unit-text">만원</span></span>
                         </div>
                         <div className="stat-card">
                           <span className="stat-label">일배당액</span>
-                          <span className="stat-value"><AnimatedNumber value={3.2} decimals={1} /><span className="unit-text">만</span></span>
+                          <span className="stat-value"><AnimatedNumber value={25} /><span className="unit-text">만원</span></span>
                         </div>
                         <div className="stat-card">
                           <span className="stat-label">누적배당액</span>
-                          <span className="stat-value"><AnimatedNumber value={1240} /><span className="unit-text">만</span></span>
+                          <span className="stat-value"><AnimatedNumber value={250} /><span className="unit-text">만원</span></span>
                         </div>
                         <div className="stat-card">
-                          <span className="stat-label">만기 예정수익</span>
-                          <span className="stat-value text-danger"><AnimatedNumber value={1.2} decimals={1} /><span className="unit-text">억</span></span>
+                          <span className="stat-label">만기예정수익(1+2+3)</span>
+                          <span className="stat-value text-danger"><AnimatedNumber value={3275} /><span className="unit-text">만원</span></span>
                         </div>
                       </div>
 
