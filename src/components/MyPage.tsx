@@ -6,7 +6,8 @@ import {
   ChevronRight, ChevronDown, ArrowUpRight, Trophy, Sparkles,
   Settings, Printer, ShieldCheck, Clock, RefreshCw, Smartphone,
   MapPin, PieChart, Maximize, User, Users, Download, Share2, Calculator,
-  Building, CheckCircle2, ArrowLeft, AlertCircle, CalendarDays, Info
+  Building, CheckCircle2, ArrowLeft, AlertCircle, CalendarDays, Info,
+  Sun, Cloud, CloudRain, CloudSun, ArrowUp, ArrowDown, ChevronLeft
 } from 'lucide-react';
 import './MyPage.css';
 import IntegratedValue from './IntegratedValue';
@@ -172,6 +173,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
   const [selectedInvestmentId, setSelectedInvestmentId] = useState<number | null>(null);
   const [modalTab, setModalTab] = useState('store');
   const [modalUnits, setModalUnits] = useState(1);
+  const [dayOffset, setDayOffset] = useState(0); // 0=오늘, 1=내일, 2=모레, 3=글피
 
   const [activeMyStoreId, setActiveMyStoreId] = useState(1);
   const [showPhotoSelector, setShowPhotoSelector] = useState<{menuIdx: number} | null>(null);
@@ -458,31 +460,106 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                       <div className="visitor-divider-v12"></div>
                       {/* 방문고객 필터 */}
                       <div className="chart-header-actions-v10" style={{ marginBottom: '0.75rem' }}>
-                        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#475569' }}>연령별 방문 분포</span>
+                        <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#475569' }}>
+                          {chartPeriod === 'daily' ? '시간대별 방문 분포' : '연령별 방문 분포'}
+                        </span>
                         <div className="chart-toggles-v8">
                           <button className={`toggle-v8 ${chartPeriod === 'daily' ? 'active' : ''}`} onClick={() => setChartPeriod('daily')}>일간</button>
                           <button className={`toggle-v8 ${chartPeriod === 'weekly' ? 'active' : ''}`} onClick={() => setChartPeriod('weekly')}>주간</button>
                           <button className={`toggle-v8 ${chartPeriod === 'monthly' ? 'active' : ''}`} onClick={() => setChartPeriod('monthly')}>월간</button>
                         </div>
                       </div>
-                      <div className="demographics-chart-v12">
-                        {[
-                          { age: '10대', male: 8,  female: 12 },
-                          { age: '20대', male: 25, female: 28 },
-                          { age: '30대', male: 32, female: 30 },
-                          { age: '40대', male: 20, female: 18 },
-                          { age: '50대', male: 10, female: 8  },
-                          { age: '60대', male: 5,  female: 4  },
-                        ].map((group, idx) => (
-                          <div key={idx} className="demo-group-v9">
-                            <div className="gender-pair-v9">
-                              <div className="gender-unit-v9 male"><span className="percentage-v9">{group.male}%</span><div className="icon-gauge-v12"><User size={36} className="icon-bg-v12" /><User size={36} className="icon-fill-v12" style={{ clipPath: `inset(${100 - group.male}% 0 0 0)` }} /></div></div>
-                              <div className="gender-unit-v9 female"><span className="percentage-v9">{group.female}%</span><div className="icon-gauge-v12"><User size={36} className="icon-bg-v12" /><User size={36} className="icon-fill-v12" style={{ clipPath: `inset(${100 - group.female}% 0 0 0)` }} /></div></div>
+
+                      {chartPeriod === 'daily' ? (
+                        <div className="daily-forecast-wrapper-v19">
+                          <div className="weather-forecast-table-v19">
+                            <div className="wft-scroll-container">
+                              {/* Sticky Left Column */}
+                              <div className="wft-col sticky-left">
+                                <div className="wft-cell header-cell">
+                                  <span className="wft-badge">{dayOffset === 0 ? '오늘' : dayOffset === 1 ? '내일' : dayOffset === 2 ? '모레' : '글피'}</span>
+                                  <span className="wft-date-label">
+                                    {(() => {
+                                      const d = new Date('2026-04-30');
+                                      d.setDate(d.getDate() + dayOffset);
+                                      return `${d.getMonth() + 1}.${d.getDate()}`;
+                                    })()}
+                                  </span>
+                                </div>
+                                <div className="wft-cell spacer-cell"></div>
+                                <div className="wft-cell label-cell">남자</div>
+                                <div className="wft-cell label-cell">여자</div>
+                                <div className="wft-cell label-cell total-label-cell">총원</div>
+                              </div>
+
+                              {/* Hourly Columns */}
+                              {Array.from({length: 24}, (_, i) => {
+                                const hour = (10 + i) % 24;
+                                const isDay = hour >= 6 && hour <= 18;
+                                const weatherTypes = isDay ? ['sun', 'sun', 'cloudSun', 'cloud'] : ['cloud', 'cloudRain', 'cloud'];
+                                const weather = weatherTypes[(i + dayOffset * 3) % weatherTypes.length];
+                                const temp = `${15 + Math.floor(Math.abs(Math.sin(i/4)) * 5)}°`;
+                                const humidity = `${40 + (i * 5 + dayOffset * 10) % 30}%`;
+                                const male = Math.floor(1 + Math.abs(Math.sin(i/3)) * 4);
+                                const female = Math.floor(2 + Math.abs(Math.cos(i/3)) * 4);
+                                const total = male + female;
+
+                                return (
+                                  <div key={i} className="wft-col hourly-col">
+                                    <div className="wft-cell header-cell time-val">{hour}시</div>
+                                    <div className="wft-cell icon-cell">
+                                      {weather === 'sun' ? <Sun size={18} color="#eab308"/> :
+                                       weather === 'cloudSun' ? <CloudSun size={18} color="#f59e0b"/> :
+                                       weather === 'cloudRain' ? <CloudRain size={18} color="#3b82f6"/> :
+                                       <Cloud size={18} color="#94a3b8"/>}
+                                    </div>
+                                    <div className="wft-cell temp-val">{temp}</div>
+                                    <div className="wft-cell hum-val">{humidity}</div>
+                                    <div className="wft-cell data-val male-val">{male}</div>
+                                    <div className="wft-cell data-val female-val">{female}</div>
+                                    <div className="wft-cell data-val total-val">
+                                      {total} <ArrowUpRight size={10} color="#0b192c" style={{marginLeft: '2px'}}/>
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
-                            <span className="age-label-v9">{group.age}</span>
+
+                            <button className="wft-nav-btn right" onClick={() => setDayOffset(Math.min(3, dayOffset + 1))} disabled={dayOffset === 3}>
+                              <ChevronRight size={20}/>
+                            </button>
+                            {dayOffset > 0 && (
+                              <button className="wft-nav-btn left" onClick={() => setDayOffset(Math.max(0, dayOffset - 1))}>
+                                <ChevronLeft size={20}/>
+                              </button>
+                            )}
                           </div>
-                        ))}
-                      </div>
+                          
+                          <div className="wft-bottom-summary">
+                            <span>전주 대비 15% 증가</span>
+                            <ArrowUp color="#e11d48" size={16}/>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="demographics-chart-v12">
+                          {[
+                            { age: '10대', male: 8,  female: 12 },
+                            { age: '20대', male: 25, female: 28 },
+                            { age: '30대', male: 32, female: 30 },
+                            { age: '40대', male: 20, female: 18 },
+                            { age: '50대', male: 10, female: 8  },
+                            { age: '60대', male: 5,  female: 4  },
+                          ].map((group, idx) => (
+                            <div key={idx} className="demo-group-v9">
+                              <div className="gender-pair-v9">
+                                <div className="gender-unit-v9 male"><span className="percentage-v9">{group.male}%</span><div className="icon-gauge-v12"><User size={36} className="icon-bg-v12" /><User size={36} className="icon-fill-v12" style={{ clipPath: `inset(${100 - group.male}% 0 0 0)` }} /></div></div>
+                                <div className="gender-unit-v9 female"><span className="percentage-v9">{group.female}%</span><div className="icon-gauge-v12"><User size={36} className="icon-bg-v12" /><User size={36} className="icon-fill-v12" style={{ clipPath: `inset(${100 - group.female}% 0 0 0)` }} /></div></div>
+                              </div>
+                              <span className="age-label-v9">{group.age}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
 
