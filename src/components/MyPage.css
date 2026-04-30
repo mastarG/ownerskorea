@@ -5148,6 +5148,97 @@
 .count-cell-v20 .m { color: #3b82f6; }
 .count-cell-v20 .f { color: #ec4899; }
 
+/* Monthly Forecast Chart (v21) */
+.monthly-forecast-wrapper-v21 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.monthly-insights-v21 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.insight-card-v21 {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+  transition: all 0.2s;
+}
+
+.insight-card-v21:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+  border-color: #cbd5e1;
+}
+
+.insight-card-v21 .i-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 0.4rem;
+}
+
+.insight-card-v21 .i-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0b192c;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.insight-card-v21 .i-trend {
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  margin-top: 0.4rem;
+}
+
+.insight-card-v21 .i-trend.up { color: #e11d48; }
+
+.insight-card-v21 .i-desc {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-top: 0.4rem;
+}
+
+.monthly-mode-v21 .wft-col {
+  flex: 1;
+  min-width: 80px;
+}
+
+.top-age-cell-v21 {
+  height: 60px;
+}
+
+.age-badge-v21 {
+  background: #f8fafc;
+  color: #0b192c;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.total-val-v21 {
+  font-weight: 800;
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
 .recommend-img-v17 {
   position: relative;
   height: 140px;

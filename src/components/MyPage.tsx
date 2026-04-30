@@ -175,6 +175,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
   const [modalUnits, setModalUnits] = useState(1);
   const [dayOffset, setDayOffset] = useState(0); // 0=오늘, 1=내일, 2=모레, 3=글피
   const [weekOffset, setWeekOffset] = useState(0); // 0=이번주, -1=저번주
+  const [monthOffset, setMonthOffset] = useState(0); // 0=이번달, -1=저번달
 
   const [activeMyStoreId, setActiveMyStoreId] = useState(1);
   const [showPhotoSelector, setShowPhotoSelector] = useState<{menuIdx: number} | null>(null);
@@ -610,23 +611,83 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                           </div>
                         </div>
                       ) : (
-                        <div className="demographics-chart-v12">
-                          {[
-                            { age: '10대', male: 8,  female: 12 },
-                            { age: '20대', male: 25, female: 28 },
-                            { age: '30대', male: 32, female: 30 },
-                            { age: '40대', male: 20, female: 18 },
-                            { age: '50대', male: 10, female: 8  },
-                            { age: '60대', male: 5,  female: 4  },
-                          ].map((group, idx) => (
-                            <div key={idx} className="demo-group-v9">
-                              <div className="gender-pair-v9">
-                                <div className="gender-unit-v9 male"><span className="percentage-v9">{group.male}%</span><div className="icon-gauge-v12"><User size={36} className="icon-bg-v12" /><User size={36} className="icon-fill-v12" style={{ clipPath: `inset(${100 - group.male}% 0 0 0)` }} /></div></div>
-                                <div className="gender-unit-v9 female"><span className="percentage-v9">{group.female}%</span><div className="icon-gauge-v12"><User size={36} className="icon-bg-v12" /><User size={36} className="icon-fill-v12" style={{ clipPath: `inset(${100 - group.female}% 0 0 0)` }} /></div></div>
-                              </div>
-                              <span className="age-label-v9">{group.age}</span>
+                        <div className="monthly-forecast-wrapper-v21">
+                          <div className="wfw-header-v20">
+                            <button className="wfw-nav-btn" onClick={() => setMonthOffset(monthOffset - 1)}>
+                              <ChevronLeft size={20}/>
+                            </button>
+                            <span className="wfw-week-label">
+                              {(() => {
+                                const baseDate = new Date('2026-04-01');
+                                baseDate.setMonth(baseDate.getMonth() + monthOffset);
+                                return `${baseDate.getFullYear()}년 ${baseDate.getMonth() + 1}월`;
+                              })()}
+                            </span>
+                            <button className="wfw-nav-btn" onClick={() => setMonthOffset(monthOffset + 1)} disabled={monthOffset === 0}>
+                              <ChevronRight size={20}/>
+                            </button>
+                          </div>
+                          
+                          <div className="monthly-insights-v21">
+                            <div className="insight-card-v21">
+                              <span className="i-label">총 방문객</span>
+                              <span className="i-value">3,420<span className="text-sm">명</span></span>
+                              <span className="i-trend up"><ArrowUpRight size={14}/> 12% 증가</span>
                             </div>
-                          ))}
+                            <div className="insight-card-v21">
+                              <span className="i-label">핵심 고객층</span>
+                              <span className="i-value text-blue-600">30대 남자</span>
+                              <span className="i-desc">전체 방문의 35% 차지</span>
+                            </div>
+                            <div className="insight-card-v21">
+                              <span className="i-label">최고 방문 주간</span>
+                              <span className="i-value text-amber-500">3주차</span>
+                              <span className="i-desc">총 920명 방문</span>
+                            </div>
+                          </div>
+
+                          <div className="weather-forecast-table-v19 monthly-mode-v21">
+                            <div className="wft-scroll-container">
+                              {Array.from({length: 5}, (_, i) => {
+                                const baseDate = new Date('2026-04-01');
+                                baseDate.setMonth(baseDate.getMonth() + monthOffset);
+                                const monthVal = (baseDate.getMonth() + 1).toString().padStart(2, '0');
+                                const startDay = i * 7 + 1;
+                                const endDay = Math.min((i + 1) * 7, new Date(baseDate.getFullYear(), baseDate.getMonth() + 1, 0).getDate());
+                                
+                                const total = 600 + Math.floor(Math.abs(Math.sin(i + monthOffset * 2)) * 300);
+                                const malePercent = Math.floor(40 + Math.abs(Math.cos(i + monthOffset)) * 40);
+                                const femalePercent = 100 - malePercent;
+                                const male = Math.round(total * (malePercent / 100));
+                                const female = total - male;
+                                const topAge = ['20대', '30대', '40대', '50대'][Math.floor(Math.abs(Math.sin(i)) * 4) % 4];
+
+                                return (
+                                  <div key={i} className="wft-col monthly-col-v21">
+                                    <div className="wft-cell header-cell weekly-header-v20">
+                                      <span className="wft-day-name">{i+1}주차</span>
+                                      <span className="wft-date-val">{monthVal}.{startDay.toString().padStart(2, '0')}~{monthVal}.{endDay.toString().padStart(2, '0')}</span>
+                                    </div>
+                                    
+                                    <div className="wft-cell top-age-cell-v21">
+                                      <div className="age-badge-v21">
+                                        <User size={14} style={{display: 'inline', marginRight: '2px'}}/>
+                                        {topAge}
+                                      </div>
+                                    </div>
+                                    
+                                    <div className="wft-cell percent-cell-v20">
+                                      <span className="m">{malePercent}%</span> / <span className="f">{femalePercent}%</span>
+                                    </div>
+                                    
+                                    <div className="wft-cell count-cell-v20">
+                                      <span className="total-val-v21">{total}명</span>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
                         </div>
                       )}
                     </div>
