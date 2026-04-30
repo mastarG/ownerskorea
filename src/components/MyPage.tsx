@@ -174,6 +174,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
   const [modalTab, setModalTab] = useState('store');
   const [modalUnits, setModalUnits] = useState(1);
   const [dayOffset, setDayOffset] = useState(0); // 0=오늘, 1=내일, 2=모레, 3=글피
+  const [weekOffset, setWeekOffset] = useState(0); // 0=이번주, -1=저번주
 
   const [activeMyStoreId, setActiveMyStoreId] = useState(1);
   const [showPhotoSelector, setShowPhotoSelector] = useState<{menuIdx: number} | null>(null);
@@ -538,6 +539,74 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                           <div className="wft-bottom-summary">
                             <span>전주 대비 15% 증가</span>
                             <ArrowUp color="#e11d48" size={16}/>
+                          </div>
+                        </div>
+                      ) : chartPeriod === 'weekly' ? (
+                        <div className="weekly-forecast-wrapper-v20">
+                          <div className="wfw-header-v20">
+                            <button className="wfw-nav-btn" onClick={() => setWeekOffset(weekOffset - 1)}><ChevronLeft size={20}/></button>
+                            <span className="wfw-week-label">
+                              {(() => {
+                                const baseDate = new Date('2026-04-30');
+                                const dayOfWeek = baseDate.getDay();
+                                const startOfWeek = new Date(baseDate);
+                                startOfWeek.setDate(baseDate.getDate() - dayOfWeek + (weekOffset * 7));
+                                const endOfWeek = new Date(startOfWeek);
+                                endOfWeek.setDate(startOfWeek.getDate() + 6);
+                                const month = startOfWeek.getMonth() + 1;
+                                const weekOfMonth = Math.ceil(startOfWeek.getDate() / 7);
+                                const startStr = `${(startOfWeek.getMonth() + 1).toString().padStart(2, '0')}.${startOfWeek.getDate().toString().padStart(2, '0')}`;
+                                const endStr = `${(endOfWeek.getMonth() + 1).toString().padStart(2, '0')}.${endOfWeek.getDate().toString().padStart(2, '0')}`;
+                                return `${month}월 ${weekOfMonth}째주 (${startStr}~${endStr})`;
+                              })()}
+                            </span>
+                            <button className="wfw-nav-btn" onClick={() => setWeekOffset(weekOffset + 1)} disabled={weekOffset === 0}><ChevronRight size={20}/></button>
+                          </div>
+                          
+                          <div className="weather-forecast-table-v19 weekly-mode-v20">
+                            <div className="wft-scroll-container">
+                              {Array.from({length: 7}, (_, i) => {
+                                const baseDate = new Date('2026-04-30');
+                                const startOfWeek = new Date(baseDate);
+                                startOfWeek.setDate(baseDate.getDate() - baseDate.getDay() + (weekOffset * 7));
+                                const d = new Date(startOfWeek);
+                                d.setDate(startOfWeek.getDate() + i);
+                                
+                                const dayName = ['일', '월', '화', '수', '목', '금', '토'][i];
+                                const dateStr = `${d.getMonth() + 1}.${d.getDate()}.`;
+                                
+                                const total = 50 + Math.floor(Math.abs(Math.sin(i + weekOffset * 3)) * 40);
+                                const malePercent = Math.floor(40 + Math.abs(Math.cos(i + weekOffset)) * 40);
+                                const femalePercent = 100 - malePercent;
+                                const male = Math.round(total * (malePercent / 100));
+                                const female = total - male;
+                                
+                                const isSunday = i === 0;
+                                const isSaturday = i === 6;
+
+                                return (
+                                  <div key={i} className="wft-col weekly-col-v20">
+                                    <div className="wft-cell header-cell weekly-header-v20">
+                                      <span className={`wft-day-name ${isSunday ? 'sunday' : isSaturday ? 'saturday' : ''}`}>{dayName}</span>
+                                      <span className="wft-date-val">{dateStr}</span>
+                                    </div>
+                                    
+                                    <div className="wft-cell icon-pair-cell-v20">
+                                      <User size={28} color="#3b82f6" fill="#eff6ff"/>
+                                      <User size={28} color="#ec4899" fill="#fdf2f8"/>
+                                    </div>
+                                    
+                                    <div className="wft-cell percent-cell-v20">
+                                      <span className="m">{malePercent}%</span> / <span className="f">{femalePercent}%</span>
+                                    </div>
+                                    
+                                    <div className="wft-cell count-cell-v20">
+                                      <span className="m">{male}</span> / <span className="f">{female}</span>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
                           </div>
                         </div>
                       ) : (
