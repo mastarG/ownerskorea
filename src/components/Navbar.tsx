@@ -32,6 +32,7 @@ const Navbar = ({ onLogin }: NavbarProps) => {
             <Link to="/about" className={isActive('/about') ? 'active' : ''}>미션</Link>
             <Link to="/investments" className={isActive('/investments') ? 'active' : ''}>투자정보</Link>
             <Link to="/startup-support" className={isActive('/startup-support') ? 'active' : ''}>창업지원</Link>
+            <Link to="/legal-accounting" className={isActive('/legal-accounting') ? 'active' : ''}>법률.회계</Link>
             <Link to="/support" className={isActive('/support') ? 'active' : ''}>고객지원</Link>
           </div>
           <div className="navbar-actions right-actions">

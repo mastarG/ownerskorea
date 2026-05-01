@@ -14,6 +14,7 @@ import InvestmentDetail from './pages/InvestmentDetail';
 import AboutPage from './pages/AboutPage';
 import StartupSupportPage from './pages/StartupSupportPage';
 import CustomerSupportPage from './pages/CustomerSupportPage';
+import LegalAccountingPage from './pages/LegalAccountingPage';
 import './App.css';
 
 // Landing Page (Home) component
@@ -42,6 +43,7 @@ function App() {
             <Route path="/investments" element={<InvestmentsPage />} />
             <Route path="/investments/:id" element={<InvestmentDetail />} />
             <Route path="/startup-support" element={<StartupSupportPage />} />
+            <Route path="/legal-accounting" element={<LegalAccountingPage />} />
             <Route path="/support" element={<CustomerSupportPage />} />
             <Route 
               path="/dashboard" 
