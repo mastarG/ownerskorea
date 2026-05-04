@@ -1,6 +1,6 @@
 .marketplace {
   background-color: var(--color-surface);
-  padding: 30px 0 60px 0; /* Reduced top padding to merge with NOW */
+  padding: 60px 0 60px 0; /* Increased top padding from 30px to 60px for 1-line gap */
 }
 
 .marketplace-header-v2 {
@@ -162,7 +162,7 @@
 }
 
 .marketplace-footer-v2 {
-  margin-top: 3rem; /* Reduced margin */
+  margin-top: 6rem; /* Increased from 3rem to add approx 2 lines of space */
   display: flex;
   justify-content: center;
 }
@@ -170,21 +170,22 @@
 .btn-more-content {
   display: inline-flex;
   align-items: center;
-  padding: 1rem 2.5rem; /* Slightly smaller padding */
-  background-color: #F3F4F6;
-  color: #6B7280;
+  padding: 1rem 3rem; 
+  background-color: transparent;
+  color: #EF4444;
   text-decoration: none;
   font-weight: 700;
-  font-size: 1rem;
-  border-radius: 10px;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid transparent;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid #E5E7EB;
 }
 
 .btn-more-content:hover {
-  background-color: #111827;
+  background-color: #EF4444;
   color: #FFFFFF;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+  border-color: #EF4444;
+  box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);
   transform: translateY(-2px);
 }
 

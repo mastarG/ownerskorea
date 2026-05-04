@@ -16,6 +16,21 @@ const Footer = () => {
           
           <div className="footer-links">
             <div className="link-group">
+              <h3>회사소개</h3>
+              <a href="#">오너스 미션</a>
+              <a href="#">브랜드 스토리</a>
+            </div>
+            <div className="link-group">
+              <h3>채용안내</h3>
+              <a href="#">채용 공고</a>
+              <a href="#">인재상</a>
+            </div>
+            <div className="link-group">
+              <h3>업무제휴</h3>
+              <a href="#">제휴 문의</a>
+              <a href="#">광고 문의</a>
+            </div>
+            <div className="link-group">
               <h3>서비스</h3>
               <a href="#">투자하기</a>
               <a href="#">매장등록</a>

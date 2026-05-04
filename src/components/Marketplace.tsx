@@ -100,7 +100,7 @@ const Marketplace = () => {
 
         <div className="marketplace-footer-v2">
           <Link to="/investments" className="btn-more-content">
-            더 많은 투자 컨텐츠 보러가기 <ChevronRight size={18} className="ms-1" />
+            더 많은 컨텐츠 <ChevronRight size={18} className="ms-1" />
           </Link>
         </div>
       </div>

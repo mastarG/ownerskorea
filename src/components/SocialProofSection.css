@@ -1,6 +1,12 @@
 .social-proof-section {
-  padding: 40px 0 80px 0; /* Reduced top padding from 80px */
+  padding: 80px 0 80px 0; /* Increased top padding to 80px as requested */
   background-color: var(--color-surface);
+}
+
+.social-proof-section .container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 1.5rem !important;
 }
 
 .social-header {
@@ -22,7 +28,7 @@
 }
 
 .social-title {
-  font-size: 2.75rem; /* Slightly larger */
+  font-size: 2.1rem; /* Matched with Marketplace title */
   font-weight: 800;
   color: #111827;
   letter-spacing: -0.05rem;

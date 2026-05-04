@@ -8,7 +8,27 @@
   height: 90vh; /* Reduced height to expose next section */
   min-height: 600px;
   overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: none; 
+  background-color: var(--color-surface); /* Fix gray line issue between sections */
+}
+
+/* Allow the last section (FAQ) to flow with content and show the footer */
+.is-investment-support .landing-section:last-of-type {
+  height: auto !important;
+  min-height: 70vh;
+  overflow: visible;
+}
+
+/* Reduce the first section (Hero) height so the NOW section is clearly visible below */
+.is-investment-support .landing-section:has(.hero) {
+  height: 75vh !important;
+}
+
+/* Ensure Integrated Value section fits on one screen (90vh) */
+.is-investment-support .landing-section:has(.integrated-value) {
+  height: 90vh !important;
+  min-height: 600px;
+  overflow: hidden; /* Hide overflow to maintain page feel */
 }
 
 /* Integrated NOW and BEST section should grow with content */
@@ -20,14 +40,30 @@
 }
 
 /* Ensure components within landing-section respect the height except for the integrated one */
-.is-investment-support .hero,
 .is-investment-support .social-proof-container,
 .is-investment-support .testimonials,
-.is-investment-support .integrated-value,
-.is-investment-support .faq-section,
 .is-investment-support .founder-section {
   height: 90vh !important;
   min-height: 600px;
+}
+
+.is-investment-support .hero {
+  height: 75vh !important;
+  min-height: 600px;
+}
+
+.is-investment-support .faq-section {
+  height: auto !important;
+  min-height: 500px;
+}
+
+.is-investment-support .integrated-value {
+  height: 90vh !important;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%; /* Ensure full width for container alignment */
 }
 
 /* Specific override for the social proof container to allow content to flow */

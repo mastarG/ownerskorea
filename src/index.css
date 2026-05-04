@@ -173,5 +173,5 @@ button {
 }
 
 .text-premium-gold {
-  color: #FFD700 !important;
+  color: var(--color-secondary) !important; /* Premium Gold */
 }

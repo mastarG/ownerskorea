@@ -105,8 +105,11 @@ const Navbar = ({ onLogin }: NavbarProps) => {
     navigate('/dashboard');
   };
 
-  const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
+  const isActive = (path: string, hash?: string) => {
+    if (hash) {
+      return location.pathname === path && location.hash === hash;
+    }
+    if (path === '/') return location.pathname === '/' && !location.hash;
     return location.pathname === path;
   };
 
@@ -124,7 +127,7 @@ const Navbar = ({ onLogin }: NavbarProps) => {
             <Link to="/" className={isActive('/') ? 'active' : ''}>{t.investmentSupport}</Link>
             <Link to="/startup-support" className={isActive('/startup-support') ? 'active' : ''}>{t.startupSupport}</Link>
             <Link to="/legal-accounting" className={isActive('/legal-accounting') ? 'active' : ''}>{t.legalAccounting}</Link>
-            <Link to="/support" className={isActive('/support') ? 'active' : ''}>{t.support}</Link>
+            <Link to="/#faq" className={isActive('/', '#faq') ? 'active' : ''}>{t.support}</Link>
           </div>
 
           <div className="navbar-actions right-actions">

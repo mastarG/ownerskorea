@@ -1,25 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
 import NowSection from '../components/NowSection';
 import Marketplace from '../components/Marketplace';
 import SocialProofSection from '../components/SocialProofSection';
 import IntegratedValue from '../components/IntegratedValue';
 import FaqSection from '../components/FaqSection';
-import FounderSection from '../components/FounderSection';
 import './InvestmentSupportPage.css';
 
 const InvestmentSupportPage: React.FC = () => {
   const [activeSection, setActiveSection] = useState(0);
+  const location = useLocation();
 
   const heroRef = useRef<HTMLDivElement>(null);
   const bestNowRef = useRef<HTMLDivElement>(null);
   const socialRef = useRef<HTMLDivElement>(null);
   const valueRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<HTMLDivElement>(null);
-  const founderRef = useRef<HTMLDivElement>(null);
 
-  const sectionRefs = [heroRef, bestNowRef, socialRef, valueRef, faqRef, founderRef];
-  const sectionNames = ['혁신 모델', '최신 & 베스트', '랭킹 & 후기', '통합 가치', '자주 묻는 질문', '창업 문의'];
+  const sectionRefs = [heroRef, socialRef, bestNowRef, valueRef, faqRef];
+  const sectionNames = ['혁신 모델', '랭킹 & 후기', '최신 & 베스트', '통합 가치', '자주 묻는 질문'];
 
   useEffect(() => {
     // We use a broader threshold for normal scrolling
@@ -49,6 +49,12 @@ const InvestmentSupportPage: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (location.hash === '#faq') {
+      setTimeout(() => scrollToSection(4), 100);
+    }
+  }, [location]);
+
   const scrollToSection = (index: number) => {
     const ref = sectionRefs[index];
     if (ref.current) {
@@ -71,7 +77,7 @@ const InvestmentSupportPage: React.FC = () => {
         {sectionNames.map((name, idx) => (
           <div 
             key={idx} 
-            className={`indicator-dot ${activeSection === idx ? 'active' : ''} ${activeSection === 0 || activeSection === 5 ? 'on-dark' : ''}`}
+            className={`indicator-dot ${activeSection === idx ? 'active' : ''} ${activeSection === 0 ? 'on-dark' : ''}`}
             onClick={() => scrollToSection(idx)}
             title={name}
           />
@@ -82,13 +88,13 @@ const InvestmentSupportPage: React.FC = () => {
         <Hero />
       </div>
       
+      <div ref={socialRef} className="landing-section social-proof-container">
+        <SocialProofSection />
+      </div>
+
       <div ref={bestNowRef} className="landing-section integrated-content-section">
         <NowSection />
         <Marketplace />
-      </div>
-
-      <div ref={socialRef} className="landing-section social-proof-container">
-        <SocialProofSection />
       </div>
       
       <div ref={valueRef} className="landing-section">
@@ -97,10 +103,6 @@ const InvestmentSupportPage: React.FC = () => {
       
       <div ref={faqRef} className="landing-section">
         <FaqSection />
-      </div>
-      
-      <div ref={founderRef} className="landing-section">
-        <FounderSection />
       </div>
     </div>
   );

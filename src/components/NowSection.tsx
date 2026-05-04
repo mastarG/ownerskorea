@@ -78,7 +78,7 @@ const NowSection: React.FC = () => {
         <div className="now-header-row">
           <div className="now-header">
             <div className="now-label">NOW</div>
-            <h2 className="now-title">지금 진행 중인 이벤트와 소식</h2>
+            <h2 className="now-title">진행중인 이벤트</h2>
           </div>
           
           <div className="now-pagination">

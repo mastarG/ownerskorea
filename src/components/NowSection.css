@@ -1,5 +1,6 @@
 .now-section {
-  padding: 30px 0 0 0; /* Merged top padding */
+  padding: 80px 0 0 0; /* Increased top padding to 80px as requested */
+  /* Merged top padding */
   background-color: var(--color-surface);
   position: relative;
   overflow: hidden;
@@ -25,8 +26,8 @@
 }
 
 .now-title {
-  font-size: 2.1rem;
-  font-weight: 800;
+  font-size: 2.1rem; /* Unified title size */
+  font-weight: 800; /* Bold font weight */
   color: #111827;
   letter-spacing: -0.05rem;
 }
@@ -47,7 +48,8 @@
 }
 
 .pagination-bar.active {
-  background-color: #EF4444; /* Match red theme */
+  background-color: #EF4444;
+  /* Match red theme */
   width: 60px;
 }
 
@@ -58,14 +60,16 @@
 
 .now-carousel-track {
   display: flex;
-  gap: 2rem; /* Match BEST section grid gap */
+  gap: 2rem;
+  /* Match BEST section grid gap */
   overflow-x: hidden;
   padding: 1rem 0;
   scroll-behavior: smooth;
 }
 
 .now-card {
-  flex: 0 0 calc(25% - 1.5rem); /* Force 4 cards to match BEST grid width approximately */
+  flex: 0 0 calc(25% - 1.5rem);
+  /* Force 4 cards to match BEST grid width approximately */
   min-width: 280px;
   height: 380px;
   border-radius: 8px;
@@ -85,6 +89,7 @@
   .now-card {
     flex: 0 0 280px;
   }
+
   .now-carousel-track {
     overflow-x: auto;
     -ms-overflow-style: none;
@@ -118,7 +123,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
   z-index: 2;
 }
 
@@ -138,7 +143,8 @@
   font-weight: 800;
   margin-bottom: 1.25rem;
   letter-spacing: 0.05rem;
-  color: #C5A16F; /* Gold color */
+  color: #C5A16F;
+  /* Gold color */
 }
 
 .now-card-title {

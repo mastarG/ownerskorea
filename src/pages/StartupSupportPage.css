@@ -37,7 +37,8 @@
   position: relative;
   z-index: 10;
   text-align: left;
-  padding-left: 12% !important; /* Fixed absolute left margin */
+  padding-left: 12% !important;
+  /* Fixed absolute left margin */
   padding-right: 5%;
 }
 
@@ -79,7 +80,7 @@
 }
 
 .yellow-text {
-  color: #FFFF00 !important;
+  color: var(--color-secondary) !important;
 }
 
 .chapter-label-v5 {
@@ -88,11 +89,12 @@
   text-transform: uppercase;
   letter-spacing: 0.5rem;
   margin-bottom: 1rem;
-  color: #FFD700; /* Vibrant Gold */
+  color: var(--color-secondary);
+  /* Premium Gold */
   position: relative;
   z-index: 11;
   text-align: left;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .chapter-title-v5 {
@@ -102,7 +104,7 @@
   margin-bottom: 2rem;
   letter-spacing: -0.05rem;
   text-align: left;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
 .chapter-intro-text-v5 {
@@ -112,7 +114,7 @@
   text-align: left;
   font-weight: 500;
   color: #ffffff !important;
-  text-shadow: 0 2px 15px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
 }
 
 .keyword-line-v5 {
@@ -135,9 +137,11 @@
 }
 
 p.cta-label-v5 {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   margin-bottom: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
+  color: var(--color-secondary);
+  letter-spacing: 0.5px;
 }
 
 .btn-outline-v5 {
@@ -192,13 +196,18 @@ p.cta-label-v5 {
   color: #0B192C;
   padding: 3rem;
   overflow-y: auto;
-  box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
   animation: slideInRight 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @keyframes slideInRight {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 .modal-header {
@@ -243,7 +252,9 @@ p.cta-label-v5 {
   margin-bottom: 0.5rem;
 }
 
-.modal-form-v5 input, .modal-form-v5 select, .modal-form-v5 textarea {
+.modal-form-v5 input,
+.modal-form-v5 select,
+.modal-form-v5 textarea {
   width: 100%;
   padding: 0.8rem 1rem;
   border: 1px solid #e2e8f0;
@@ -266,12 +277,14 @@ p.cta-label-v5 {
   white-space: nowrap;
 }
 
-.radio-group, .checkbox-group {
+.radio-group,
+.checkbox-group {
   display: flex;
   gap: 1.5rem;
 }
 
-.radio-group label, .checkbox-group label {
+.radio-group label,
+.checkbox-group label {
   margin: 0 !important;
   font-weight: 500 !important;
   display: flex;
@@ -344,16 +357,42 @@ p.cta-label-v5 {
 }
 
 @media (max-width: 991px) {
-  .chapter-title-v5 { font-size: 2.2rem; }
-  .startup-support-page-v5 { scroll-snap-type: none; height: auto; }
-  .chapter-hero-v5 { height: auto; min-height: 100vh; padding: 80px 0; }
-  .founder-cta-group-v5 { flex-direction: column; align-items: center; gap: 2.5rem; }
-  .modal-content-v5 { width: 100%; padding: 2rem; }
-  .temp-save-toast { right: 50%; transform: translateX(50%); bottom: 1rem; }
+  .chapter-title-v5 {
+    font-size: 2.2rem;
+  }
+
+  .startup-support-page-v5 {
+    scroll-snap-type: none;
+    height: auto;
+  }
+
+  .chapter-hero-v5 {
+    height: auto;
+    min-height: 100vh;
+    padding: 80px 0;
+  }
+
+  .founder-cta-group-v5 {
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .modal-content-v5 {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .temp-save-toast {
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 1rem;
+  }
 }
 
 .text-secondary {
-  color: #FFD700 !important; /* Premium Gold instead of plain yellow */
+  color: var(--color-secondary) !important;
+  /* Premium Gold (#D4AF37) */
   font-weight: 800;
 }
 
@@ -368,17 +407,27 @@ p.cta-label-v5 {
 .footer-stat-v5 {
   font-size: 0.95rem;
   letter-spacing: 0.05rem;
-  text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
-.chapter-intro-text-v5 p {
+.chapter-intro-text-v5 p:not(.cta-label-v5) {
   color: #ffffff !important;
   font-weight: 600 !important;
   opacity: 1 !important;
 }
 
+.solution-highlight-v5 {
+  font-family: 'Montserrat', serif;
+  font-style: italic;
+  display: inline-block;
+  border-top: 1px solid rgba(197, 161, 111, 0.25) !important;
+  border-bottom: 1px solid rgba(197, 161, 111, 0.25) !important;
+  padding: 2.5rem 0 !important;
+  margin: 3.5rem auto !important;
+}
+
 .solution-highlight-v5 p {
-  color: #FFD700 !important;
+  color: var(--color-secondary) !important;
   font-weight: 800 !important;
 }
 
@@ -427,10 +476,10 @@ p.cta-label-v5 {
 }
 
 .tab-btn-v5.active {
-  background: #FFD700;
+  background: var(--color-secondary);
   color: #0B192C;
-  border-color: #FFD700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
 }
 
 /* Medical Expert Card (Mini) */
@@ -460,7 +509,7 @@ p.cta-label-v5 {
 }
 
 .expert-info-v5 .one-line-hook-v5 {
-  color: #FFD700;
+  color: var(--color-secondary);
   font-size: 1.1rem;
   font-weight: 800;
   margin-bottom: 0.3rem;
@@ -479,7 +528,8 @@ p.cta-label-v5 {
   gap: 1rem;
 }
 
-.compact-form-v5 input, .compact-form-v5 select {
+.compact-form-v5 input,
+.compact-form-v5 select {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
@@ -497,8 +547,15 @@ p.cta-label-v5 {
 }
 
 @keyframes slideUpFade {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Chapter 2 Button Unification with Chapter 4 */
@@ -534,7 +591,7 @@ p.cta-label-v5 {
   background: white;
   color: #0B192C;
   border-color: white;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .medical-tab-btn-v5.active:hover {
@@ -547,18 +604,20 @@ p.cta-label-v5 {
 }
 
 .glass-content-box-v5 {
-  margin-top: 0 !important; /* Reset margin for dynamic layer */
+  margin-top: 0 !important;
+  /* Reset margin for dynamic layer */
   animation: layerAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes layerAppear {
-  from { 
-    opacity: 0; 
+  from {
+    opacity: 0;
     transform: scale(0.95) translateY(20px);
     backdrop-filter: blur(0px);
   }
-  to { 
-    opacity: 1; 
+
+  to {
+    opacity: 1;
     transform: scale(1) translateY(0);
     backdrop-filter: blur(25px);
   }
@@ -570,14 +629,16 @@ p.cta-label-v5 {
 }
 
 .medical-tab-btn-v5 {
-  max-width: 200px !important; /* Slightly more compact to stay within text bounds */
+  max-width: 200px !important;
+  /* Slightly more compact to stay within text bounds */
 }
 
 /* Chapter 2 Structural Stability Refinement */
 .chapter-stable-container-v5 {
   display: flex;
   flex-direction: column;
-  min-height: 550px; /* Fixed height to prevent layout jumping */
+  min-height: 550px;
+  /* Fixed height to prevent layout jumping */
   justify-content: flex-start;
   width: 100%;
 }
@@ -587,30 +648,36 @@ p.cta-label-v5 {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: 480px; /* Ensures the middle area has enough space for all contents */
+  min-height: 480px;
+  /* Ensures the middle area has enough space for all contents */
 }
 
 .glass-content-box-v5 {
   margin-top: 0 !important;
-  padding: 2rem !important; /* Slightly more compact inside the stable container */
+  padding: 2rem !important;
+  /* Slightly more compact inside the stable container */
 }
 
 /* Chapter 2 Immersive Expansion */
 .chapter-stable-container-v5.is-expanded-v5 {
-  min-height: 700px; /* Expand to take up the space of the hidden title */
-  margin-top: -2rem; /* Pull up slightly into the freed header space */
+  min-height: 700px;
+  /* Expand to take up the space of the hidden title */
+  margin-top: -2rem;
+  /* Pull up slightly into the freed header space */
   display: flex;
   flex-direction: column;
 }
 
 .chapter-stable-container-v5.is-expanded-v5 .chapter-dynamic-body-v5 {
-  min-height: 600px; /* Maximize internal space for cards/forms */
+  min-height: 600px;
+  /* Maximize internal space for cards/forms */
 }
 
 .chapter-stable-container-v5.is-expanded-v5 .glass-content-box-v5 {
-  backdrop-filter: blur(40px); /* Enhance blur for immersive full-layer feel */
+  backdrop-filter: blur(40px);
+  /* Enhance blur for immersive full-layer feel */
   background: rgba(255, 255, 255, 0.03);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
 }
 
 /* Chapter 2 Experts Immersive Sub-Pages */
@@ -631,10 +698,11 @@ p.cta-label-v5 {
 .expert-section-v5 {
   padding-top: 3rem !important;
   padding-bottom: 3rem !important;
-  background-image: 
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 30px 30px; /* Blueprint grid effect */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  /* Blueprint grid effect */
 }
 
 /* Introduction Layout (SNS Style) */
@@ -648,7 +716,7 @@ p.cta-label-v5 {
 }
 
 .expert-label-badge-v5 {
-  color: #C5A16F;
+  color: #D4AF37;
   font-weight: 800;
   font-size: 1rem;
   margin-bottom: 2rem;
@@ -670,11 +738,11 @@ p.cta-label-v5 {
 }
 
 .career-tag-v5 {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0.5rem 1rem;
   border-radius: 4px;
   font-size: 0.9rem;
-  border-left: 3px solid #C5A16F;
+  border-left: 3px solid #D4AF37;
 }
 
 .sns-card-v5 {
@@ -682,7 +750,7 @@ p.cta-label-v5 {
   border-radius: 8px;
   overflow: hidden;
   color: #262626;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   max-width: 380px;
   margin: 0 auto;
 }
@@ -741,7 +809,7 @@ p.cta-label-v5 {
 /* Process Layout */
 .expert-process-layout-v5 {
   padding: 3rem;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   height: 100%;
 }
 
@@ -765,7 +833,7 @@ p.cta-label-v5 {
 }
 
 .process-badge-v5 {
-  background: #C5A16F;
+  background: #D4AF37;
   color: white;
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
@@ -775,8 +843,13 @@ p.cta-label-v5 {
   margin-bottom: 1rem;
 }
 
-.process-badge-v5.orange { background: #ff6b35; }
-.process-badge-v5.blue { background: #0077b6; }
+.process-badge-v5.orange {
+  background: #ff6b35;
+}
+
+.process-badge-v5.blue {
+  background: #0077b6;
+}
 
 .process-card-v5 h4 {
   font-weight: 800;
@@ -801,7 +874,7 @@ p.cta-label-v5 {
   content: '✓';
   position: absolute;
   left: 0;
-  color: #C5A16F;
+  color: #D4AF37;
   font-weight: 800;
 }
 
@@ -823,13 +896,25 @@ p.cta-label-v5 {
 .review-avatar-v5 {
   width: 40px;
   height: 40px;
-  background: #C5A16F;
+  background: #D4AF37;
   border-radius: 50%;
 }
 
-.review-name-v5 { color: white; font-weight: 700; }
-.review-date-v5 { color: rgba(255,255,255,0.4); font-size: 0.8rem; }
-.review-text-v5 { color: white; font-style: italic; line-height: 1.6; }
+.review-name-v5 {
+  color: white;
+  font-weight: 700;
+}
+
+.review-date-v5 {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+}
+
+.review-text-v5 {
+  color: white;
+  font-style: italic;
+  line-height: 1.6;
+}
 
 /* Sub Navigation Arrows */
 .sub-nav-arrow-v5 {
@@ -846,32 +931,56 @@ p.cta-label-v5 {
   justify-content: center;
   border: none;
   cursor: pointer;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   z-index: 10;
   transition: all 0.3s ease;
 }
 
 .sub-nav-arrow-v5:hover {
-  background: #C5A16F;
+  background: #D4AF37;
   color: white;
   transform: translateY(-50%) scale(1.1);
 }
 
-.sub-nav-arrow-v5.right { right: 1rem; }
-.sub-nav-arrow-v5.left { left: 1rem; }
+.sub-nav-arrow-v5.right {
+  right: 1rem;
+}
+
+.sub-nav-arrow-v5.left {
+  left: 1rem;
+}
 
 /* Slide Animations */
-.slide-in-right { animation: slideInRight 0.6s ease forwards; }
-.slide-in-left { animation: slideInLeft 0.6s ease forwards; }
+.slide-in-right {
+  animation: slideInRight 0.6s ease forwards;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.6s ease forwards;
+}
 
 @keyframes slideInRight {
-  from { transform: translateX(50px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideInLeft {
-  from { transform: translateX(-50px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 /* Chapter 2 Expanded Layout Refinements */
@@ -885,11 +994,13 @@ p.cta-label-v5 {
 .experts-scroll-container-v5::-webkit-scrollbar {
   width: 6px;
 }
+
 .experts-scroll-container-v5::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
 }
+
 .experts-scroll-container-v5::-webkit-scrollbar-thumb {
-  background: #C5A16F;
+  background: #D4AF37;
   border-radius: 10px;
 }
 
@@ -905,14 +1016,16 @@ p.cta-label-v5 {
 }
 
 .profile-row-v5.reverse {
-  grid-template-columns: 1fr 1.2fr; /* Slightly more space for text side when card is left */
+  grid-template-columns: 1fr 1.2fr;
+  /* Slightly more space for text side when card is left */
 }
 
 /* Unified Navigation Buttons - Chapter 4 Style Outlined */
 .medical-tab-group-v5 {
   display: flex;
   justify-content: flex-start;
-  gap: 0.8rem; /* Smaller gap for left alignment */
+  gap: 0.8rem;
+  /* Smaller gap for left alignment */
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
@@ -930,7 +1043,7 @@ p.cta-label-v5 {
 }
 
 .download-btn-gold-v5 {
-  color: #C5A16F !important;
+  color: #D4AF37 !important;
   font-weight: 800 !important;
 }
 
@@ -939,9 +1052,11 @@ p.cta-label-v5 {
   color: white !important;
   border: 1px solid rgba(255, 255, 255, 0.4) !important;
   border-radius: 4px !important;
-  width: auto !important; /* Auto width instead of 100% */
+  width: auto !important;
+  /* Auto width instead of 100% */
   margin: 0 !important;
-  padding: 0.8rem 2rem !important; /* Smaller vertical padding */
+  padding: 0.8rem 2rem !important;
+  /* Smaller vertical padding */
   font-size: 1rem !important;
   font-weight: 500 !important;
   white-space: nowrap;
@@ -949,7 +1064,8 @@ p.cta-label-v5 {
   transition: all 0.3s ease !important;
 }
 
-.medical-tab-btn-v5:hover, .medical-tab-btn-v5.active {
+.medical-tab-btn-v5:hover,
+.medical-tab-btn-v5.active {
   background: white !important;
   color: #0B192C !important;
   border-color: white !important;
@@ -957,13 +1073,13 @@ p.cta-label-v5 {
 
 .download-btn-v5 {
   border-color: rgba(197, 161, 111, 0.4) !important;
-  color: #C5A16F !important;
+  color: #D4AF37 !important;
 }
 
 .download-btn-v5:hover {
-  background: #C5A16F !important;
+  background: #D4AF37 !important;
   color: white !important;
-  border-color: #C5A16F !important;
+  border-color: #D4AF37 !important;
 }
 
 .expert-advice-v5 {
@@ -985,25 +1101,28 @@ p.cta-label-v5 {
   left: 0;
   right: 0;
   z-index: 100;
-  background: #ffffff; /* White background as requested */
+  background: #ffffff;
+  /* White background as requested */
   backdrop-filter: blur(15px);
   padding: 1.2rem 2.5rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 20px 20px 0 0; /* Rounded top corners */
+  border-radius: 20px 20px 0 0;
+  /* Rounded top corners */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .sticky-title-v5 {
-  color: #C5A16F; /* Gold font color for white header */
+  color: #D4AF37;
+  /* Gold font color for white header */
   font-weight: 800;
   font-size: 1.1rem;
   letter-spacing: -0.02em;
 }
 
 .sticky-subtitle-v5 {
-  color: #C5A16F;
+  color: #D4AF37;
   font-weight: 500;
   font-size: 0.9rem;
 }
@@ -1023,13 +1142,15 @@ p.cta-label-v5 {
 .header-divider-v5 {
   width: 40px;
   height: 2px;
-  background: #C5A16F; /* Gold divider for consistency */
+  background: #D4AF37;
+  /* Gold divider for consistency */
   margin: 2rem auto;
   opacity: 0.8;
 }
 
 .expert-advice-v5-white {
-  color: #ffffff !important; /* Keep advice white for readability */
+  color: #ffffff !important;
+  /* Keep advice white for readability */
   font-weight: 300 !important;
   font-style: italic !important;
   line-height: 1.8 !important;
@@ -1039,7 +1160,8 @@ p.cta-label-v5 {
 }
 
 .career-tag-v5-gold {
-  color: #C5A16F !important; /* Restore Gold */
+  color: #D4AF37 !important;
+  /* Restore Gold */
   font-size: 0.85rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -1080,7 +1202,8 @@ p.cta-label-v5 {
 .review-photo-v5 {
   width: 52px;
   height: 52px;
-  border-radius: 10px; /* Square with rounded corners */
+  border-radius: 10px;
+  /* Square with rounded corners */
   background-size: cover;
   background-position: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1177,7 +1300,7 @@ p.cta-label-v5 {
 }
 
 .medical-cta-btn-v5.gold {
-  background: #C5A16F;
+  background: #D4AF37;
   color: white !important;
   box-shadow: 0 10px 20px rgba(197, 161, 111, 0.2);
 }
@@ -1235,7 +1358,8 @@ p.cta-label-v5 {
   color: white !important;
   backdrop-filter: blur(10px);
   padding: 0.8rem 2rem;
-  border-radius: 4px; /* Chapter 1 uses 4px */
+  border-radius: 4px;
+  /* Chapter 1 uses 4px */
   transition: all 0.3s ease;
   font-weight: 600;
   outline: none !important;
@@ -1268,7 +1392,8 @@ p.cta-label-v5 {
 /* Vertical Indicator v5 - Minimalist (Right Position with Spacing) */
 .startup-indicator-v5 {
   position: fixed;
-  right: 5rem; /* Increased Margin for better balance */
+  right: 5rem;
+  /* Increased Margin for better balance */
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -1293,7 +1418,8 @@ p.cta-label-v5 {
 }
 
 .indicator-dot-v5.active {
-  background: #C5A16F; /* Premium Gold */
+  background: #D4AF37;
+  /* Premium Gold */
   transform: scale(1.5);
   box-shadow: 0 0 15px rgba(197, 161, 111, 0.5);
 }
@@ -1303,6 +1429,7 @@ p.cta-label-v5 {
     display: none;
   }
 }
+
 /* Selection Modal for Chapter 1 */
 .selection-modal-overlay {
   position: fixed;
@@ -1330,8 +1457,15 @@ p.cta-label-v5 {
 }
 
 @keyframes modalPopUp {
-  from { opacity: 0; transform: scale(0.9) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .selection-close-btn {
@@ -1374,8 +1508,8 @@ p.cta-label-v5 {
 
 .selection-btn:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-  border-color: #FFD700;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  border-color: #D4AF37;
   background: white;
 }
 
@@ -1387,12 +1521,17 @@ p.cta-label-v5 {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  color: #C5A16F;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  color: #D4AF37;
 }
 
-.selection-btn.medical .selection-icon-wrap { color: #EF4444; }
-.selection-btn.fnb .selection-icon-wrap { color: #10B981; }
+.selection-btn.medical .selection-icon-wrap {
+  color: #EF4444;
+}
+
+.selection-btn.fnb .selection-icon-wrap {
+  color: #10B981;
+}
 
 .selection-text h3 {
   color: #0B192C;
@@ -1407,28 +1546,42 @@ p.cta-label-v5 {
 }
 
 @media (max-width: 768px) {
-  .selection-grid { grid-template-columns: 1fr; }
-  .selection-modal-content { padding: 3rem 1.5rem; }
+  .selection-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .selection-modal-content {
+    padding: 3rem 1.5rem;
+  }
 }
+
 /* Global Gold Color Unification for Startup Support Page */
-.startup-support-page-v5 .cta-label-v5,
-.startup-support-page-v5 .text-premium-gold,
-.startup-support-page-v5 .text-secondary,
-.startup-support-page-v5 span.text-secondary {
-  color: #C5A16F !important; /* Premium Gold (#C5A16F) */
+.startup-support-page-v5 .cta-label-v5 {
+  color: var(--color-secondary) !important;
+  /* Premium Gold (#D4AF37) */
   opacity: 1 !important;
-  font-weight: 800 !important;
+  font-weight: 600 !important;
+  font-size: 17px !important;
+  /* Increased by 1px from 1rem(16px) */
+  letter-spacing: 0.5px !important;
+}
+
+/* Explicit color for title highlighting (Chapter 1-4) */
+.startup-support-page-v5 .text-secondary,
+.startup-support-page-v5 .text-warning {
+  color: #D4AF37 !important;
+  font-weight: 900;
 }
 
 .startup-support-page-v5 .download-btn-gold-v5 {
-  color: #C5A16F !important;
+  color: #D4AF37 !important;
   border: 1px solid rgba(255, 255, 255, 0.4) !important;
   background: transparent !important;
 }
 
 .startup-support-page-v5 .download-btn-gold-v5:hover {
   background: white !important;
-  color: #C5A16F !important;
+  color: #D4AF37 !important;
   border-color: white !important;
 }
 
