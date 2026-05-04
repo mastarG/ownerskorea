@@ -18,11 +18,10 @@ const SocialProofSection: React.FC = () => {
         <div className="ranking-integration">
           <RankingSection />
         </div>
-      </div>
-      
-      {/* Review Marquee (Full Width) */}
-      <div className="review-integration">
-        <ReviewSection />
+        {/* Review Slider (Now matched width) */}
+        <div className="review-integration">
+          <ReviewSection />
+        </div>
       </div>
     </section>
   );

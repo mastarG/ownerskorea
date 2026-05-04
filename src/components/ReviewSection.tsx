@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Quote } from 'lucide-react';
 import './ReviewSection.css';
 import portraitDoctor from '../assets/portrait-doctor.png';
@@ -50,12 +50,79 @@ const testimonials = [
 ];
 
 const ReviewSection: React.FC = () => {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [isDown, setIsDown] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const scrollPosRef = useRef(0);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!trackRef.current) return;
+    setIsDown(true);
+    setStartX(e.pageX - trackRef.current.offsetLeft);
+    setScrollLeft(trackRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDown(false);
+    setIsHovered(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsDown(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDown || !trackRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - trackRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5; // Drag sensitivity
+    trackRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  React.useEffect(() => {
+    let animationFrameId: number;
+
+    const animateScroll = () => {
+      if (!isDown && !isHovered && trackRef.current) {
+        scrollPosRef.current += 0.8; // Adjust speed as needed
+        
+        const maxScroll = trackRef.current.scrollWidth - trackRef.current.clientWidth;
+        if (scrollPosRef.current >= maxScroll) {
+          scrollPosRef.current = 0; // Simple loop back
+        }
+        
+        trackRef.current.scrollLeft = scrollPosRef.current;
+      } else if (trackRef.current) {
+        scrollPosRef.current = trackRef.current.scrollLeft;
+      }
+      
+      animationFrameId = requestAnimationFrame(animateScroll);
+    };
+
+    animationFrameId = requestAnimationFrame(animateScroll);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isDown, isHovered]);
+
   return (
     <div className="review-inner-container">
-      {/* Marquee Wrapper */}
+      {/* Slider Wrapper */}
       <div className="review-marquee-container">
-        <div className="review-marquee-track">
-          {[...testimonials, ...testimonials].map((item, index) => (
+        <div 
+          className={`review-marquee-track ${isDown ? 'active' : ''}`}
+          ref={trackRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseEnter={handleMouseEnter}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+        >
+          {[...testimonials, ...testimonials, ...testimonials].map((item, index) => (
             <div key={`${item.id}-${index}`} className="review-card">
               <Quote className="review-quote-icon" size={32} />
               <p className="review-quote-text">{item.quote}</p>

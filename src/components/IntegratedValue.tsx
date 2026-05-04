@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 import TaxCalculatorModal from './TaxCalculatorModal';
+import WebtoonModal from './WebtoonModal';
 import './IntegratedValue.css';
 
 const IntegratedValue = () => {
   const [isCalcOpen, setIsCalcOpen] = useState(false);
+  const [isWebtoonOpen, setIsWebtoonOpen] = useState(false);
 
   return (
     <section className="section integrated-value">
@@ -28,10 +30,7 @@ const IntegratedValue = () => {
             </button>
             <button 
               className="iv-action-btn"
-              onClick={() => {
-                // Placeholder for Webtoon link
-                window.open('https://example.com/webtoon', '_blank');
-              }}
+              onClick={() => setIsWebtoonOpen(true)}
             >
               웹툰보기 <ChevronRight size={18} className="ms-1" />
             </button>
@@ -115,6 +114,7 @@ const IntegratedValue = () => {
       </div>
       
       <TaxCalculatorModal isOpen={isCalcOpen} onClose={() => setIsCalcOpen(false)} />
+      <WebtoonModal isOpen={isWebtoonOpen} onClose={() => setIsWebtoonOpen(false)} />
     </section>
   );
 };

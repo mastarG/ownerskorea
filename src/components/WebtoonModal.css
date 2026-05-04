@@ -1,0 +1,128 @@
+.webtoon-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.webtoon-modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 1200px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.webtoon-close-btn {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.webtoon-close-btn:hover {
+  transform: scale(1.1);
+}
+
+.webtoon-viewer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 2rem;
+}
+
+.webtoon-nav-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.webtoon-nav-btn:hover:not(.disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+  border-color: #d4af37;
+  color: #d4af37;
+}
+
+.webtoon-nav-btn.disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.webtoon-image-container {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f8f8f8;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.webtoon-image {
+  max-width: 100%;
+  max-height: calc(100% - 40px);
+  object-fit: contain;
+}
+
+.webtoon-pagination {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #666;
+  letter-spacing: 2px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .webtoon-viewer {
+    gap: 0.5rem;
+  }
+  
+  .webtoon-nav-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .webtoon-nav-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+}

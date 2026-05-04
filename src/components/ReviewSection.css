@@ -12,47 +12,35 @@
   border-radius: 2px;
 }
 
-/* Marquee Styles */
+/* Slider Styles */
 .review-marquee-container {
   width: 100%;
   position: relative;
-  overflow: hidden;
   display: flex;
   padding: 1rem 0 3rem 0;
-}
-
-/* Gradient fades for edges */
-.review-marquee-container::before,
-.review-marquee-container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 150px;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.review-marquee-container::before {
-  left: 0;
-  background: linear-gradient(to right, var(--color-surface) 0%, transparent 100%);
-}
-
-.review-marquee-container::after {
-  right: 0;
-  background: linear-gradient(to left, var(--color-surface) 0%, transparent 100%);
+  /* 15% transparency gradient mask */
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 .review-marquee-track {
   display: flex;
   gap: 2rem;
-  animation: review-scroll 40s linear infinite;
-  padding-left: 2rem;
-  width: max-content;
+  padding-bottom: 1rem;
+  overflow-x: auto;
+  scroll-behavior: auto; /* Allow drag */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  cursor: grab;
+  width: 100%;
 }
 
-.review-marquee-track:hover {
-  animation-play-state: paused;
+.review-marquee-track.active {
+  cursor: grabbing;
+}
+
+.review-marquee-track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
 }
 
 .review-card {
@@ -66,6 +54,7 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none; /* Prevent text selection while dragging */
 }
 
 .review-card:hover {
@@ -120,14 +109,7 @@
   color: #6B7280;
 }
 
-@keyframes review-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-50% - 1rem));
-  }
-}
+/* Removed keyframes as it's now drag & swipe */
 
 @media (max-width: 767px) {
   .review-card {
@@ -135,8 +117,9 @@
     padding: 1.5rem;
   }
   
-  .review-marquee-container::before,
-  .review-marquee-container::after {
-    width: 50px;
+  .review-marquee-container {
+    /* Adjust mask for smaller screens if necessary, or keep the same */
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
   }
 }
