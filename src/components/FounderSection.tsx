@@ -1,5 +1,6 @@
 import './FounderSection.css';
 import founderBg from '../assets/founder-bg.png';
+import { ArrowRight } from 'lucide-react';
 
 const FounderSection = () => {
   return (
@@ -19,12 +20,12 @@ const FounderSection = () => {
         </p>
         <div className="founder-cta-group">
           <div className="cta-item">
-            <p className="cta-label">이미 매장을 운영 중이신가요?</p>
-            <button className="btn btn-outline-white btn-large">오너스 입점 제안</button>
+            <p className="cta-label text-premium-gold mb-3">이미 매장을 운영 중이신가요?</p>
+            <button className="btn-outline-v5 w-100">상가 입점제안 <ArrowRight size={20} className="ms-2" /></button>
           </div>
           <div className="cta-item">
-            <p className="cta-label">새로운 매장 창업을 꿈꾸시나요?</p>
-            <button className="btn btn-outline-white btn-large">창업지원하기</button>
+            <p className="cta-label text-premium-gold mb-3">새로운 매장 창업을 계획하시나요?</p>
+            <button className="btn-outline-v5 w-100">창업지원하기 <ArrowRight size={20} className="ms-2" /></button>
           </div>
         </div>
       </div>

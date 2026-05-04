@@ -1,18 +1,38 @@
 .support-page-v5 {
-  background-color: #0B192C;
+  background-color: #f8fafc; /* Light gray background */
   min-height: 100vh;
-  color: white;
+  color: #1A1A1A;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
 }
 
 /* Hero Area */
 .support-hero-v5 {
   position: relative;
-  height: 40vh;
+  height: 45vh; /* Slightly taller */
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  text-align: center;
+}
+
+.hero-content-v5 {
+  position: relative;
+  z-index: 10;
+  color: #0B192C; /* Dark color for text over the lightened image */
+}
+
+.hero-content-v5 h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
+}
+
+.hero-content-v5 p {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #475569;
 }
 
 .hero-bg-v5 {
@@ -24,29 +44,36 @@
   z-index: 1;
 }
 
-.hero-bg-v5::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 250px;
-  background: linear-gradient(to bottom, transparent, #0B192C);
-  z-index: 2;
-}
+/* .hero-bg-v5::after removed as requested */
 
 .hero-bg-v5 img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.4;
+  opacity: 1; /* Full opacity as requested to avoid blurriness */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
 }
 
-/* Search & Tags Area */
-.search-area-v5 {
+/* Unified Card Layout Area */
+.support-main-content-v5 {
   position: relative;
   z-index: 50;
-  margin-top: -45px; /* Position at the bottom of the hero image */
+  margin-top: -80px; /* Pull the card up over the hero image */
+  padding-bottom: 8rem;
+}
+
+.support-unified-card-v5 {
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  padding: 4rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.search-area-inner-v5 {
+  margin-bottom: 3rem;
 }
 
 .search-tags-wrapper-v5 {
@@ -63,13 +90,19 @@
 
 .support-search-bar-v5 {
   display: flex;
-  background-color: white;
+  background-color: #f8fafc;
   padding: 0.35rem;
   border-radius: 50px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  height: 56px;
+  border: 1px solid #e2e8f0;
+  height: 64px;
   align-items: center;
   transition: all 0.3s ease;
+}
+
+.support-search-bar-v5:focus-within {
+  background: white;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
 }
 
 .support-search-bar-v5 input {
@@ -80,6 +113,7 @@
   border-radius: 50px;
   outline: none;
   color: #1A1A1A;
+  background: transparent; /* Changed from default white */
 }
 
 .support-search-bar-v5 input::placeholder {
@@ -109,13 +143,13 @@
 .support-tags-v5 span {
   font-size: 1.05rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.4);
+  color: #64748b; /* Medium gray */
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .support-tags-v5 span:hover {
-  color: #ffffff;
+  color: #0B192C;
 }
 
 .support-tags-v5 span.active {
@@ -130,7 +164,8 @@
   width: 100%;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+  border: 1px solid #e2e8f0;
   overflow: hidden;
   z-index: 100;
   text-align: left;
@@ -165,15 +200,17 @@
   text-align: center;
 }
 
-/* FAQ Content */
-.faq-content-v5 {
-  padding-top: 4rem;
-  padding-bottom: 10rem;
+.support-card-divider-v5 {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 3rem 0;
 }
 
-.faq-container-v5 {
-  width: 60%; /* Occupy 60% as requested */
-  margin: 0 auto;
+.faq-card-title-v5 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #0B192C;
 }
 
 /* Removed old category tabs */
@@ -184,7 +221,7 @@
 }
 
 .faq-item-v5 {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid #f1f5f9;
   overflow: hidden;
 }
 
@@ -205,7 +242,7 @@
 
 .chevron-icon {
   transition: transform 0.3s ease;
-  color: rgba(255, 255, 255, 0.4);
+  color: #94a3b8;
 }
 
 .faq-item-v5.open .chevron-icon {
@@ -225,61 +262,64 @@
 }
 
 .faq-answer-v5 p {
-  color: rgba(255, 255, 255, 0.7);
+  color: #475569;
   line-height: 1.8;
   font-size: 1.05rem;
   margin: 0;
 }
 
-/* CTA Section */
-.support-cta-v5 {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
+/* Simplified CTA Section */
+.support-cta-simple-v5 {
+  margin-top: 5rem;
   padding: 3rem;
+  background: #f8fafc;
+  border-radius: 20px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
+  border: 1px solid #e2e8f0;
 }
 
-.cta-content-v5 {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+.cta-text-v5 h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #0B192C;
 }
 
-.cta-content-v5 h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
+.cta-text-v5 p {
+  color: #64748b;
   margin: 0;
 }
 
-.inquiry-btn-v5 {
-  background: var(--color-secondary); /* Champagne Gold */
-  color: var(--color-primary); /* Deep Navy */
+.inquiry-btn-simple-v5 {
+  background: #0B192C;
+  color: white;
   border: none;
-  padding: 0.9rem 2.5rem;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.05rem;
   display: flex;
   align-items: center;
+  gap: 0.8rem;
   transition: all 0.3s ease;
-  box-shadow: var(--shadow-gold);
 }
 
-.inquiry-btn-v5:hover {
+.inquiry-btn-simple-v5:hover {
+  background: #1e293b;
   transform: translateY(-2px);
-  background: var(--color-secondary-hover);
-  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
 }
 
-.support-email-v5 {
+.support-footer-info-v5 {
+  margin-top: 3rem;
+  text-align: center;
+  color: #94a3b8;
   font-size: 0.9rem;
-  opacity: 0.5;
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 /* Animations */
@@ -318,22 +358,21 @@
 }
 
 .trending-keywords-v5 .label {
-  color: rgba(255, 255, 255, 0.7);
+  color: #64748b;
   font-size: 0.9rem;
   font-weight: 600;
 }
 
 .keyword-chip-v5 {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 0.3rem 0.8rem;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  padding: 0.35rem 1rem;
   border-radius: 50px;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
 }
 
 .keyword-chip-v5:hover {

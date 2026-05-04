@@ -19,15 +19,24 @@
 }
 
 .footer-logo {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--color-surface);
+  font-size: 1.6rem;
   letter-spacing: -0.5px;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
 }
 
-.footer-logo span {
-  color: var(--color-secondary);
+.footer-logo .logo-owners {
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.footer-logo .logo-korea {
+  font-weight: 600; /* Semi-Bold (600) */
+  color: #C5A16F; /* Gold */
+  letter-spacing: -0.03em; /* 6:4 width ratio adjustment */
 }
 
 .footer-links {

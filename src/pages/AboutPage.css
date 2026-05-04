@@ -2,7 +2,7 @@
 
 :root {
   --color-primary: #0B192C;
-  --color-secondary: #D4AF37;
+  --color-secondary: #C5A16F; /* Premium Brand Gold */
   --color-text-main: #2D3436;
   --color-text-muted: #636E72;
   --color-bg-light: #F8F9FA;
@@ -48,7 +48,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Removed transition and transform for no-zoom effect */
 }
 
 .hero-image-bg.grayscale img {
@@ -73,9 +72,9 @@
 
 .chapter-label {
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 1.1rem;
   text-transform: uppercase;
-  letter-spacing: 0.4rem;
+  letter-spacing: 0.5rem;
   margin-bottom: 2rem;
   color: var(--color-secondary);
 }
@@ -86,6 +85,7 @@
   line-height: 1.1;
   margin-bottom: 2.5rem;
   letter-spacing: -0.08rem;
+  color: var(--color-secondary); /* Standardized Gold Title */
 }
 
 .chapter-intro-text {
@@ -94,13 +94,16 @@
 }
 
 .chapter-quote {
-  font-family: serif;
+  font-family: 'Montserrat', serif;
   font-style: italic;
   display: inline-block;
   color: var(--color-secondary);
-  border: none;
-  padding: 1.5rem 0;
-  margin: 3rem 0;
+  border-top: 1px solid rgba(197, 161, 111, 0.25);
+  border-bottom: 1px solid rgba(197, 161, 111, 0.25);
+  padding: 2.5rem 0;
+  margin: 3.5rem 0;
+  width: 100%;
+  max-width: 900px;
 }
 
 .chapter-footer {
@@ -136,12 +139,63 @@
     font-size: 0.9rem;
   }
   .about-page {
-    scroll-snap-type: none; /* Disable on mobile for better accessibility */
+    scroll-snap-type: none;
     height: auto;
   }
   .chapter-hero {
     height: auto;
     min-height: 100vh;
     padding: 100px 0;
+  }
+}
+
+/* Snap Footer Section */
+.snap-footer-section {
+  scroll-snap-align: start;
+  width: 100%;
+  background: #0b192c;
+}
+
+.snap-footer-section footer {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+/* Vertical Indicator v5 */
+.page-indicator-v5 {
+  position: fixed;
+  right: 5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  z-index: 1000;
+}
+
+.indicator-dot-v5 {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.indicator-dot-v5:hover {
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(1.2);
+}
+
+.indicator-dot-v5.active {
+  background: #C5A16F;
+  transform: scale(1.5);
+  box-shadow: 0 0 15px rgba(197, 161, 111, 0.5);
+}
+
+@media (max-width: 991px) {
+  .page-indicator-v5 {
+    display: none;
   }
 }

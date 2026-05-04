@@ -66,16 +66,16 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(11, 25, 44, 0.4), rgba(11, 25, 44, 0.9));
+  background: linear-gradient(to right, rgba(11, 25, 44, 0.85) 0%, rgba(11, 25, 44, 0.4) 50%, rgba(11, 25, 44, 0.85) 100%);
   z-index: 2;
 }
 
 .hero-overlay-v5.dark-overlay {
-  background: linear-gradient(to top, rgba(11, 25, 44, 0.8) 0%, rgba(11, 25, 44, 0.5) 100%);
+  background: linear-gradient(135deg, rgba(11, 25, 44, 0.95) 0%, rgba(11, 25, 44, 0.7) 40%, rgba(11, 25, 44, 0.9) 100%);
 }
 
 .hero-overlay-v5.medium-overlay-v5 {
-  background: linear-gradient(to top, rgba(11, 25, 44, 0.6) 0%, rgba(11, 25, 44, 0.3) 100%);
+  background: linear-gradient(to top, rgba(11, 25, 44, 0.9) 0%, rgba(11, 25, 44, 0.5) 100%);
 }
 
 .yellow-text {
@@ -83,15 +83,16 @@
 }
 
 .chapter-label-v5 {
-  font-weight: 800;
-  font-size: 1rem;
+  font-weight: 900;
+  font-size: 1.1rem;
   text-transform: uppercase;
-  letter-spacing: 0.4rem;
-  margin-bottom: 2rem;
-  color: #D4AF37; /* Champagne Gold */
+  letter-spacing: 0.5rem;
+  margin-bottom: 1rem;
+  color: #FFD700; /* Vibrant Gold */
   position: relative;
   z-index: 11;
   text-align: left;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
 .chapter-title-v5 {
@@ -101,13 +102,17 @@
   margin-bottom: 2rem;
   letter-spacing: -0.05rem;
   text-align: left;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.6);
 }
 
 .chapter-intro-text-v5 {
-  font-size: 1.15rem;
-  line-height: 2.1;
-  letter-spacing: -0.02rem;
+  font-size: 1.2rem;
+  line-height: 2.2;
+  letter-spacing: -0.01rem;
   text-align: left;
+  font-weight: 500;
+  color: #ffffff !important;
+  text-shadow: 0 2px 15px rgba(0,0,0,0.4);
 }
 
 .keyword-line-v5 {
@@ -129,12 +134,10 @@
   flex: 0 1 320px;
 }
 
-.cta-label-v5 {
+p.cta-label-v5 {
   font-size: 1.1rem;
-  color: white;
-  opacity: 0.7;
   margin-bottom: 1.5rem;
-  font-weight: 300;
+  font-weight: 700;
 }
 
 .btn-outline-v5 {
@@ -154,6 +157,18 @@
   background: white;
   color: #0B192C;
   border-color: white;
+}
+
+.btn-hover-swap .btn-text-hover {
+  display: none;
+}
+
+.btn-hover-swap:hover .btn-text-normal {
+  display: none;
+}
+
+.btn-hover-swap:hover .btn-text-hover {
+  display: inline;
 }
 
 /* Modal v5 - Slide-in from right */
@@ -335,4 +350,1093 @@
   .founder-cta-group-v5 { flex-direction: column; align-items: center; gap: 2.5rem; }
   .modal-content-v5 { width: 100%; padding: 2rem; }
   .temp-save-toast { right: 50%; transform: translateX(50%); bottom: 1rem; }
+}
+
+.text-secondary {
+  color: #FFD700 !important; /* Premium Gold instead of plain yellow */
+  font-weight: 800;
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.fw-bold {
+  font-weight: 800 !important;
+}
+
+.footer-stat-v5 {
+  font-size: 0.95rem;
+  letter-spacing: 0.05rem;
+  text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+}
+
+.chapter-intro-text-v5 p {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+.solution-highlight-v5 p {
+  color: #FFD700 !important;
+  font-weight: 800 !important;
+}
+
+
+/* Chapter 2 Interactive Glass Box */
+.glass-content-box-v5 {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 32px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 900px;
+  min-height: 450px;
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-nav-v5 {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.tab-btn-v5 {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.tab-btn-v5:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.tab-btn-v5.active {
+  background: #FFD700;
+  color: #0B192C;
+  border-color: #FFD700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+/* Medical Expert Card (Mini) */
+.expert-card-mini-v5 {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.expert-card-mini-v5:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(10px);
+}
+
+.expert-thumb-v5 {
+  width: 80px;
+  height: 80px;
+  border-radius: 15px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.expert-info-v5 .one-line-hook-v5 {
+  color: #FFD700;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.expert-info-v5 .expert-meta-v5 {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+/* Compact Inquiry Form in Glass Box */
+.compact-form-v5 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.compact-form-v5 input, .compact-form-v5 select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.compact-form-v5 .full-width {
+  grid-column: span 2;
+}
+
+.tab-content-v5 {
+  animation: slideUpFade 0.5s ease forwards;
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Chapter 2 Button Unification with Chapter 4 */
+.medical-tab-group-v5 {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.medical-tab-btn-v5 {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  flex: 1;
+  max-width: 250px;
+  padding: 1rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  text-align: center;
+}
+
+.medical-tab-btn-v5:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+.medical-tab-btn-v5.active {
+  background: white;
+  color: #0B192C;
+  border-color: white;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.medical-tab-btn-v5.active:hover {
+  background: #f8fafc;
+}
+
+/* Chapter 2 Restructured Layer Layout */
+.chapter-content-wrapper-v5 {
+  transition: all 0.5s ease;
+}
+
+.glass-content-box-v5 {
+  margin-top: 0 !important; /* Reset margin for dynamic layer */
+  animation: layerAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes layerAppear {
+  from { 
+    opacity: 0; 
+    transform: scale(0.95) translateY(20px);
+    backdrop-filter: blur(0px);
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1) translateY(0);
+    backdrop-filter: blur(25px);
+  }
+}
+
+/* Chapter 2 Left Alignment Refinement */
+.medical-tab-group-v5 {
+  justify-content: flex-start !important;
+}
+
+.medical-tab-btn-v5 {
+  max-width: 200px !important; /* Slightly more compact to stay within text bounds */
+}
+
+/* Chapter 2 Structural Stability Refinement */
+.chapter-stable-container-v5 {
+  display: flex;
+  flex-direction: column;
+  min-height: 550px; /* Fixed height to prevent layout jumping */
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.chapter-dynamic-body-v5 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 480px; /* Ensures the middle area has enough space for all contents */
+}
+
+.glass-content-box-v5 {
+  margin-top: 0 !important;
+  padding: 2rem !important; /* Slightly more compact inside the stable container */
+}
+
+/* Chapter 2 Immersive Expansion */
+.chapter-stable-container-v5.is-expanded-v5 {
+  min-height: 700px; /* Expand to take up the space of the hidden title */
+  margin-top: -2rem; /* Pull up slightly into the freed header space */
+  display: flex;
+  flex-direction: column;
+}
+
+.chapter-stable-container-v5.is-expanded-v5 .chapter-dynamic-body-v5 {
+  min-height: 600px; /* Maximize internal space for cards/forms */
+}
+
+.chapter-stable-container-v5.is-expanded-v5 .glass-content-box-v5 {
+  backdrop-filter: blur(40px); /* Enhance blur for immersive full-layer feel */
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* Chapter 2 Experts Immersive Sub-Pages */
+.experts-immersive-v5 {
+  padding: 0 !important;
+  height: 100%;
+}
+
+.expert-sub-page-v5 {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Expert Sections Spacing & Grid Background */
+.expert-section-v5 {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 30px 30px; /* Blueprint grid effect */
+}
+
+/* Introduction Layout (SNS Style) */
+.expert-intro-layout-v5 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding: 2rem 3rem;
+  height: 100%;
+  position: relative;
+}
+
+.expert-label-badge-v5 {
+  color: #C5A16F;
+  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.expert-text-side-v5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  text-align: left;
+}
+
+.career-tags-v5 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.career-tag-v5 {
+  background: rgba(255,255,255,0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  border-left: 3px solid #C5A16F;
+}
+
+.sns-card-v5 {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  color: #262626;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.sns-header-v5 {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 0.8rem;
+}
+
+.sns-avatar-v5 {
+  width: 32px;
+  height: 32px;
+  background: #eee;
+  border-radius: 50%;
+  background-image: url("/src/assets/portrait-doctor.png");
+  background-size: cover;
+}
+
+.sns-username-v5 {
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: block;
+}
+
+.sns-location-v5 {
+  font-size: 0.75rem;
+  color: #8e8e8e;
+}
+
+.sns-image-v5 {
+  aspect-ratio: 1;
+  background-size: cover;
+  background-position: center;
+}
+
+.sns-actions-v5 {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.sns-likes-v5 {
+  padding: 0 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.sns-caption-v5 {
+  padding: 0.5rem 1rem 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Process Layout */
+.expert-process-layout-v5 {
+  padding: 3rem;
+  background: rgba(0,0,0,0.2);
+  height: 100%;
+}
+
+.process-grid-v5 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.process-card-v5 {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  color: #333;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.process-card-v5:hover {
+  transform: translateY(-10px);
+}
+
+.process-badge-v5 {
+  background: #C5A16F;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.process-badge-v5.orange { background: #ff6b35; }
+.process-badge-v5.blue { background: #0077b6; }
+
+.process-card-v5 h4 {
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.process-card-v5 ul {
+  list-style: none;
+  padding: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.process-card-v5 ul li {
+  margin-bottom: 0.8rem;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.process-card-v5 ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #C5A16F;
+  font-weight: 800;
+}
+
+/* Review Slider */
+.review-card-v5 {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.review-user-v5 {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+.review-avatar-v5 {
+  width: 40px;
+  height: 40px;
+  background: #C5A16F;
+  border-radius: 50%;
+}
+
+.review-name-v5 { color: white; font-weight: 700; }
+.review-date-v5 { color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+.review-text-v5 { color: white; font-style: italic; line-height: 1.6; }
+
+/* Sub Navigation Arrows */
+.sub-nav-arrow-v5 {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  color: #0B192C;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.sub-nav-arrow-v5:hover {
+  background: #C5A16F;
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.sub-nav-arrow-v5.right { right: 1rem; }
+.sub-nav-arrow-v5.left { left: 1rem; }
+
+/* Slide Animations */
+.slide-in-right { animation: slideInRight 0.6s ease forwards; }
+.slide-in-left { animation: slideInLeft 0.6s ease forwards; }
+
+@keyframes slideInRight {
+  from { transform: translateX(50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Chapter 2 Expanded Layout Refinements */
+.experts-scroll-container-v5 {
+  overflow-y: auto;
+  max-height: 700px;
+  padding-right: 10px;
+}
+
+/* Custom Scrollbar for Experts */
+.experts-scroll-container-v5::-webkit-scrollbar {
+  width: 6px;
+}
+.experts-scroll-container-v5::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+}
+.experts-scroll-container-v5::-webkit-scrollbar-thumb {
+  background: #C5A16F;
+  border-radius: 10px;
+}
+
+.profile-row-v5 {
+  border-bottom: none;
+  padding-bottom: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.profile-row-v5:last-child {
+  border-bottom: none;
+  margin-bottom: 0 !important;
+}
+
+.profile-row-v5.reverse {
+  grid-template-columns: 1fr 1.2fr; /* Slightly more space for text side when card is left */
+}
+
+/* Unified Navigation Buttons - Chapter 4 Style Outlined */
+.medical-tab-group-v5 {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.8rem; /* Smaller gap for left alignment */
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  width: 100%;
+}
+
+.medical-tab-btn-v5.active {
+  background: white !important;
+  color: #0f172a !important;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  outline: none !important;
+  border: none !important;
+}
+
+.download-btn-gold-v5 {
+  color: #C5A16F !important;
+  font-weight: 800 !important;
+}
+
+.medical-tab-btn-v5 {
+  background: transparent !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 4px !important;
+  width: auto !important; /* Auto width instead of 100% */
+  margin: 0 !important;
+  padding: 0.8rem 2rem !important; /* Smaller vertical padding */
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+}
+
+.medical-tab-btn-v5:hover, .medical-tab-btn-v5.active {
+  background: white !important;
+  color: #0B192C !important;
+  border-color: white !important;
+}
+
+.download-btn-v5 {
+  border-color: rgba(197, 161, 111, 0.4) !important;
+  color: #C5A16F !important;
+}
+
+.download-btn-v5:hover {
+  background: #C5A16F !important;
+  color: white !important;
+  border-color: #C5A16F !important;
+}
+
+.expert-advice-v5 {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-weight: 300 !important;
+  font-style: italic !important;
+  line-height: 1.8 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.expert-text-side-v5 h2 {
+  line-height: 1.4 !important;
+}
+
+/* New Chapter 2 Overhaul Styles */
+.glass-sticky-header-v5 {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: #ffffff; /* White background as requested */
+  backdrop-filter: blur(15px);
+  padding: 1.2rem 2.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 20px 20px 0 0; /* Rounded top corners */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sticky-title-v5 {
+  color: #C5A16F; /* Gold font color for white header */
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.sticky-subtitle-v5 {
+  color: #C5A16F;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* White Font Force REMOVED - Using selective coloring */
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Section Header Wrap */
+.section-header-wrap-v5 {
+  margin-bottom: 3.5rem;
+  text-align: left;
+  padding-left: 3rem;
+}
+
+.header-divider-v5 {
+  width: 40px;
+  height: 2px;
+  background: #C5A16F; /* Gold divider for consistency */
+  margin: 2rem auto;
+  opacity: 0.8;
+}
+
+.expert-advice-v5-white {
+  color: #ffffff !important; /* Keep advice white for readability */
+  font-weight: 300 !important;
+  font-style: italic !important;
+  line-height: 1.8 !important;
+  font-size: 0.95rem !important;
+  margin-top: 1.5rem !important;
+  opacity: 0.95;
+}
+
+.career-tag-v5-gold {
+  color: #C5A16F !important; /* Restore Gold */
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.career-tag-v5-gold::before {
+  content: '•';
+  margin-right: 0.5rem;
+  opacity: 0.6;
+}
+
+/* Review Grid 3x2 Force */
+.review-grid-v5 {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 2rem !important;
+  width: 100% !important;
+}
+
+/* Review Card New Layout */
+.review-card-v5-grid-new {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.review-header-v5-new {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.review-photo-v5 {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px; /* Square with rounded corners */
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.review-user-info-v5 {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-name-v5-white {
+  color: white !important;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.review-field-v5 {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.review-text-v5-italic {
+  font-size: 0.85rem !important;
+  font-style: italic;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Inquiry Form New */
+.compact-form-v5-new {
+  padding: 1rem 2rem;
+}
+
+/* Inquiry Form Row & Style */
+.form-row-v5 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-item-v5 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.form-item-v5 label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #0b192c !important;
+}
+
+.form-item-v5 input,
+.form-item-v5 select,
+.form-item-v5 textarea {
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 1.1rem;
+  color: #0b192c !important;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.form-item-v5 input:focus,
+.form-item-v5 select:focus,
+.form-item-v5 textarea:focus {
+  background: white;
+  border-color: #d4af37;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+}
+
+.inquiry-input-v5::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Unified CTA Button Styles (Chapter 2) */
+.medical-cta-btn-v5 {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.medical-cta-btn-v5.gold {
+  background: #C5A16F;
+  color: white !important;
+  box-shadow: 0 10px 20px rgba(197, 161, 111, 0.2);
+}
+
+.medical-cta-btn-v5.gold:hover {
+  background: #d4b58a;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(197, 161, 111, 0.3);
+}
+
+.inquiry-btn-group-v5 {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1.5rem;
+}
+
+/* Inquiry Section Refined (Section 6 Only) */
+.inquiry-section-refined-v5 {
+  padding-top: 6rem !important;
+  padding-bottom: 8rem !important;
+  background-color: white !important;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb !important;
+  margin: 3rem;
+  position: relative;
+}
+
+.inquiry-section-refined-v5 .expert-label-badge-v5 {
+  color: #0b192c !important;
+  border-bottom: none !important;
+}
+
+.inquiry-section-refined-v5 p.text-white {
+  color: #4b5563 !important;
+  opacity: 1 !important;
+}
+
+/* Snap Footer Section */
+.snap-footer-section {
+  scroll-snap-align: start;
+  width: 100%;
+  background: #0b192c;
+}
+
+.snap-footer-section footer {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+/* Bottom Tab Buttons Refined */
+.startup-support-page-v5 .medical-tab-btn-v5 {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  color: white !important;
+  backdrop-filter: blur(10px);
+  padding: 0.8rem 2rem;
+  border-radius: 4px; /* Chapter 1 uses 4px */
+  transition: all 0.3s ease;
+  font-weight: 600;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.startup-support-page-v5 .medical-tab-btn-v5:focus,
+.startup-support-page-v5 .medical-tab-btn-v5:active,
+.startup-support-page-v5 .medical-tab-btn-v5:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.startup-support-page-v5 .medical-tab-btn-v5.active {
+  background: transparent !important;
+  border-color: white !important;
+  color: white !important;
+}
+
+.startup-support-page-v5 .medical-tab-btn-v5:hover {
+  background: white !important;
+  color: #0B192C !important;
+  border-color: white !important;
+}
+
+
+
+
+
+/* Vertical Indicator v5 - Minimalist (Right Position with Spacing) */
+.startup-indicator-v5 {
+  position: fixed;
+  right: 5rem; /* Increased Margin for better balance */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  z-index: 1000;
+}
+
+.indicator-dot-v5 {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.indicator-dot-v5:hover {
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(1.2);
+}
+
+.indicator-dot-v5.active {
+  background: #C5A16F; /* Premium Gold */
+  transform: scale(1.5);
+  box-shadow: 0 0 15px rgba(197, 161, 111, 0.5);
+}
+
+@media (max-width: 991px) {
+  .startup-indicator-v5 {
+    display: none;
+  }
+}
+/* Selection Modal for Chapter 1 */
+.selection-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(11, 25, 44, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selection-modal-content {
+  background: white;
+  width: 90%;
+  max-width: 800px;
+  border-radius: 24px;
+  padding: 4rem 3rem;
+  position: relative;
+  text-align: center;
+  animation: modalPopUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPopUp {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.selection-close-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  color: #cbd5e1;
+  transition: color 0.2s;
+}
+
+.selection-close-btn:hover {
+  color: #64748b;
+}
+
+.selection-title {
+  color: #0B192C;
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 3rem;
+}
+
+.selection-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.selection-btn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.selection-btn:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  border-color: #FFD700;
+  background: white;
+}
+
+.selection-icon-wrap {
+  width: 64px;
+  height: 64px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  color: #C5A16F;
+}
+
+.selection-btn.medical .selection-icon-wrap { color: #EF4444; }
+.selection-btn.fnb .selection-icon-wrap { color: #10B981; }
+
+.selection-text h3 {
+  color: #0B192C;
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.selection-text p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .selection-grid { grid-template-columns: 1fr; }
+  .selection-modal-content { padding: 3rem 1.5rem; }
+}
+/* Global Gold Color Unification for Startup Support Page */
+.startup-support-page-v5 .cta-label-v5,
+.startup-support-page-v5 .text-premium-gold,
+.startup-support-page-v5 .text-secondary,
+.startup-support-page-v5 span.text-secondary {
+  color: #C5A16F !important; /* Premium Gold (#C5A16F) */
+  opacity: 1 !important;
+  font-weight: 800 !important;
+}
+
+.startup-support-page-v5 .download-btn-gold-v5 {
+  color: #C5A16F !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  background: transparent !important;
+}
+
+.startup-support-page-v5 .download-btn-gold-v5:hover {
+  background: white !important;
+  color: #C5A16F !important;
+  border-color: white !important;
+}
+
+/* Ensure Chapter 4 and other btn-outline-v5 buttons also have the rollover */
+.startup-support-page-v5 .btn-outline-v5:hover,
+.startup-support-page-v5 button.btn-outline-v5:hover {
+  background: white !important;
+  background-color: white !important;
+  color: #0B192C !important;
+  border-color: white !important;
 }

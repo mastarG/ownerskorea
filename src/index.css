@@ -136,3 +136,42 @@ button {
   text-align: center;
   margin-bottom: 3rem;
 }
+/* Premium Unified Button Style (v5) */
+.btn-outline-v5 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 1rem 2.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  gap: 0.8rem;
+}
+
+.btn-outline-v5:hover {
+  background: white;
+  color: #0B192C;
+  border-color: white;
+}
+
+.btn-hover-swap .btn-text-hover {
+  display: none;
+}
+
+.btn-hover-swap:hover .btn-text-normal {
+  display: none;
+}
+
+.btn-hover-swap:hover .btn-text-hover {
+  display: inline;
+}
+
+.text-premium-gold {
+  color: #FFD700 !important;
+}

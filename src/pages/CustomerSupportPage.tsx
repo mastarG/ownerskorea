@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, Mail, MessageCircle, Search } from 'lucide-react';
-import startupCenterBg from '../assets/generated/startup-center-bg.png';
+import customerSupportBg from '../assets/generated/customer-support-bg.png';
 import './CustomerSupportPage.css';
 
 interface FaqItem {
@@ -78,61 +78,64 @@ const CustomerSupportPage: React.FC = () => {
       {/* Hero Section */}
       <section className="support-hero-v5">
         <div className="hero-bg-v5">
-          <img src={startupCenterBg} alt="Support Background" />
+          <img src={customerSupportBg} alt="Support Background" />
+        </div>
+        <div className="hero-content-v5 container">
+          <h1 className="fade-in-up">도움이 필요하신가요?</h1>
+          <p className="fade-in-up delay-1">무엇이든 물어보세요. 오너스코리아가 해결해 드립니다.</p>
         </div>
       </section>
 
-      {/* Search & Tags Section - Positioned at the bottom of hero */}
-      <section className="search-area-v5">
+      {/* Main Content Card Container */}
+      <section className="support-main-content-v5">
         <div className="container">
-          <div className="search-tags-wrapper-v5">
-            <div className="support-search-container-v5 fade-in-up">
-              <div className="support-search-bar-v5">
-                <input 
-                  type="text" 
-                  placeholder="궁금한 내용을 검색해보세요" 
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <button className="support-search-btn-v5">
-                  <Search size={22} />
-                </button>
-              </div>
-              {searchQuery && (
-                <div className="search-results-v5">
-                  {searchResults.length > 0 ? (
-                    searchResults.map((faq, idx) => (
-                      <div 
-                        key={idx} 
-                        className="search-result-item-v5"
-                        onClick={() => handleResultClick(faq.question)}
-                      >
-                        <div className="result-q">Q. {faq.question}</div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="no-result-v5">검색 결과가 없습니다.</div>
-                  )}
+          <div className="support-unified-card-v5 fade-in-up">
+            {/* Search & Tags Section inside card */}
+            <div className="search-area-inner-v5">
+              <div className="support-search-container-v5">
+                <div className="support-search-bar-v5">
+                  <input 
+                    type="text" 
+                    placeholder="궁금한 내용을 검색해보세요" 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <button className="support-search-btn-v5">
+                    <Search size={22} />
+                  </button>
                 </div>
-              )}
+                {searchQuery && (
+                  <div className="search-results-v5">
+                    {searchResults.length > 0 ? (
+                      searchResults.map((faq, idx) => (
+                        <div 
+                          key={idx} 
+                          className="search-result-item-v5"
+                          onClick={() => handleResultClick(faq.question)}
+                        >
+                          <div className="result-q">Q. {faq.question}</div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="no-result-v5">검색 결과가 없습니다.</div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <div className="support-tags-v5">
+                <span className={activeCategory === 'all' ? 'active' : ''} onClick={() => setActiveCategory('all')}>#전체</span>
+                <span className={activeCategory === 'startup' ? 'active' : ''} onClick={() => setActiveCategory('startup')}>#창업문의</span>
+                <span className={activeCategory === 'investment' ? 'active' : ''} onClick={() => setActiveCategory('investment')}>#투자안내</span>
+                <span className={activeCategory === 'usage' ? 'active' : ''} onClick={() => setActiveCategory('usage')}>#이용방법</span>
+              </div>
             </div>
 
-            <div className="support-tags-v5 fade-in-up delay-1">
-              <span className={activeCategory === 'all' ? 'active' : ''} onClick={() => setActiveCategory('all')}>#전체</span>
-              <span className={activeCategory === 'startup' ? 'active' : ''} onClick={() => setActiveCategory('startup')}>#창업문의</span>
-              <span className={activeCategory === 'investment' ? 'active' : ''} onClick={() => setActiveCategory('investment')}>#투자안내</span>
-              <span className={activeCategory === 'usage' ? 'active' : ''} onClick={() => setActiveCategory('usage')}>#이용방법</span>
-            </div>
-          </div>
-        </div>
-      </section>
+            <div className="support-card-divider-v5"></div>
 
-      {/* FAQ Content Section */}
-      <section className="faq-content-v5">
-        <div className="container">
-          <div className="faq-container-v5">
-            {/* Accordion List */}
+            {/* FAQ List inside card */}
             <div className="faq-list-v5">
+              <h2 className="faq-card-title-v5">자주 묻는 질문</h2>
               {filteredFaqs.map((faq, index) => (
                 <div 
                   key={index} 
@@ -150,20 +153,21 @@ const CustomerSupportPage: React.FC = () => {
               ))}
             </div>
 
-            {/* CTA Section */}
-            <div className="support-cta-v5">
-              <div className="cta-content-v5">
+            {/* Simplified CTA inside card */}
+            <div className="support-cta-simple-v5">
+              <div className="cta-text-v5">
                 <h3>원하는 답변을 찾지 못하셨나요?</h3>
-                <button className="inquiry-btn-v5">
-                  <MessageCircle size={18} className="me-2" />
-                  1:1 문의하기
-                </button>
+                <p>전문 상담원이 1:1로 친절하게 안내해 드립니다.</p>
               </div>
-              <div className="support-email-v5">
-                <Mail size={14} className="me-1" />
-                help@ownerskorea.com
-              </div>
+              <button className="inquiry-btn-simple-v5">
+                1:1 문의하기 <MessageCircle size={18} />
+              </button>
             </div>
+          </div>
+          
+          <div className="support-footer-info-v5 fade-in">
+            <Mail size={14} className="me-1" />
+            <span>문의 메일: help@ownerskorea.com</span>
           </div>
         </div>
       </section>

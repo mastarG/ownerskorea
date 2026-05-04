@@ -1,0 +1,172 @@
+.now-section {
+  padding: 30px 0 0 0; /* Merged top padding */
+  background-color: var(--color-surface);
+  position: relative;
+  overflow: hidden;
+}
+
+.now-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.now-header {
+  margin-bottom: 0;
+}
+
+.now-label {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #EF4444;
+  letter-spacing: 0.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.now-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.05rem;
+}
+
+.now-pagination {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.pagination-bar {
+  width: 40px;
+  height: 4px;
+  background-color: #E5E7EB;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination-bar.active {
+  background-color: #EF4444; /* Match red theme */
+  width: 60px;
+}
+
+.now-carousel-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.now-carousel-track {
+  display: flex;
+  gap: 2rem; /* Match BEST section grid gap */
+  overflow-x: hidden;
+  padding: 1rem 0;
+  scroll-behavior: smooth;
+}
+
+.now-card {
+  flex: 0 0 calc(25% - 1.5rem); /* Force 4 cards to match BEST grid width approximately */
+  min-width: 280px;
+  height: 380px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+  .now-card {
+    flex: 0 0 calc(33.33% - 1.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .now-card {
+    flex: 0 0 280px;
+  }
+  .now-carousel-track {
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+.now-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.now-card-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transition: transform 0.5s ease;
+}
+
+.now-card:hover .now-card-bg {
+  transform: scale(1.1);
+}
+
+.now-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
+  z-index: 2;
+}
+
+.now-card-content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: white;
+}
+
+.now-card-type-badge {
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.05rem;
+  color: #C5A16F; /* Gold color */
+}
+
+.now-card-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+}
+
+.now-card-subtitle {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-bottom: auto;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.now-card-more {
+  font-size: 0.8rem;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.now-card:hover .now-card-more {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Removed old carousel-control styles */

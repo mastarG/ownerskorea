@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="footer-top">
           <div className="footer-brand">
             <h2 className="footer-logo">
-              Owners<span>Korea</span>
+              <span className="logo-owners">Owners</span><span className="logo-korea">Korea</span>
             </h2>
             <p className="footer-desc">
               프리미엄 자산가 전용 안전 대체 투자 플랫폼

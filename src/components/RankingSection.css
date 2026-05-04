@@ -1,0 +1,186 @@
+.ranking-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 992px) {
+  .ranking-grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ranking-column {
+  background-color: #F9FAFB;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #F3F4F6;
+  display: flex;
+  flex-direction: column;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.header-icon.orange {
+  color: #F97316;
+}
+
+.column-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  animation: slideIn 0.5s ease-out backwards;
+}
+
+.rank-num {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #F97316;
+  width: 24px;
+}
+
+.item-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  flex: 1;
+}
+
+.item-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #111827;
+  margin-right: 0.75rem;
+}
+
+.item-change {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.item-change.up {
+  color: #EF4444;
+}
+
+.item-change.down {
+  color: #3B82F6;
+}
+
+/* Greeting Feed */
+.greeting-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.greeting-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #F97316;
+  animation: pushUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.greeting-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.msg-icon {
+  color: #F97316;
+}
+
+.greeting-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #4B5563;
+}
+
+.greeting-msg {
+  font-size: 0.95rem;
+  color: #111827;
+  font-weight: 500;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.recent-signups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.signup-mini {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.signup-time {
+  color: #9CA3AF;
+  font-size: 0.75rem;
+  width: 50px;
+}
+
+.signup-name {
+  font-weight: 600;
+  color: #374151;
+  flex: 1;
+}
+
+.signup-status {
+  color: #10B981;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pushUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,56 +1,53 @@
 import { Link } from 'react-router-dom';
 import './Marketplace.css';
+import { ChevronRight } from 'lucide-react';
 import thumb1 from '../assets/thumb1.png';
 import thumb2 from '../assets/thumb2.png';
 
 const investments = [
   {
     id: 1,
+    rank: 1,
     title: '스시 오마카세 류',
     category: '외식업',
-    type: '일식/오마카세',
-    totalAmount: '9억',
-    totalAccounts: 30,
-    returnRate: '12.5%',
-    progress: 85,
+    location: '서울 강남구',
+    size: '42평',
+    dailyDividend: '42,500원',
     image: thumb1,
-    status: '모집중'
+    tags: ['모집중', 'BEST', '매거진', '투자상품']
   },
   {
     id: 2,
+    rank: 2,
     title: '메종 드 비프',
     category: '외식업',
-    type: '파인다이닝',
-    totalAmount: '12억',
-    totalAccounts: 40,
-    returnRate: '10.8%',
-    progress: 100,
+    location: '서울 서초구',
+    size: '55평',
+    dailyDividend: '68,200원',
     image: thumb2,
-    status: '모집완료'
+    tags: ['모집중', 'BEST', '투자상품']
   },
   {
     id: 3,
-    title: '카페 에스프레소 바',
-    category: '외식업',
-    type: '카페/베이커리',
-    totalAmount: '6억',
-    totalAccounts: 20,
-    returnRate: '9.5%',
-    progress: 45,
-    image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=400&h=300&auto=format&fit=crop",
-    status: '모집중'
+    rank: 3,
+    title: '더 맑은 피부과',
+    category: '병원',
+    location: '서울 강남구',
+    size: '80평',
+    dailyDividend: '125,000원',
+    image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+    tags: ['모집중', 'BEST', '매거진']
   },
   {
     id: 4,
-    title: '와인바 빈티지',
-    category: '외식업',
-    type: '주점/와인바',
-    totalAmount: '8억',
-    totalAccounts: 26,
-    returnRate: '11.0%',
-    progress: 15,
-    image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=400&h=300&auto=format&fit=crop",
-    status: '모집중'
+    rank: 4,
+    title: '카페 에스프레소 바',
+    category: '카페',
+    location: '경기 성남시',
+    size: '18평',
+    dailyDividend: '28,400원',
+    image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
+    tags: ['모집중', 'BEST', '투자상품']
   }
 ];
 
@@ -58,76 +55,53 @@ const Marketplace = () => {
   return (
     <section id="marketplace" className="section marketplace">
       <div className="container">
-        <div className="marketplace-header">
-          <div>
-            <h2 className="section-title text-left">프리미엄 매장 투자</h2>
-            <p className="section-subtitle text-left">
-              검증된 상권의 하이엔드 매장에 투자하고 매월 배당을 받으세요.
-            </p>
-          </div>
-          <div className="carousel-indicator">
-            <span className="dot active"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
+        <div className="marketplace-header-v2">
+          <div className="header-label">BEST</div>
+          <h2 className="header-title">실시간 BEST 컨텐츠</h2>
         </div>
 
         <div className="marketplace-grid">
           {investments.map((item) => (
             <Link key={item.id} to={`/investments/${item.id}`} className="investment-card-link">
-              <div className="investment-card">
-                <div className="card-image-wrapper">
-                  <img src={item.image} alt={item.title} className="card-image" />
-                  <div className={`status-badge ${item.status === '모집완료' ? 'completed' : 'active'}`}>
-                    {item.status}
-                  </div>
+              <div className="best-card">
+                <div className="best-card-image-wrapper">
+                  <img src={item.image} alt={item.title} className="best-card-image" />
+                  <div className="rank-badge">{item.rank}위</div>
                 </div>
                 
-                <div className="card-content">
-                  <div className="card-header">
-                    <div className="card-category">
-                      <span>{item.category}</span>
-                      <span className="dot">•</span>
-                      <span>{item.type}</span>
-                    </div>
-                    <h3 className="card-title">{item.title}</h3>
+                <div className="best-card-content">
+                  <div className="best-card-category">
+                    {item.category} <ChevronRight size={14} className="category-arrow" />
+                  </div>
+                  
+                  <h3 className="best-card-title">{item.title}</h3>
+                  
+                  <div className="best-card-info">
+                    {item.location} | {item.size}
                   </div>
 
-                  <div className="card-details">
-                    <div className="detail-row">
-                      <span className="detail-label">총 모집액</span>
-                      <span className="detail-value">{item.totalAmount}</span>
-                    </div>
-                    <div className="detail-row">
-                      <span className="detail-label">총 모집구좌</span>
-                      <span className="detail-value">{item.totalAccounts}구좌</span>
-                    </div>
-                    <div className="detail-row highlight-row">
-                      <span className="detail-label">예상 수익률</span>
-                      <span className="detail-value text-danger">{item.returnRate}</span>
-                    </div>
+                  <div className="best-card-pricing">
+                    <div className="price-label">예상배당액</div>
+                    <div className="price-value">일 배당 {item.dailyDividend}</div>
                   </div>
 
-                  <div className="progress-section">
-                    <div className="progress-header">
-                      <span className="progress-label">모집률 {item.progress}%</span>
-                    </div>
-                    <div className="progress-bar-bg">
-                      <div 
-                        className={`progress-bar-fill ${item.status === '모집완료' ? 'completed' : 'active'}`} 
-                        style={{ width: `${item.progress}%` }}
-                      ></div>
-                    </div>
-                  </div>
-
-                  <div className={`btn w-full mt-4 ${item.status === '모집완료' ? 'btn-outline disabled' : 'btn-primary'}`}>
-                    {item.status === '모집완료' ? '모집 완료' : '상세 보기'}
+                  <div className="best-card-tags">
+                    {item.tags.map((tag, idx) => (
+                      <span key={idx} className={`best-tag ${tag === '모집중' ? 'tag-recruiting' : ''}`}>
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
             </Link>
           ))}
+        </div>
+
+        <div className="marketplace-footer-v2">
+          <Link to="/investments" className="btn-more-content">
+            더 많은 투자 컨텐츠 보러가기 <ChevronRight size={18} className="ms-1" />
+          </Link>
         </div>
       </div>
     </section>

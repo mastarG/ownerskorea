@@ -19,13 +19,13 @@ const IntegratedValue = () => {
             </p>
           </div>
           <button 
-            className="btn btn-outline flip-btn" 
+            className="btn-outline-v5 flip-btn" 
             onClick={() => setIsFlipped(!isFlipped)}
           >
             {isFlipped ? (
-              <><ArrowLeft size={18} className="mr-2" /> 모델 구조 보기</>
+              <><ArrowLeft size={18} className="me-2" /> 모델 구조 보기</>
             ) : (
-              <>수익 시뮬레이션 <ArrowRight size={18} className="ml-2" /></>
+              <>수익 시뮬레이션 <ArrowRight size={18} className="ms-2" /></>
             )}
           </button>
         </div>
@@ -137,11 +137,11 @@ const IntegratedValue = () => {
                     </table>
                     
                     <button 
-                      className="btn btn-primary w-full mt-4 sim-calc-btn"
+                      className="btn-outline-v5 w-full mt-4 sim-calc-btn"
                       onClick={() => setIsCalcOpen(true)}
                     >
-                      <Calculator size={18} className="mr-2" />
-                      내 공제 혜택 계산하기
+                      <Calculator size={18} className="me-2" />
+                      내 공제 혜택 계산하기 <ArrowRight size={18} className="ms-2" />
                     </button>
                   </div>
                 </div>

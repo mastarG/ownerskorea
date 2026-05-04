@@ -1,0 +1,112 @@
+.investment-support-page {
+  position: relative;
+  width: 100%;
+}
+
+/* Scoped changes for Investment Support Page to show next page preview */
+.is-investment-support .landing-section {
+  height: 90vh; /* Reduced height to expose next section */
+  min-height: 600px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Integrated NOW and BEST section should grow with content */
+.is-investment-support .landing-section.integrated-content-section {
+  height: auto !important;
+  min-height: 90vh;
+  overflow: visible;
+  padding-bottom: 30px; /* Reduced from 90px */
+}
+
+/* Ensure components within landing-section respect the height except for the integrated one */
+.is-investment-support .hero,
+.is-investment-support .social-proof-container,
+.is-investment-support .testimonials,
+.is-investment-support .integrated-value,
+.is-investment-support .faq-section,
+.is-investment-support .founder-section {
+  height: 90vh !important;
+  min-height: 600px;
+}
+
+/* Specific override for the social proof container to allow content to flow */
+.is-investment-support .social-proof-container {
+  height: auto !important;
+  min-height: 90vh;
+  overflow-y: visible;
+}
+
+/* Marketplace and NowSection when in the integrated view */
+.is-investment-support .integrated-content-section .now-section,
+.is-investment-support .integrated-content-section .marketplace {
+  height: auto !important;
+  min-height: unset;
+  overflow: visible;
+}
+
+/* Adjustments for sections that might have content overflow */
+.is-investment-support .testimonials,
+.is-investment-support .faq-section {
+  overflow-y: auto;
+}
+
+/* Vertical Indicator - Minimalist Style from StartupSupportPage */
+.investment-indicator {
+  position: fixed;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 1000;
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.indicator-dot.on-dark {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.indicator-dot:hover {
+  background: rgba(0, 0, 0, 0.4);
+  transform: scale(1.2);
+}
+
+.indicator-dot.on-dark:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.indicator-dot.active {
+  background: #C5A16F;
+  transform: scale(1.4);
+  box-shadow: 0 0 15px rgba(197, 161, 111, 0.5);
+  border-color: #C5A16F;
+}
+
+@media (max-width: 991px) {
+  .investment-indicator {
+    display: none;
+  }
+  .is-investment-support .landing-section,
+  .is-investment-support .hero,
+  .is-investment-support .marketplace,
+  .is-investment-support .now-section,
+  .is-investment-support .testimonials,
+  .is-investment-support .integrated-value,
+  .is-investment-support .faq-section,
+  .is-investment-support .founder-section {
+    height: auto !important; /* Reset on mobile */
+    min-height: unset;
+  }
+}

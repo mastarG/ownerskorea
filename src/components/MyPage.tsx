@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, List, Store, Bell, MessageSquare, LogOut,
   FileText, TrendingUp, CircleDollarSign, Calendar, Target,
@@ -8,10 +8,16 @@ import {
   MapPin, PieChart, Maximize, User, Users, Download, Share2, Calculator,
   Building, CheckCircle2, ArrowLeft, AlertCircle, CalendarDays, Info,
   Sun, Cloud, CloudRain, CloudSun, ArrowUp, ArrowDown, ChevronLeft,
-  Plus, MoreHorizontal, Trash2, Edit2, Archive, CornerDownLeft
+  Plus, MoreHorizontal, Trash2, Edit2, Archive, CornerDownLeft, Quote, Send, X, Star
 } from 'lucide-react';
 import './MyPage.css';
 import IntegratedValue from './IntegratedValue';
+import InvestmentStatusPage from './InvestmentStatusPage';
+import InvestmentDocumentsPage from './InvestmentDocumentsPage';
+import MagazinePage from './MagazinePage';
+import InvestmentInfoSubPage from './InvestmentInfoSubPage';
+import SettlementPage from './SettlementPage';
+import LegalTaxPage from './LegalTaxPage';
 
 interface MyPageProps {
   onLogout: () => void;
@@ -241,9 +247,22 @@ const AnimatedNumber = ({ value, duration = 1000, suffix = "", decimals = 0 }: {
   return <span>{displayValue.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}</span>;
 };
 
+interface Article {
+  id: number;
+  category: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  img: string;
+  tag?: string;
+  content?: {
+    quote: string;
+    interview: { q: string; a: string }[];
+  };
+}
+
 const MyPage = ({ onLogout }: MyPageProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
-  const [activeMenu, setActiveMenu] = useState('dashboard');
   const [selectedAsset, setSelectedAsset] = useState<'all' | 'sushi' | 'cafe'>('all');
   const [analysisTab, setAnalysisTab] = useState<'network' | 'revenue' | 'visitors' | 'info'>('network');
   const [chartPeriod, setChartPeriod] = useState<'daily' | 'weekly' | 'monthly'>('daily');
@@ -267,6 +286,37 @@ const MyPage = ({ onLogout }: MyPageProps) => {
   const [previewMenuIdx, setPreviewMenuIdx] = useState(0);
   const [previewGalleryIdx, setPreviewGalleryIdx] = useState(0);
   const [isRankingShuffling, setIsRankingShuffling] = useState(false);
+  const [activeMagPage, setActiveMagPage] = useState(0);
+  const magRightRef = useRef<HTMLDivElement>(null);
+
+  const handleMagScroll = () => {
+    if (!magRightRef.current) return;
+    const container = magRightRef.current;
+    const sections = container.querySelectorAll('.mag-modal-section');
+    let current = 0;
+    
+    sections.forEach((section, idx) => {
+      const rect = section.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      // If the top of the section is near the top of the container
+      if (rect.top - containerRect.top < containerRect.height / 2) {
+        current = idx;
+      }
+    });
+    
+    if (current !== activeMagPage) {
+      setActiveMagPage(current);
+    }
+  };
+
+  const scrollToMagPage = (pageIndex: number) => {
+    if (!magRightRef.current) return;
+    const container = magRightRef.current;
+    const sections = container.querySelectorAll('.mag-modal-section');
+    if (sections[pageIndex]) {
+      sections[pageIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   useEffect(() => {
     if (analysisTab === 'network') {
@@ -301,10 +351,20 @@ const MyPage = ({ onLogout }: MyPageProps) => {
   const [currentPreviewPhoto, setCurrentPreviewPhoto] = useState<string | null>(null);
   const [menuTab, setMenuTab] = useState<'ranking' | 'list'>('ranking');
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isLnbExpanded, setIsLnbExpanded] = useState(true);
+
   // LNB Management States
   const [contractInputId, setContractInputId] = useState<string | null>(null); // menu group id being added to
   const [contractNumber, setContractNumber] = useState('');
   const [contractError, setContractError] = useState(false);
+
+  // Derived state from URL: /dashboard/investments -> 'investments'
+  const pathSegments = location.pathname.split('/');
+  const activeMenu = pathSegments[2] || 'dashboard';
+  const currentSubPath = pathSegments[3] || '';
+
   const [activeContextMenu, setActiveContextMenu] = useState<{groupId: string, itemId: number} | null>(null);
   const [editingItemId, setEditingItemId] = useState<number | null>(null);
   const [editingName, setEditingName] = useState('');
@@ -312,17 +372,115 @@ const MyPage = ({ onLogout }: MyPageProps) => {
 
   // Expanded menu data structure
   const [navigationItems, setNavigationItems] = useState<{ [key: string]: any[] }>({
-    investments: [
-      { id: 101, name: '시흥 횟집 (2구좌)', type: 'invest' },
-      { id: 102, name: '판교 카페 (1구좌)', type: 'invest' }
+    investments: [],
+    startup: [
+      { id: 201, name: '창업 컨설팅', type: 'dynamic' }
     ],
-    startup: [],
     crew: [
       { id: 1, name: '시흥 어부 횟집', type: 'store' },
       { id: 2, name: '판교 카페', type: 'store' }
     ],
-    organization: []
+    organization: [
+      { id: 401, name: '오너스 연합', type: 'dynamic' }
+    ]
   });
+
+  const [investSubTab, setInvestSubTab] = useState<'magazine' | 'info' | 'status' | 'settlement' | 'docs' | 'tax'>('magazine');
+  const [investTabs, setInvestTabs] = useState([
+    { id: 'magazine', label: '매거진', accent: 'pink', path: '/dashboard/investments/magazine' },
+    { id: 'info', label: '투자정보', accent: 'purple', path: '/dashboard/investments/info' },
+    { id: 'status', label: '투자 현황', accent: 'yellow', path: '/dashboard/investments/status' },
+    { id: 'settlement', label: '정산내역', accent: 'blue', path: '/dashboard/investments/settlement' },
+    { id: 'docs', label: '투자 계약서', accent: 'green', path: '/dashboard/investments/documents' },
+    { id: 'tax', label: '법률.세무', accent: 'cyan', path: '/dashboard/investments/legal-tax' },
+  ]);
+  const [draggedTabIndex, setDraggedTabIndex] = useState<number | null>(null);
+
+  const handleTabDragStart = (e: React.DragEvent, index: number) => {
+    setDraggedTabIndex(index);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', index.toString());
+  };
+
+  const handleTabDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleTabDrop = (e: React.DragEvent, dropIndex: number) => {
+    e.preventDefault();
+    const dragIndex = draggedTabIndex;
+    if (dragIndex === null || dragIndex === dropIndex) {
+      setDraggedTabIndex(null);
+      return;
+    }
+
+    const newTabs = [...investTabs];
+    const draggedItem = newTabs.splice(dragIndex, 1);
+    newTabs.splice(dropIndex, 0, draggedItem[0]);
+    setInvestTabs(newTabs);
+    setDraggedTabIndex(null);
+  };
+
+  const [favorites, setFavorites] = useState<any[]>([]);
+  const [draggedFavIndex, setDraggedFavIndex] = useState<number | null>(null);
+
+  const toggleFavorite = (tab: any) => {
+    setFavorites(prev => {
+      const exists = prev.find(f => f.id === tab.id);
+      if (exists) {
+        return prev.filter(f => f.id !== tab.id);
+      } else {
+        return [...prev, tab];
+      }
+    });
+  };
+
+  const handleFavDragStart = (e: React.DragEvent, index: number) => {
+    setDraggedFavIndex(index);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleFavDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleFavDrop = (e: React.DragEvent, dropIndex: number) => {
+    e.preventDefault();
+    const dragIndex = draggedFavIndex;
+    if (dragIndex === null || dragIndex === dropIndex) {
+      setDraggedFavIndex(null);
+      return;
+    }
+
+    const newFavs = [...favorites];
+    const [draggedItem] = newFavs.splice(dragIndex, 1);
+    newFavs.splice(dropIndex, 0, draggedItem);
+    setFavorites(newFavs);
+    setDraggedFavIndex(null);
+  };
+  const [selectedMagazineArticle, setSelectedMagazineArticle] = useState<Article | null>(null);
+
+  // Sync investSubTab with URL
+  useEffect(() => {
+    if (activeMenu === 'investments') {
+      const tabMap: { [key: string]: any } = {
+        'magazine': 'magazine',
+        'info': 'info',
+        'status': 'status',
+        'settlement': 'settlement',
+        'documents': 'docs',
+        'legal-tax': 'tax'
+      };
+      
+      if (currentSubPath && tabMap[currentSubPath]) {
+        setInvestSubTab(tabMap[currentSubPath]);
+      } else if (!currentSubPath) {
+        // Default redirect to magazine if no sub-path
+        navigate('/dashboard/investments/magazine', { replace: true });
+      }
+    }
+  }, [activeMenu, currentSubPath, navigate]);
 
   const validContracts: { [key: string]: string } = {
     'C123': '강남 베이커리',
@@ -453,7 +611,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
             <div className="profile-avatar-v30">
               <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" />
             </div>
-            <button className="profile-edit-btn-v30" onClick={() => setActiveMenu('memberInfo')}>
+            <button className="profile-edit-btn-v30" onClick={() => navigate('/dashboard/memberInfo')}>
               <Edit2 size={10} /> 정보수정
             </button>
           </div>
@@ -476,14 +634,45 @@ const MyPage = ({ onLogout }: MyPageProps) => {
 
         <nav className="sidebar-nav">
           <div className="nav-group">
+
             {/* Dashboard */}
             <div className={`nav-item-v26 ${activeMenu === 'dashboard' ? 'active' : ''}`}>
-              <button className="nav-btn-v26" onClick={() => setActiveMenu('dashboard')}>
+              <button className="nav-btn-v26" onClick={() => navigate('/dashboard')}>
                 <div className="toggle-placeholder-v26"></div>
                 <LayoutDashboard size={16} className="nav-icon-v26" />
                 <span className="nav-text-v26">대시보드</span>
               </button>
             </div>
+
+            {/* Favorites (Moved below Dashboard) */}
+            {favorites.length > 0 && (
+              <div className="nav-group-container-v29 expanded">
+                <div className={`nav-item-v26 active expanded favorite-group-header`}>
+                  <button className="nav-btn-v26">
+                    <ChevronDown size={14} className="toggle-chevron-v26" />
+                    <span className="nav-icon-v26"><Star size={16} fill="#EAB308" color="#EAB308" /></span>
+                    <span className="nav-text-v26">즐겨찾기</span>
+                  </button>
+                </div>
+                <div className="sub-nav-v26">
+                  {favorites.map((fav, index) => (
+                    <div 
+                      key={fav.id} 
+                      draggable
+                      className={`sub-nav-item-v26 ${investSubTab === fav.id ? 'active' : ''} ${draggedFavIndex === index ? 'fav-item-dragging' : ''}`}
+                      onClick={() => navigate(fav.path)}
+                      onDragStart={(e) => handleFavDragStart(e, index)}
+                      onDragOver={handleFavDragOver}
+                      onDrop={(e) => handleFavDrop(e, index)}
+                      onDragEnd={() => setDraggedFavIndex(null)}
+                    >
+                      {fav.label}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
 
             {/* Dynamic Groups */}
             {['investments', 'startup', 'crew', 'organization'].map((groupId) => {
@@ -500,13 +689,28 @@ const MyPage = ({ onLogout }: MyPageProps) => {
               return (
                 <div key={groupId} className={`nav-group-container-v29 ${isExpanded ? 'expanded' : ''}`}>
                   <div className={`nav-item-v26 ${activeMenu === groupId ? 'active' : ''} ${isExpanded ? 'expanded' : ''}`}>
-                    <button className="nav-btn-v26" onClick={() => toggleMenuExpansion(groupId)}>
-                      <ChevronRight size={14} className="toggle-chevron-v26" />
+                    <button 
+                      className="nav-btn-v26" 
+                      onClick={() => {
+                        if (groupId === 'investments') {
+                          navigate('/dashboard/investments');
+                        } else {
+                          toggleMenuExpansion(groupId);
+                        }
+                      }}
+                    >
+                      {groupId === 'investments' ? (
+                        <div className="toggle-placeholder-v26"></div>
+                      ) : (
+                        <ChevronRight size={14} className="toggle-chevron-v26" />
+                      )}
                       <span className="nav-icon-v26">{labels[groupId].icon}</span>
                       <span className="nav-text-v26">{labels[groupId].name}</span>
                     </button>
                     <div className="nav-actions-v26">
-                      <button className="nav-action-btn-v26" onClick={(e) => { e.stopPropagation(); setContractInputId(groupId); }}><Plus size={14} /></button>
+                      {groupId !== 'investments' && (
+                        <button className="nav-action-btn-v26" onClick={(e) => { e.stopPropagation(); setContractInputId(groupId); }}><Plus size={14} /></button>
+                      )}
                       <button className="nav-action-btn-v26"><MoreHorizontal size={14} /></button>
                     </div>
                   </div>
@@ -551,14 +755,29 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                               <button onClick={() => handleRenameItem(groupId, item.id)}>✓</button>
                             </div>
                           ) : (
-                            <button className="sub-nav-item-v26">
+                            <div 
+                              className={`sub-nav-item-v26 ${activeMenu === (item.type === 'core' ? item.id : groupId) && (item.type !== 'core' ? activeMyStoreId === item.id || selectedAsset === (item.id === 101 ? 'sushi' : 'cafe') : true) ? 'active' : ''}`}
+                              onClick={() => {
+                                if (item.type === 'core') {
+                                  navigate(`/dashboard/${item.id}`);
+                                } else {
+                                  navigate(`/dashboard/${groupId}`);
+                                  if (groupId === 'investments') {
+                                    setSelectedAsset(item.id === 101 ? 'sushi' : 'cafe');
+                                    setAnalysisTab('info');
+                                  } else {
+                                    setActiveMyStoreId(item.id);
+                                  }
+                                }
+                              }}
+                            >
                               {item.name}
                               <div className="sub-actions-v29">
                                 <button onClick={(e) => { e.stopPropagation(); setActiveContextMenu(activeContextMenu?.itemId === item.id ? null : {groupId, itemId: item.id}); }}>
                                   <MoreHorizontal size={12} />
                                 </button>
                               </div>
-                            </button>
+                            </div>
                           )}
                           
                           {activeContextMenu?.itemId === item.id && (
@@ -591,14 +810,14 @@ const MyPage = ({ onLogout }: MyPageProps) => {
             </button>
           </div>
           <div className="nav-item-v26">
-            <button className="nav-btn-v26">
+            <button className="nav-btn-v26" onClick={() => navigate('/support')}>
               <div className="toggle-placeholder-v26"></div>
               <MessageSquare size={16} className="nav-icon-v26" />
               <span className="nav-text-v26">1:1 문의</span>
             </button>
           </div>
           <div className="nav-item-v26">
-            <button className="nav-btn-v26">
+            <button className="nav-btn-v26" onClick={() => navigate('/dashboard/admin')}>
               <div className="toggle-placeholder-v26"></div>
               <ShieldCheck size={16} className="nav-icon-v26" />
               <span className="nav-text-v26">관리자</span>
@@ -617,7 +836,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
       {/* Main Content */}
       <main className="mypage-main">
 
-        {activeMenu === 'dashboard' || activeMenu === 'investments' ? (
+        {activeMenu === 'dashboard' ? (
           <>
             <div className="dashboard-row-v16">
               {/* Full Width Content: Chart + Stores Integrated */}
@@ -1289,7 +1508,86 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                 </div>
               </div>
             </div>
+
+            {/* Favorite Index Menus Row in Dashboard */}
+            {favorites.length > 0 && (
+              <div className="dashboard-row-v16 fade-in">
+                <div className="main-content-card favorites-dashboard-card-v42">
+                  <div className="card-header-v8">
+                    <div className="header-title-v8">
+                      <span className="title-bar-v16"></span>
+                      <h3>즐겨찾기 인덱스</h3>
+                    </div>
+                  </div>
+                  <div className="favorites-grid-v42">
+                    {favorites.map(fav => (
+                      <div 
+                        key={fav.id} 
+                        className="fav-dashboard-item-v42"
+                        onClick={() => {
+                          navigate(fav.path);
+                          setInvestSubTab(fav.id);
+                        }}
+                      >
+                        <div className={`fav-accent-bar ${fav.accent}`}></div>
+                        <div className="fav-info">
+                          <span className="fav-label">{fav.label}</span>
+                          <Star size={14} fill="#EAB308" color="#EAB308" />
+                        </div>
+                        <ChevronRight size={16} className="fav-arrow" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </>
+        ) : activeMenu === 'investments' ? (
+          <div className="notebook-container-v36 fade-in">
+            <div className="notebook-tabs-v36">
+              {investTabs.map((tab, index) => (
+                <button 
+                  key={tab.id}
+                  draggable
+                  className={`notebook-tab-v36 ${investSubTab === tab.id ? 'active' : ''} ${draggedTabIndex === index ? 'tab-dragging' : ''}`} 
+                  onClick={() => navigate(tab.path)}
+                  onDragStart={(e) => handleTabDragStart(e, index)}
+                  onDragOver={handleTabDragOver}
+                  onDrop={(e) => handleTabDrop(e, index)}
+                  onDragEnd={() => setDraggedTabIndex(null)}
+                >
+                  <span className="tab-num">{(index + 1).toString().padStart(2, '0')}</span>
+                  <span className="tab-label">{tab.label}</span>
+                  <div className={`tab-accent ${tab.accent}`}></div>
+                  <Star 
+                    size={16} 
+                    className={`tab-favorite-icon-v36 ${favorites.find(f => f.id === tab.id) ? 'active' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(tab);
+                    }}
+                    fill={favorites.find(f => f.id === tab.id) ? "#EAB308" : "none"}
+                    color={favorites.find(f => f.id === tab.id) ? "#EAB308" : "#cbd5e1"}
+                  />
+                </button>
+              ))}
+            </div>
+            <div className="notebook-page-v36">
+              {investSubTab === 'magazine' ? (
+                <MagazinePage onSelectArticle={setSelectedMagazineArticle} />
+              ) : investSubTab === 'info' ? (
+                <InvestmentInfoSubPage />
+              ) : investSubTab === 'status' ? (
+                <InvestmentStatusPage />
+              ) : investSubTab === 'settlement' ? (
+                <SettlementPage />
+              ) : investSubTab === 'docs' ? (
+                <InvestmentDocumentsPage />
+              ) : investSubTab === 'tax' ? (
+                <LegalTaxPage />
+              ) : null}
+            </div>
+          </div>
         ) : activeMenu === 'memberInfo' ? (
           <section className="member-info-section fade-in">
             <div className={`flip-card-container ${isFlipped ? 'flipped' : ''}`}>
@@ -1508,14 +1806,14 @@ const MyPage = ({ onLogout }: MyPageProps) => {
               </div>
             </div>
           </section>
-        ) : activeMenu === 'mystore' ? (
+        ) : activeMenu === 'mystore' || activeMenu === 'crew' ? (
           <section className="mystore-section-v18 fade-in">
             <div className="mystore-container-single-v20">
               {/* Main Management Area */}
               <div className="mystore-content-v18 glass-content-card">
                 <header className="card-top-header">
                   <div className="header-title-area">
-                    <h2 className="card-main-title">{myStores.find(s => s.id === activeMyStoreId)?.name} 관리</h2>
+                    <h2 className="card-main-title">{myStores.find(s => s.id === activeMyStoreId)?.name || '매장'} 관리</h2>
                     <div className="header-divider"></div>
                   </div>
                   <div className="mystore-tabs-v17">
@@ -1526,7 +1824,6 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                     <button className={`mystore-tab ${myStoreTab === 'invest' ? 'active' : ''}`} onClick={() => setMyStoreTab('invest')}>투자 보</button>
                   </div>
                 </header>
-
                 <div className="mystore-body-v17">
                   {myStoreTab === 'info' && (
                     <div className="mystore-tab-content info-edit-v18">
@@ -1757,6 +2054,100 @@ const MyPage = ({ onLogout }: MyPageProps) => {
               </div>
             </div>
           </section>
+        ) : activeMenu === 'startup' ? (
+          <section className="startup-section fade-in">
+            <div className="glass-content-card" style={{ padding: '2rem' }}>
+              <div className="header-title-area">
+                <h2 className="card-main-title">창업 지원</h2>
+                <div className="header-divider"></div>
+              </div>
+              <div style={{ marginTop: '2rem' }}>
+                <p style={{ color: '#64748b' }}>오너스코리아만의 체계적인 창업 지원 서비스입니다.</p>
+                <div style={{ marginTop: '2rem', padding: '3rem', textAlign: 'center', background: '#f8fafc', borderRadius: '12px' }}>
+                  <Building size={48} color="#3b82f6" style={{ opacity: 0.5, marginBottom: '1rem' }}/>
+                  <p>창업 컨설팅 및 지원 서비스 준비 중입니다.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : activeMenu === 'organization' ? (
+          <section className="organization-section fade-in">
+            <div className="glass-content-card" style={{ padding: '2rem' }}>
+              <div className="header-title-area">
+                <h2 className="card-main-title">조직 관리</h2>
+                <div className="header-divider"></div>
+              </div>
+              <div style={{ marginTop: '2rem' }}>
+                <p style={{ color: '#64748b' }}>오너스 연합 및 조직 관리 시스템입니다.</p>
+                <div style={{ marginTop: '2rem', padding: '3rem', textAlign: 'center', background: '#f8fafc', borderRadius: '12px' }}>
+                  <Target size={48} color="#ef4444" style={{ opacity: 0.5, marginBottom: '1rem' }}/>
+                  <p>조직 관리 시스템 준비 중입니다.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : activeMenu === 'admin' ? (
+          <section className="admin-section fade-in">
+            <div className="glass-content-card" style={{ padding: '2rem' }}>
+              <div className="header-title-area">
+                <h2 className="card-main-title">관리자 대시보드</h2>
+                <div className="header-divider"></div>
+              </div>
+              <div style={{ marginTop: '2rem' }}>
+                <p style={{ color: '#64748b', marginBottom: '2rem' }}>시스템 관리 및 설정을 위한 통합 관리자 페이지입니다.</p>
+                <div className="admin-grid-v1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+                  <div className="admin-card-v1" style={{ padding: '1.5rem', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                    <Users size={24} color="#3b82f6" style={{ marginBottom: '1rem' }}/>
+                    <h4 style={{ margin: '0 0 0.5rem 0' }}>사용자 관리</h4>
+                    <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0 }}>회원 정보 조회 및 권한 설정</p>
+                  </div>
+                  <div className="admin-card-v1" style={{ padding: '1.5rem', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                    <Store size={24} color="#10b981" style={{ marginBottom: '1rem' }}/>
+                    <h4 style={{ margin: '0 0 0.5rem 0' }}>매장 승인</h4>
+                    <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0 }}>신규 매장 등록 및 승인 대기 내역</p>
+                  </div>
+                  <div className="admin-card-v1" style={{ padding: '1.5rem', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                    <Bell size={24} color="#f59e0b" style={{ marginBottom: '1rem' }}/>
+                    <h4 style={{ margin: '0 0 0.5rem 0' }}>공지사항 관리</h4>
+                    <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0 }}>전체 공지 및 알림 발송 설정</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : activeMenu === 'archive' ? (
+          <section className="archive-section fade-in">
+            <div className="glass-content-card" style={{ padding: '2rem' }}>
+              <div className="header-title-area">
+                <h2 className="card-main-title">보관함</h2>
+                <div className="header-divider"></div>
+              </div>
+              <div style={{ marginTop: '2rem' }}>
+                <p style={{ color: '#64748b', marginBottom: '2rem' }}>삭제하거나 보관 처리된 항목들이 표시됩니다.</p>
+                {archivedItems.length === 0 ? (
+                  <div style={{ textAlign: 'center', padding: '5rem 0', color: '#94a3b8' }}>
+                    <Archive size={48} style={{ opacity: 0.3, marginBottom: '1rem' }}/>
+                    <p>보관된 항목이 없습니다.</p>
+                  </div>
+                ) : (
+                  <div className="archived-list">
+                    {archivedItems.map((item, idx) => (
+                      <div key={idx} className="archived-item" style={{ padding: '1.25rem', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                          <strong style={{ display: 'block', marginBottom: '0.25rem' }}>{item.name}</strong>
+                          <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>분류: {item.groupId}</span>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <span style={{ fontSize: '0.8rem', color: '#64748b', display: 'block' }}>{new Date(item.deletedAt).toLocaleDateString()}</span>
+                          <button style={{ background: 'none', border: 'none', color: '#3b82f6', fontSize: '0.75rem', padding: '0.25rem 0', cursor: 'pointer' }}>복원하기</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
         ) : null}
 
         {/* Investment Detail Modal */}
@@ -1909,6 +2300,131 @@ const MyPage = ({ onLogout }: MyPageProps) => {
           </div>
         )}
       </main>
+
+      {/* MAGAZINE ARTICLE MODAL - Global Level to escape stacking context */}
+      {selectedMagazineArticle && (
+        <div className="mag-modal-overlay" onClick={() => setSelectedMagazineArticle(null)}>
+          <div className="mag-modal-content fade-up" onClick={e => e.stopPropagation()}>
+            <button className="mag-modal-close" onClick={() => setSelectedMagazineArticle(null)}>
+              <X size={24} />
+            </button>
+            <div className="mag-modal-body">
+              <div className="mag-modal-left">
+                <div className="mag-modal-cover">
+                  <div className="mag-cover-masthead">OWNERS KOREA</div>
+                  <div className="mag-cover-date">JULY / AUGUST 2026</div>
+                  <img src={selectedMagazineArticle.img} alt="" />
+                  <div className="mag-modal-img-caption">
+                    <span className="mag-modal-cat-highlight">{selectedMagazineArticle.category}</span>
+                    <h3>{selectedMagazineArticle.title.split(',')[0]}</h3>
+                  </div>
+                </div>
+              </div>
+              <div className="mag-modal-right-container">
+                <div className="mag-modal-right" ref={magRightRef} onScroll={handleMagScroll}>
+                  {/* Page 1: Header & Quote (+ Interview if 1 page) */}
+                  <div className="mag-modal-section">
+                    <div className="mag-modal-header">
+                      <span className="mag-modal-date">{selectedMagazineArticle.date}</span>
+                      <h1 className="mag-modal-split-title">
+                        {selectedMagazineArticle.title.includes('"') || selectedMagazineArticle.title.includes(',') ? (
+                          <>
+                            <span className="title-line-1">{selectedMagazineArticle.title.split(/[",]/)[0].trim()}</span>
+                            <span className="title-line-2">
+                              {selectedMagazineArticle.title.includes('"') 
+                                ? `"${selectedMagazineArticle.title.split('"')[1]}"` 
+                                : selectedMagazineArticle.title.split(',')[1].trim()}
+                            </span>
+                          </>
+                        ) : (
+                          selectedMagazineArticle.title
+                        )}
+                      </h1>
+                    </div>
+                    
+                    {selectedMagazineArticle.content && (
+                      <div className="mag-modal-quote">
+                        <Quote size={40} className="quote-icon" />
+                        <p>{selectedMagazineArticle.content.quote}</p>
+                      </div>
+                    )}
+
+                    {/* If only 1 page, show all interview items */}
+                    {selectedMagazineArticle.content && selectedMagazineArticle.content.interview.length <= 2 && (
+                      <div className="mag-modal-interview">
+                        {selectedMagazineArticle.content.interview.map((item, idx) => (
+                          <div key={idx} className="interview-item">
+                            <div className="question">Q. {item.q}</div>
+                            <div className="answer">{item.a}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* If 2 pages, show first half of interview items on page 1 */}
+                    {selectedMagazineArticle.content && selectedMagazineArticle.content.interview.length > 2 && (
+                      <div className="mag-modal-interview">
+                        {selectedMagazineArticle.content.interview.slice(0, Math.ceil(selectedMagazineArticle.content.interview.length / 2)).map((item, idx) => (
+                          <div key={idx} className="interview-item">
+                            <div className="question">Q. {item.q}</div>
+                            <div className="answer">{item.a}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    
+                    {/* If only 1 page, show footer here */}
+                    {selectedMagazineArticle.content && selectedMagazineArticle.content.interview.length <= 2 && (
+                      <div className="mag-modal-footer">
+                        <button className="btn-mag-share">기사 공유하기</button>
+                        <button className="btn-mag-save">북마크 저장</button>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Page 2: Second half of Interview Section (if 2 pages) */}
+                  {selectedMagazineArticle.content && selectedMagazineArticle.content.interview.length > 2 && (
+                    <div className="mag-modal-section">
+                      <div className="mag-modal-interview">
+                        {selectedMagazineArticle.content.interview.slice(Math.ceil(selectedMagazineArticle.content.interview.length / 2)).map((item, idx) => (
+                          <div key={idx} className="interview-item">
+                            <div className="question">Q. {item.q}</div>
+                            <div className="answer">{item.a}</div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mag-modal-footer">
+                        <button className="btn-mag-share">기사 공유하기</button>
+                        <button className="btn-mag-save">북마크 저장</button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Vertical Scroll Dots Indicator - Hidden if only 1 page */}
+                {(() => {
+                  const interviewCount = selectedMagazineArticle.content?.interview.length || 0;
+                  const totalPages = interviewCount > 2 ? 2 : 1;
+                  
+                  if (totalPages <= 1) return null;
+                  
+                  return (
+                    <div className="mag-modal-scroll-dots">
+                      {Array.from({ length: totalPages }).map((_, i) => (
+                        <div 
+                          key={i} 
+                          className={`scroll-dot ${activeMagPage === i ? 'active' : ''}`}
+                          onClick={() => scrollToMagPage(i)}
+                        ></div>
+                      ))}
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
