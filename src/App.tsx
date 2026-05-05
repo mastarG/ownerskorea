@@ -15,6 +15,7 @@ import AboutPage from './pages/AboutPage';
 import StartupSupportPage from './pages/StartupSupportPage';
 import LegalAccountingPage from './pages/LegalAccountingPage';
 import InvestmentSupportPage from './pages/InvestmentSupportPage';
+import MagazineBPage from './pages/MagazineBPage';
 import './App.css';
 
 
@@ -34,6 +35,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }: { isLoggedIn: boolean, setIsL
           <Route path="/investments/:id" element={<InvestmentDetail />} />
           <Route path="/startup-support" element={<StartupSupportPage />} />
           <Route path="/legal-accounting" element={<LegalAccountingPage />} />
+          <Route path="/magazine-b" element={<MagazineBPage />} />
           <Route 
             path="/dashboard/*" 
             element={<MyPage onLogout={() => setIsLoggedIn(false)} />} 

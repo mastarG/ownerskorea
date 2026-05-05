@@ -1,0 +1,282 @@
+.magazine-b-page {
+  background-color: #141414;
+  color: #fff;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  padding-bottom: 50px;
+}
+
+/* Hero Section */
+.magazine-b-hero {
+  position: relative;
+  height: 80vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  padding: 0 4%;
+  margin-top: -80px; /* Offset for navbar */
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(70deg, rgba(20, 20, 20, 0.8) 0%, rgba(20, 20, 20, 0) 50%),
+              linear-gradient(to top, #141414 0%, rgba(20, 20, 20, 0) 20%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+}
+
+.hero-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.n-logo {
+  color: #d4af37;
+  font-weight: 900;
+  font-size: 2.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.n-text {
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  margin-bottom: 2rem;
+  color: #e5e5e5;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-play, .btn-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  border: none;
+}
+
+.btn-play {
+  background-color: #fff;
+  color: #000;
+}
+
+.btn-info {
+  background-color: rgba(109, 109, 110, 0.7);
+  color: #fff;
+}
+
+.btn-play:hover, .btn-info:hover {
+  opacity: 0.8;
+}
+
+/* Rows & Cards */
+.magazine-b-rows {
+  margin-top: -150px;
+  padding: 0 4%;
+  position: relative;
+  z-index: 20;
+}
+
+.category-row {
+  margin-bottom: 3rem;
+}
+
+.category-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.category-title:hover .arrow {
+  transform: translateX(5px);
+}
+
+.category-title .arrow {
+  transition: transform 0.2s;
+}
+
+.row-items {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 20px 0;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+
+.row-items::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.magazine-card {
+  position: relative;
+  min-width: 250px;
+  aspect-ratio: 16/9;
+  border-radius: 4px;
+  overflow: visible;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.card-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #181818;
+  border-radius: 6px;
+  padding: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+}
+
+.magazine-card:hover {
+  transform: scale(1.4) translateY(-20px);
+  z-index: 100;
+}
+
+.magazine-card:hover .card-info {
+  opacity: 1;
+  visibility: visible;
+  top: 100%;
+  height: auto;
+}
+
+/* Card Detail Items */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.action-circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.action-circle:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.1);
+}
+
+.action-circle.info-icon {
+  margin-left: auto;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.match {
+  color: #46d369;
+  font-weight: 700;
+}
+
+.year {
+  color: #fff;
+}
+
+.badge {
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  border-radius: 2px;
+}
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 0.75rem;
+  color: #aaa;
+  line-height: 1.3;
+}
+
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  .magazine-card {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  .hero-description {
+    font-size: 1rem;
+  }
+  .btn-play, .btn-info {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  .magazine-b-rows {
+    margin-top: -80px;
+  }
+}

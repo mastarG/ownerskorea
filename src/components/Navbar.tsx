@@ -29,6 +29,7 @@ const Navbar = ({ onLogin }: NavbarProps) => {
     "한국어 (Korea)": {
       mission: "미션",
       magazine: "매거진",
+      magazineB: "매거진B",
       investmentSupport: "투자상담",
       startupSupport: "창업지원",
       legalAccounting: "법률.회계",
@@ -38,6 +39,7 @@ const Navbar = ({ onLogin }: NavbarProps) => {
     "영어 (English)": {
       mission: "Mission",
       magazine: "Magazine",
+      magazineB: "Magazine B",
       investmentSupport: "Investment",
       startupSupport: "Startup",
       legalAccounting: "Legal/Accounting",
@@ -47,6 +49,7 @@ const Navbar = ({ onLogin }: NavbarProps) => {
     "중국어 (简体中文)": {
       mission: "使命",
       magazine: "杂志",
+      magazineB: "杂志 B",
       investmentSupport: "投资咨询",
       startupSupport: "创业支持",
       legalAccounting: "法律/会计",
@@ -56,6 +59,7 @@ const Navbar = ({ onLogin }: NavbarProps) => {
     "러시아어 (Русский)": {
       mission: "Миссия",
       magazine: "Журнал",
+      magazineB: "Журнал B",
       investmentSupport: "Инвест. консультация",
       startupSupport: "Поддержка стартапов",
       legalAccounting: "Юрид./Бухг.",
@@ -65,6 +69,7 @@ const Navbar = ({ onLogin }: NavbarProps) => {
     "베트남어 (Tiếng Việt)": {
       mission: "Sứ mệnh",
       magazine: "Tạp chí",
+      magazineB: "Tạp chí B",
       investmentSupport: "Tư vấn đầu tư",
       startupSupport: "Hỗ trợ khởi nghiệp",
       legalAccounting: "Pháp lý/Kế toán",
@@ -74,6 +79,7 @@ const Navbar = ({ onLogin }: NavbarProps) => {
     "태국어 (ไทย)": {
       mission: "พันธกิจ",
       magazine: "นิตยสาร",
+      magazineB: "นิตยสาร B",
       investmentSupport: "ปรึกษาการลงทุน",
       startupSupport: "การสนับสนุนสตาร์ทอัพ",
       legalAccounting: "กฎหมาย/บัญชี",
@@ -83,6 +89,7 @@ const Navbar = ({ onLogin }: NavbarProps) => {
     "일본어 (日本語)": {
       mission: "ミッション",
       magazine: "マガジン",
+      magazineB: "マガジンB",
       investmentSupport: "投資相談",
       startupSupport: "創業支援",
       legalAccounting: "法律/会計",
@@ -124,6 +131,7 @@ const Navbar = ({ onLogin }: NavbarProps) => {
           <div className="navbar-links center-links">
             <Link to="/about" className={isActive('/about') ? 'active' : ''}>{t.mission}</Link>
             <Link to="/investments" className={isActive('/investments') ? 'active' : ''}>{t.magazine}</Link>
+            <Link to="/magazine-b" className={isActive('/magazine-b') ? 'active' : ''}>{t.magazineB}</Link>
             <Link to="/" className={isActive('/') ? 'active' : ''}>{t.investmentSupport}</Link>
             <Link to="/startup-support" className={isActive('/startup-support') ? 'active' : ''}>{t.startupSupport}</Link>
             <Link to="/legal-accounting" className={isActive('/legal-accounting') ? 'active' : ''}>{t.legalAccounting}</Link>
