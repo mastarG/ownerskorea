@@ -28,9 +28,9 @@ const Navbar = ({ onLogin }: NavbarProps) => {
   const translations: { [key: string]: { [key: string]: string } } = {
     "한국어 (Korea)": {
       mission: "미션",
-      magazine: "매거진",
-      magazineB: "매거진B",
-      investmentSupport: "투자상담",
+      magazine: "투자정보",
+      magazineB: "투자정보B",
+      investmentSupport: "오너스",
       startupSupport: "창업지원",
       legalAccounting: "법률.회계",
       support: "고객문의",
@@ -129,10 +129,9 @@ const Navbar = ({ onLogin }: NavbarProps) => {
           </Link>
           
           <div className="navbar-links center-links">
-            <Link to="/about" className={isActive('/about') ? 'active' : ''}>{t.mission}</Link>
+            <Link to="/" className={isActive('/') ? 'active' : ''}>{t.investmentSupport}</Link>
             <Link to="/investments" className={isActive('/investments') ? 'active' : ''}>{t.magazine}</Link>
             <Link to="/magazine-b" className={isActive('/magazine-b') ? 'active' : ''}>{t.magazineB}</Link>
-            <Link to="/" className={isActive('/') ? 'active' : ''}>{t.investmentSupport}</Link>
             <Link to="/startup-support" className={isActive('/startup-support') ? 'active' : ''}>{t.startupSupport}</Link>
             <Link to="/legal-accounting" className={isActive('/legal-accounting') ? 'active' : ''}>{t.legalAccounting}</Link>
             <Link to="/#faq" className={isActive('/', '#faq') ? 'active' : ''}>{t.support}</Link>

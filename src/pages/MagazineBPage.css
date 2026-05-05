@@ -114,6 +114,14 @@
 
 .category-row {
   margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
+  transition: z-index 0.3s;
+  overflow: visible; /* Ensure nothing clips here */
+}
+
+.category-row:hover {
+  z-index: 100; /* Higher z-index to stay above other rows */
 }
 
 .category-title {
@@ -136,10 +144,14 @@
 
 .row-items {
   display: flex;
-  gap: 10px;
+  gap: 20px;
   overflow-x: auto;
-  padding: 20px 0;
-  scrollbar-width: none; /* Hide scrollbar Firefox */
+  overflow-y: visible;
+  /* Massive vertical and horizontal padding to prevent clipping of scaled cards */
+  padding: 100px 100px 280px 100px; 
+  margin: -100px -100px -280px -100px; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .row-items::-webkit-scrollbar {
@@ -152,45 +164,127 @@
   aspect-ratio: 16/9;
   border-radius: 4px;
   overflow: visible;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+}
+
+/* Invisible bridge to keep hover active between card and info box */
+.magazine-card::after {
+  content: '';
+  position: absolute;
+  top: 80%; /* Start well inside the card */
+  left: -20%; /* Wider than the card to catch mouse */
+  width: 140%;
+  height: 150%; /* Large enough to cover the entire info box area */
+  display: block;
+  z-index: -1; /* Behind everything but keeps hover active */
+  pointer-events: none;
+}
+
+.magazine-card:hover::after {
+  pointer-events: auto;
 }
 
 .card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%; /* Slightly higher to avoid cutting off heads */
   border-radius: 4px;
+}
+
+/* Overlays on Image */
+.card-tag-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  color: #fff;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.card-tag-badge .mag-name {
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.card-tag-badge .mag-date {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+}
+
+.category-box {
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  text-shadow: none; /* Clearer text on colored background */
+}
+
+.card-store-name {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  color: #fff;
+  z-index: 10;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.card-store-name .shop {
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.card-store-name .person {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
 }
 
 .card-info {
   position: absolute;
-  top: 0;
+  top: 90%; /* Increased overlap to ensure no gap */
   left: 0;
   width: 100%;
-  height: 100%;
   background: #181818;
-  border-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
   padding: 15px;
   opacity: 0;
+  transform: translateY(-5px);
+  /* Use a buffer delay for visibility to prevent mouse-slip closing */
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s;
   visibility: hidden;
-  transition: all 0.3s;
   box-shadow: 0 10px 20px rgba(0,0,0,0.5);
   z-index: 50;
   display: flex;
   flex-direction: column;
-}
-
-.magazine-card:hover {
-  transform: scale(1.4) translateY(-20px);
-  z-index: 100;
+  pointer-events: none;
 }
 
 .magazine-card:hover .card-info {
   opacity: 1;
   visibility: visible;
-  top: 100%;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0s;
+  pointer-events: auto;
   height: auto;
+}
+
+.magazine-card:hover {
+  transform: scale(1.4); /* Reduced from 1.7 to 1.4 per user request */
+  z-index: 100;
 }
 
 /* Card Detail Items */
@@ -278,5 +372,229 @@
   }
   .magazine-b-rows {
     margin-top: -80px;
+  }
+}
+
+/* Article Detail Modal */
+.mag-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.mag-modal-content {
+  width: 90%;
+  max-width: 900px;
+  height: 90vh;
+  background: #181818;
+  border-radius: 12px;
+  position: relative;
+  overflow-y: auto;
+  scrollbar-width: none;
+  animation: scaleUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mag-modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+.mag-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: background 0.2s;
+}
+
+.mag-modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mag-modal-hero {
+  height: 60%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+}
+
+.mag-modal-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #181818 0%, transparent 60%);
+}
+
+.mag-modal-hero-text {
+  position: relative;
+  z-index: 10;
+  max-width: 700px;
+}
+
+.mag-modal-cat {
+  background: #d4af37;
+  color: #000;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.mag-modal-hero-text h2 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.mag-modal-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.mag-modal-body {
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.mag-modal-quote {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.quote-icon {
+  color: #d4af37;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.mag-modal-quote p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+  font-style: italic;
+  color: #fff;
+}
+
+.mag-modal-interview {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.interview-block h4 {
+  color: #d4af37;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.interview-block p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #ccc;
+}
+
+.mag-modal-footer {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.btn-modal-action {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-modal-action:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+}
+
+.btn-modal-primary {
+  background: #fff;
+  color: #000;
+  padding: 12px 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  text-decoration: none;
+  margin-left: auto;
+  transition: transform 0.2s;
+}
+
+.btn-modal-primary:hover {
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.9) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .mag-modal-hero-text h2 {
+    font-size: 2rem;
+  }
+  .mag-modal-hero {
+    height: 40%;
+  }
+  .mag-modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-modal-primary {
+    margin-left: 0;
+    justify-content: center;
   }
 }

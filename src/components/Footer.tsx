@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
@@ -17,7 +18,7 @@ const Footer = () => {
           <div className="footer-links">
             <div className="link-group">
               <h3>회사소개</h3>
-              <a href="#">오너스 미션</a>
+              <Link to="/about">오너스 미션</Link>
               <a href="#">브랜드 스토리</a>
             </div>
             <div className="link-group">

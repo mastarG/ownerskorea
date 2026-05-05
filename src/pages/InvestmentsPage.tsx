@@ -3,23 +3,7 @@ import { Link } from 'react-router-dom';
 import { Search, MapPin, TrendingUp, ChevronRight, ChevronDown, Building2, ShieldCheck, PieChart, Maximize } from 'lucide-react';
 import './InvestmentsPage.css';
 
-const ALL_INVESTMENTS = [
-  // Restaurants (Existing)
-  { id: 1, title: '스시 오마카세 류', industry: '음식점', subCategory: '일식', location: '서울 강남구', deposit: '15,000만 원', totalAmount: '30,000만 원', size: '42평', returnRate: '12.5%', progress: 85, image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80', status: '모집중' },
-  { id: 2, title: '메종 드 비프', industry: '음식점', subCategory: '양식', location: '서울 서초구', deposit: '20,000만 원', totalAmount: '40,000만 원', size: '55평', returnRate: '10.8%', progress: 100, image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', status: '마감' },
-  { id: 3, title: '카페 에스프레소 바', industry: '음식점', subCategory: '카페', location: '경기 성남시', deposit: '8,000만 원', totalAmount: '16,000만 원', size: '18평', returnRate: '9.5%', progress: 45, image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80", status: '추천' },
-  { id: 4, title: '진진 한정식', industry: '음식점', subCategory: '한식', location: '서울 종로구', deposit: '25,000만 원', totalAmount: '50,000만 원', size: '60평', returnRate: '11.2%', progress: 70, image: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=800&q=80", status: '모집중' },
-  { id: 5, title: '토리노 퀴진', industry: '음식점', subCategory: '양식', location: '서울 마포구', deposit: '12,000만 원', totalAmount: '24,000만 원', size: '35평', returnRate: '10.5%', progress: 30, image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=80", status: '최신' },
-  { id: 6, title: '사쿠라 이자카야', industry: '음식점', subCategory: '일식', location: '서울 송파구', deposit: '9,000만 원', totalAmount: '18,000만 원', size: '25평', returnRate: '13.0%', progress: 95, image: "https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80", status: '모집중' },
-  
-  // Hospitals (New)
-  { id: 7, title: '더 맑은 피부과 강남점', industry: '병원', subCategory: '피부과', location: '서울 강남구', deposit: '30,000만 원', totalAmount: '10억', size: '80평', returnRate: '11.5%', progress: 40, image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80', status: '최신' },
-  { id: 8, title: '바른 정형외과 센터', industry: '병원', subCategory: '정형외과', location: '서울 서초구', deposit: '50,000만 원', totalAmount: '20억', size: '150평', returnRate: '10.2%', progress: 65, image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80', status: '모집중' },
-  { id: 9, title: '연세 화이트 치과', industry: '병원', subCategory: '치과', location: '경기 성남시', deposit: '20,000만 원', totalAmount: '8억', size: '45평', returnRate: '12.8%', progress: 90, image: 'https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=800&q=80', status: '모집중' },
-  { id: 10, title: '리버스 성형외과', industry: '병원', subCategory: '피부과', location: '서울 강남구', deposit: '40,000만 원', totalAmount: '15억', size: '120평', returnRate: '13.5%', progress: 20, image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80', status: '추천' },
-  { id: 11, title: '튼튼 마디 한의원', industry: '병원', subCategory: '정형외과', location: '서울 송파구', deposit: '15,000만 원', totalAmount: '5억', size: '40평', returnRate: '9.8%', progress: 55, image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80', status: '모집중' },
-  { id: 12, title: '에스플란트 치과', industry: '병원', subCategory: '치과', location: '서울 용산구', deposit: '25,000만 원', totalAmount: '12억', size: '65평', returnRate: '11.0%', progress: 75, image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80', status: '모집중' },
-];
+import { ALL_INVESTMENTS } from '../data/investments';
 
 const InvestmentsPage = () => {
   const [activeIndustry, setActiveIndustry] = useState('전체');
