@@ -3,7 +3,7 @@
 :root {
   /* Color Palette */
   --color-primary: #0B192C; /* Deep Navy */
-  --color-secondary: #D4AF37; /* Champagne Gold */
+  --color-secondary: #C5A16F; /* Logo Gold */
   --color-secondary-hover: #b8972e;
   --color-background: #F8F9FA;
   --color-surface: #FFFFFF;
@@ -174,4 +174,8 @@ button {
 
 .text-premium-gold {
   color: var(--color-secondary) !important; /* Premium Gold */
+}
+
+.social-label.gold {
+  color: #C5A16F; /* Matching Logo Gold */
 }

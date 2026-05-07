@@ -5,11 +5,13 @@
 
 /* Scoped changes for Investment Support Page to show next page preview */
 .is-investment-support .landing-section {
-  height: 90vh; /* Reduced height to expose next section */
+  height: 90vh;
+  /* Reduced height to expose next section */
   min-height: 600px;
   overflow: hidden;
-  border-bottom: none; 
-  background-color: var(--color-surface); /* Fix gray line issue between sections */
+  border-bottom: none;
+  background-color: var(--color-surface);
+  /* Fix gray line issue between sections */
 }
 
 /* Allow the last section (FAQ) to flow with content and show the footer */
@@ -21,14 +23,15 @@
 
 /* Reduce the first section (Hero) height so the NOW section is clearly visible below */
 .is-investment-support .landing-section:has(.hero) {
-  height: 75vh !important;
+  height: 700px !important;
 }
 
 /* Ensure Integrated Value section fits on one screen (90vh) */
 .is-investment-support .landing-section:has(.integrated-value) {
   height: 90vh !important;
   min-height: 600px;
-  overflow: hidden; /* Hide overflow to maintain page feel */
+  overflow: hidden;
+  /* Hide overflow to maintain page feel */
 }
 
 /* Integrated NOW and BEST section should grow with content */
@@ -36,7 +39,8 @@
   height: auto !important;
   min-height: 90vh;
   overflow: visible;
-  padding-bottom: 30px; /* Reduced from 90px */
+  padding-top: 30px; /* Consistently 30px top margin for NOW */
+  padding-bottom: 30px;
 }
 
 /* Ensure components within landing-section respect the height except for the integrated one */
@@ -48,8 +52,7 @@
 }
 
 .is-investment-support .hero {
-  height: 75vh !important;
-  min-height: 600px;
+  height: 700px !important;
 }
 
 .is-investment-support .faq-section {
@@ -63,7 +66,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%; /* Ensure full width for container alignment */
+  width: 100%;
+  /* Ensure full width for container alignment */
 }
 
 /* Specific override for the social proof container to allow content to flow */
@@ -75,10 +79,10 @@
 
 /* Marketplace and NowSection when in the integrated view */
 .is-investment-support .integrated-content-section .now-section,
-.is-investment-support .integrated-content-section .marketplace {
-  height: auto !important;
-  min-height: unset;
-  overflow: visible;
+.is-investment-support .integrated-content-section .marketplace-cascading-v6 {
+  padding: 80px 0 10px 0; /* Increased to 80px to match target spacing */
+  background-color: #ffffff;
+  overflow: hidden;
 }
 
 /* Adjustments for sections that might have content overflow */
@@ -134,6 +138,7 @@
   .investment-indicator {
     display: none;
   }
+
   .is-investment-support .landing-section,
   .is-investment-support .hero,
   .is-investment-support .marketplace,
@@ -142,7 +147,8 @@
   .is-investment-support .integrated-value,
   .is-investment-support .faq-section,
   .is-investment-support .founder-section {
-    height: auto !important; /* Reset on mobile */
+    height: auto !important;
+    /* Reset on mobile */
     min-height: unset;
   }
 }

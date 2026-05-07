@@ -9,7 +9,7 @@ const SocialProofSection: React.FC = () => {
       <div className="container">
         {/* Unified Header for both Ranking & Review */}
         <div className="social-header">
-          <span className="social-label orange">REVIEW</span>
+          <span className="social-label gold">REVIEW</span>
           <h2 className="social-title">회원들의 이야기</h2>
           <p className="social-desc">오너스코리아와 함께 성장하는 사장님들의 생생한 후기입니다.</p>
         </div>

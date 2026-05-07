@@ -93,8 +93,8 @@ const InvestmentSupportPage: React.FC = () => {
       </div>
 
       <div ref={bestNowRef} className="landing-section integrated-content-section">
-        <NowSection />
         <Marketplace />
+        <NowSection />
       </div>
       
       <div ref={valueRef} className="landing-section">

@@ -1,38 +1,27 @@
 import './Hero.css';
 import heroBg from '../assets/hero-bg.png';
 import heroBright from '../assets/hero-bright.png';
+import heroV2 from '../assets/hero-v2.jpg';
 import { ArrowRight } from 'lucide-react';
 
 const Hero = () => {
   return (
     <section className="hero bright">
       <div className="hero-background">
-        <img src={heroBright} alt="Entrepreneur Success" className="hero-bg-img" />
-        <div className="glow-sphere sphere-1"></div>
-        <div className="glow-sphere sphere-2"></div>
-        <div className="hero-overlay"></div>
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1920&auto=format&fit=crop" alt="Sunny Skyscraper Daytime" className="hero-bg-img" />
+        <div className="hero-overlay-navy-day"></div>
       </div>
-      
+
       <div className="container hero-container">
         <div className="hero-content">
-          <h1 className="hero-title">
-            세금 아껴서,<br />
-            사장되자
+          <p className="hero-subtitle-owners">오너스코리아가 제안하는</p>
+          <h1 className="hero-title-owners">
+            프리미엄 투자 정보
           </h1>
-          <p className="hero-subtitle">
-            전문직 종사자와 직장인을 위한<br />
-            가장 혁신적인 자산 확장 모델
+          <p className="hero-desc-owners">
+            투명한 데이터와 전문가의 분석을 통해 검증된<br />
+            실제 매장 기반의 안정적인 투자 기회를 만나보세요.
           </p>
-          <div className="hero-ok-tags">
-            <span>투자 <strong className="text-premium-gold">OK!</strong></span>
-            <span className="dot">•</span>
-            <span>안전 <strong className="text-premium-gold">OK!</strong></span>
-            <span className="dot">•</span>
-            <span>소득공제 <strong className="text-premium-gold">OK!</strong></span>
-            <span className="dot">•</span>
-            <span>배당 <strong className="text-premium-gold">OK!</strong></span>
-            <span className="dot">•</span>
-          </div>
         </div>
       </div>
     </section>

@@ -43,12 +43,12 @@ const InvestmentsPage = () => {
 
   const filteredInvestments = ALL_INVESTMENTS.filter(item => {
     const matchesIndustry = activeIndustry === '전체' || item.industry === activeIndustry;
-    const matchesStatus = filters.status === '전체 상태' || 
-                         (filters.status === '모집' ? item.status === '모집중' : item.status === filters.status);
+    const matchesStatus = filters.status === '전체 상태' ||
+      (filters.status === '모집' ? item.status === '모집중' : item.status === filters.status);
     const matchesSubCategory = filters.subCategory === '전체 업태' || item.subCategory === filters.subCategory;
     const matchesRegion = filters.region === '전체 지역' || item.location.includes(filters.region);
     const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     return matchesIndustry && matchesStatus && matchesSubCategory && matchesRegion && matchesSearch;
   });
 
@@ -58,7 +58,7 @@ const InvestmentsPage = () => {
     <div className="investments-page">
       <section className="investments-hero-v3">
         <div className="hero-slideshow-v3">
-          <div 
+          <div
             className="hero-slide-v3 active"
             style={{ backgroundImage: `url(${heroImage})` }}
           />
@@ -70,9 +70,9 @@ const InvestmentsPage = () => {
           </div>
           <div className="hero-search-container-v4">
             <div className="hero-search-bar-v4">
-              <input 
-                type="text" 
-                placeholder="관심 있는 매장명이나 지역을 입력해보세요." 
+              <input
+                type="text"
+                placeholder="관심 있는 매장명이나 지역을 입력해보세요."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -83,7 +83,7 @@ const InvestmentsPage = () => {
           {/* Simple Filter System: Left-aligned, No sub-options */}
           <div className="hero-filters-v4 left-aligned">
             <div className="filter-cats-v4">
-              <button 
+              <button
                 className={`filter-cat-v4 ${activeIndustry === '전체' ? 'selected' : ''}`}
                 onClick={() => {
                   setActiveIndustry('전체');
@@ -92,7 +92,7 @@ const InvestmentsPage = () => {
               >
                 전체
               </button>
-              <button 
+              <button
                 className={`filter-cat-v4 ${activeIndustry === '병원' ? 'selected' : ''}`}
                 onClick={() => {
                   setActiveIndustry('병원');
@@ -101,7 +101,7 @@ const InvestmentsPage = () => {
               >
                 병원
               </button>
-              <button 
+              <button
                 className={`filter-cat-v4 ${activeIndustry === '음식점' ? 'selected' : ''}`}
                 onClick={() => {
                   setActiveIndustry('음식점');
@@ -110,7 +110,7 @@ const InvestmentsPage = () => {
               >
                 음식점
               </button>
-              <button 
+              <button
                 className={`filter-cat-v4 ${activeIndustry === '상품' ? 'selected' : ''}`}
                 onClick={() => {
                   setActiveIndustry('상품');
@@ -129,26 +129,34 @@ const InvestmentsPage = () => {
         <div className="container">
           {/* Previous filter system removed */}
 
-          <div className="investments-grid-v2">
+          <div className="investments-grid-v3">
             {filteredInvestments.map((item) => (
-              <Link to={`/investments/${item.id}`} key={item.id} className="investment-card investment-card-link" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <div className="card-top-bar">
-                  <span className="biz-name">{item.title}</span>
-                  <span className="badge badge-secondary" style={{ fontSize: '0.7rem' }}>{item.subCategory}</span>
+              <Link to={`/investments/${item.id}`} key={item.id} className="investment-card-v3">
+                <div className="card-top-badge-v3">
+                  <span className="dividend-badge-v3">배당 {item.returnRate}</span>
                 </div>
-                <div className="card-image-wrapper">
-                  <img src={item.image} alt={item.title} className="card-image" />
+
+                <div className="card-media-v3">
+                  <img src={item.image} alt={item.title} className="card-img-v3" />
                 </div>
-                <div className="card-content">
-                  <div style={{ marginBottom: '1rem' }}>
-                    <span className={`status-tag-chip ${item.status}`}>{item.status === '마감' ? '모집완료' : item.status}</span>
+
+                <div className="card-body-v3">
+                  <div className="biz-header-v3">
+                    <span className="biz-name-v3">{item.title}</span>
+                    <span className="biz-divider-v3">ㅣ</span>
+                    <span className="biz-type-v3">{item.subCategory}</span>
                   </div>
-                  <div className="card-details">
-                    <div className="detail-row"><span className="detail-label"><MapPin size={14} /> 소재지</span><span className="detail-value">{item.location}</span></div>
-                    <div className="detail-row"><span className="detail-label"><ShieldCheck size={14} /> 임대보증금</span><span className="detail-value">{item.deposit}</span></div>
-                    <div className="detail-row"><span className="detail-label"><PieChart size={14} /> 모집금액</span><span className="detail-value">{item.totalAmount}</span></div>
-                    <div className="detail-row"><span className="detail-label"><Maximize size={14} /> 규모</span><span className="detail-value">{item.size}</span></div>
-                    <div className="detail-row highlight-row"><span className="detail-label"><TrendingUp size={14} /> 예상 수익률</span><span className="detail-value text-danger">{item.returnRate}</span></div>
+
+                  <div className="biz-address-v3">
+                    주소: {item.location}
+                  </div>
+
+                  <div className="biz-dividend-v3">
+                    예상 배당금 <span className="dividend-val-v3">월 120,000원</span>
+                  </div>
+
+                  <div className="card-action-v3">
+                    <button className="btn-view-detail-v3">상세내역 보기</button>
                   </div>
                 </div>
               </Link>

@@ -1,5 +1,5 @@
 .investments-page {
-  background-color: white;
+  background-color: #F8F9FA; /* Beige/Light Gray background */
   min-height: 100vh;
 }
 
@@ -246,198 +246,156 @@
   .hero-menu-v3 { gap: 1.5rem; flex-wrap: wrap; }
 }
 
-/* Grid Layout */
-.investments-grid-v2 {
+/* Redesigned Grid V3 */
+.investments-grid-v3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
+  gap: 2rem;
+  margin-top: 3rem;
 }
 
-@media (max-width: 1200px) {
-  .investments-grid-v2 { grid-template-columns: repeat(2, 1fr); }
+.investment-card-v3 {
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+  transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  height: 580px; /* Taller card */
+}
+
+.investment-card-v3:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+}
+
+.card-top-badge-v3 {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
+}
+
+.dividend-badge-v3 {
+  background-color: #CFFF04; /* Lime Green */
+  color: #000;
+  padding: 0.7rem 1.4rem;
+  border-radius: 100px;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.card-media-v3 {
+  width: 100%;
+  height: 380px; /* Larger image area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.card-img-v3 {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Like the mockup */
+  transition: transform 0.6s ease;
+}
+
+.investment-card-v3:hover .card-media-v3 {
+  transform: translateY(-30px);
+}
+
+.card-body-v3 {
+  padding: 1.5rem 2rem 2.5rem 2rem;
+  flex: 1;
+  background: white;
+  transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Text at bottom */
+}
+
+.investment-card-v3:hover .card-body-v3 {
+  transform: translateY(-50px);
+}
+
+.biz-header-v3 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.biz-name-v3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.biz-divider-v3 {
+  margin: 0 0.4rem;
+  color: #D1D5DB;
+}
+
+.biz-type-v3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6B7280;
+}
+
+.biz-address-v3 {
+  font-size: 0.9rem;
+  color: #6B7280;
+  margin-bottom: 0.75rem;
+}
+
+.biz-dividend-v3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.card-action-v3 {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.investment-card-v3:hover .card-action-v3 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-view-detail-v3 {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  padding: 1.25rem;
+  border-radius: 100px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .investments-grid-v3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-  .investments-grid-v2 { grid-template-columns: 1fr; }
+  .investments-grid-v3 {
+    grid-template-columns: 1fr;
+  }
 }
-
-/* Reverted Card Styles */
-.investment-card {
-  background-color: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  transition: transform 0.3s, box-shadow 0.3s;
-  border: 1px solid #f1f5f9;
-  display: flex;
-  flex-direction: column;
-}
-
-.investment-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-}
-
-.card-image-wrapper {
-  position: relative;
-  height: 220px;
-  overflow: hidden;
-}
-
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.investment-card:hover .card-image {
-  transform: scale(1.05);
-}
-
-.status-badge {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  padding: 0.35rem 1rem;
-  border-radius: 30px;
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: white;
-}
-
-.status-badge.active {
-  background-color: var(--color-primary);
-}
-
-.status-badge.completed {
-  background-color: #64748b;
-}
-
-.card-content {
-  padding: 1.5rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.card-header {
-  margin-bottom: 1.5rem;
-}
-
-.card-category {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-.card-category .dot {
-  color: #cbd5e1;
-}
-
-.card-title {
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--color-text-main);
-  margin: 0;
-}
-
-.card-details {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  margin-bottom: 1.5rem;
-  flex: 1;
-}
-
-.detail-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.9rem;
-}
-
-.detail-label {
-  color: var(--color-text-muted);
-  font-weight: 600;
-}
-
-.detail-value {
-  font-weight: 700;
-  color: var(--color-text-main);
-}
-
-.highlight-row {
-  margin-top: 0.5rem;
-  padding-top: 1rem;
-  border-top: 1px dashed #e2e8f0;
-}
-
-.text-danger {
-  color: #E11D48 !important;
-  font-size: 1.1rem;
-}
-
-.btn-primary {
-  background-color: var(--color-primary);
-  color: white;
-  padding: 0.8rem;
-  border-radius: 8px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: background-color 0.2s;
-}
-
-.btn-primary:hover {
-  background-color: #0d223f; /* Darker navy */
-}
-
-/* New Card Top Bar */
-.card-top-bar {
-  background-color: #1e293b;
-  color: white;
-  padding: 0.75rem 1.2rem;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-}
-
-.biz-location {
-  color: var(--color-secondary);
-}
-
-.biz-name {
-  color: white;
-}
-
-/* Card Action Footer */
-.card-action-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #f1f5f9;
-  gap: 1rem;
-}
-
-.status-tag-chip {
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 800;
-}
-
-.status-tag-chip.모집중 { background-color: rgba(212, 175, 55, 0.15); color: var(--color-primary); }
-.status-tag-chip.마감 { background-color: #e2e8f0; color: #64748b; }
-.status-tag-chip.최신 { background-color: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
-.status-tag-chip.추천 { background-color: rgba(244, 63, 94, 0.1); color: #f43f5e; }
 
 /* Hero Slideshow Styles */
 .hero-slideshow-v3 {

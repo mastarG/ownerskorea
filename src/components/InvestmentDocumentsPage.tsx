@@ -60,11 +60,12 @@ const CONTRACT_TEXT = `제 1조 (목적)
 
 const InvestmentDocumentsPage: React.FC = () => {
   const [qnaCategory, setQnaCategory] = useState('tax');
-  const [selectedEntity, setSelectedEntity] = useState('1');
+  const [selectedEntity, setSelectedEntity] = useState('');
   const [voteStatus, setVoteStatus] = useState<'idle' | 'voted'>('idle');
   const [selectedVote, setSelectedVote] = useState<'yes' | 'no' | null>(null);
   const [isVotingExpanded, setIsVotingExpanded] = useState(false);
   const [isHistoryExpanded, setIsHistoryExpanded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const activeContract = portfolioList.find(p => p.id.toString() === selectedEntity) || portfolioList[0];
 
@@ -77,7 +78,7 @@ const InvestmentDocumentsPage: React.FC = () => {
           <div className="consult-form-card-v42">
             <div className="card-header-v42">
               <span className="required-notice-v42">Direct Q&A</span>
-              <h2>실시간 문의하기</h2>
+              <h2>계약서 선택하기</h2>
               <p className="subtitle">투자 및 계약 관련 궁금하신 내용을 전문가에게 문의하세요.</p>
             </div>
 
@@ -95,7 +96,7 @@ const InvestmentDocumentsPage: React.FC = () => {
                       className={qnaCategory === cat ? 'active' : ''} 
                       onClick={() => setQnaCategory(cat)}
                     >
-                      {cat === 'tax' ? '세무' : cat === 'biz' ? '기업문의' : '기타'}
+                      {cat === 'tax' ? '투자계약' : cat === 'biz' ? '상가계약' : '기타'}
                     </button>
                   ))}
                 </div>
@@ -131,7 +132,7 @@ const InvestmentDocumentsPage: React.FC = () => {
                 <div className="history-list-v42 fade-in">
                   <div className="history-item-v42">
                     <div className="h-top">
-                      <span className="h-cat">세무</span>
+                      <span className="h-cat">투자계약</span>
                       <span className="h-status">답변완료</span>
                     </div>
                     <p className="h-title">소득공제 서류 제출 방법 문의</p>
@@ -173,16 +174,23 @@ const InvestmentDocumentsPage: React.FC = () => {
           <div className="sticky-header-v42">
             <div className="column-header-v42">
               <span className="brand-label">Owners Partner</span>
-              <h1><span className="highlight-text">투자 계약서</span></h1>
             </div>
             
             <div className="expert-list-nav-v42">
-              <div className="expert-filters-v42">
-                <span className="filter-item-v42 active">전체</span>
+              <div className="expert-filters-v42" style={{ alignItems: 'center' }}>
+                <span className="filter-item-v42 active">진행중</span>
                 <span className="filter-divider-v42">|</span>
-                <span className="filter-item-v42">계약서</span>
+                <span className="filter-item-v42">종료</span>
                 <span className="filter-divider-v42">|</span>
-                <span className="filter-item-v42">계약종료</span>
+                <div className="search-box-v42">
+                  <Search size={14} />
+                  <input 
+                    type="text" 
+                    placeholder="검색" 
+                    value={searchQuery} 
+                    onChange={(e) => setSearchQuery(e.target.value)} 
+                  />
+                </div>
               </div>
               <div className="indicator-dots-v42">
                 <span className="dot active"></span>
@@ -201,7 +209,7 @@ const InvestmentDocumentsPage: React.FC = () => {
                 >
                   <div className="expert-main-compact-v42">
                     <div className="expert-photo-compact-v42">
-                      <img src={contract.thumb} alt={contract.name} />
+                      <img src={contract.thumb} alt={contract.fundName} />
                     </div>
                     <div className="expert-info-compact-v42">
                       <div className="expert-name-row-v42">

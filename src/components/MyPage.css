@@ -18,19 +18,101 @@
   flex-shrink: 0;
   box-shadow: 4px 0 15px rgba(0,0,0,0.2);
   z-index: 100;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.sidebar.collapsed {
+  width: 80px;
 }
 
 .sidebar-header {
   padding: 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 72px;
+}
+
+.sidebar.collapsed .sidebar-header {
+  justify-content: center;
+  padding: 1.25rem 0;
+  border-bottom: none; /* Cleaner look when only hamburger is left */
+}
+
+.sidebar-toggle-hamburger {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.sidebar-toggle-hamburger:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 .sidebar-logo {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: white;
   text-decoration: none;
   letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-logo .logo-owners { color: var(--color-secondary); }
+.sidebar-logo .logo-korea { color: white; }
+
+.sidebar-logo-collapsed {
+  font-size: 1.2rem;
+  font-weight: 900;
+  text-decoration: none;
+  display: flex;
+  gap: 1px;
+}
+
+.sidebar-logo-collapsed .logo-owners { color: var(--color-secondary); }
+.sidebar-logo-collapsed .logo-korea { color: white; }
+
+/* Middle Toggle Arrow */
+.sidebar-middle-toggle {
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: var(--color-primary);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 50%;
+  color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 101;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.sidebar-middle-toggle:hover {
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  border-color: var(--color-secondary);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.sidebar-middle-toggle.collapsed {
+  right: -12px;
 }
 
 .sidebar-profile {
@@ -131,6 +213,11 @@
   flex: 1;
   padding: 1.5rem 1rem;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar.collapsed .sidebar-nav {
+  overflow: visible; /* Allow tooltips to escape */
 }
 
 .nav-group {
@@ -164,6 +251,45 @@
   transition: all 0.2s ease;
   text-align: left;
   border-radius: 6px;
+  position: relative;
+}
+
+.sidebar.collapsed .nav-btn-v26 {
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+/* Tooltips */
+.sidebar.collapsed .nav-btn-v26:after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 100%; /* Outside the sidebar */
+  top: 50%;
+  transform: translateY(-50%) translateX(10px);
+  background: rgba(11, 25, 44, 0.98);
+  color: var(--color-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  z-index: 2000;
+}
+
+.sidebar.collapsed .nav-btn-v26:hover:after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(15px);
+}
+
+.sidebar.collapsed .nav-btn-v26 {
+  position: relative !important;
 }
 
 .nav-item-v26:hover .nav-btn-v26,
@@ -175,8 +301,12 @@
 .nav-icon-v26 {
   margin-right: 0.75rem;
   opacity: 0.5;
-  transition: opacity 0.2s;
+  transition: all 0.2s;
   flex-shrink: 0;
+}
+
+.sidebar.collapsed .nav-icon-v26 {
+  margin-right: 0;
 }
 
 .nav-item-v26:hover .nav-icon-v26,
@@ -312,6 +442,11 @@
 .sidebar-footer {
   padding: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  padding: 0.5rem;
 }
 
 .text-danger {
@@ -4734,7 +4869,7 @@
 .recommendation-title-v16 h3 {
   font-size: 1.3rem;
   font-weight: 800;
-  color: #1e293b;
+  color: var(--color-secondary);
 }
 
 .recommendation-nav-v16 {

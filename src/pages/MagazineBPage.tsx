@@ -4,7 +4,7 @@ import { ChevronRight, Play, Info, Plus, ThumbsUp, X, Bookmark, Share2, Quote, A
 import './MagazineBPage.css';
 
 // Import shared data
-import { ALL_INVESTMENTS } from '../data/investments';
+import { ALL_INVESTMENTS, INVESTMENTS_DATA } from '../data/investments';
 
 // Import assets
 import eventCover from '../assets/magazine-b/event-cover.png';
@@ -27,6 +27,7 @@ interface MagazineItem {
 const MagazineBPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<any>(null);
+  const [activeModalTab, setActiveModalTab] = useState('summary');
   const heroImage = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80";
 
   useEffect(() => {
@@ -170,9 +171,9 @@ const MagazineBPage = () => {
             창업자와 투자자가 함께 성장하는 오너스코리아의 최신 소식을 확인하세요. 성공적인 자산 운용을 위한 전문가들의 비전을 공유합니다.
           </p>
           <div className="hero-btns">
-            <button className="btn-play" onClick={() => setSelectedArticle(eventItems[0])}>
+            <Link to="/about" className="btn-play">
               <Info size={24} /> 자세히 보기
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -189,7 +190,11 @@ const MagazineBPage = () => {
                 <div 
                   key={item.id} 
                   className="magazine-card"
-                  onClick={() => idx === 0 ? setSelectedArticle(item) : null}
+                  onClick={() => {
+                    const investmentDetail = INVESTMENTS_DATA[item.id];
+                    setSelectedArticle(investmentDetail ? { ...item, ...investmentDetail } : item);
+                    setActiveModalTab('summary');
+                  }}
                 >
                   {/* Top Left Overlay */}
                   <div className="card-tag-badge">
@@ -213,7 +218,12 @@ const MagazineBPage = () => {
 
                   <div className="card-info">
                     <div className="card-actions">
-                      <div className="action-circle" onClick={(e) => { e.stopPropagation(); idx === 0 ? setSelectedArticle(item) : null; }}>
+                      <div className="action-circle" onClick={(e) => { 
+                        e.stopPropagation(); 
+                        const investmentDetail = INVESTMENTS_DATA[item.id];
+                        setSelectedArticle(investmentDetail ? { ...item, ...investmentDetail } : item);
+                        setActiveModalTab('summary');
+                      }}>
                         <Play size={16} fill="white" />
                       </div>
                       <div className="action-circle"><Plus size={16} /></div>
@@ -259,6 +269,7 @@ const MagazineBPage = () => {
             </div>
 
             <div className="mag-modal-body">
+              {/* Editorial Content (Interview/Quote) */}
               {selectedArticle.content && (
                 <>
                   <div className="mag-modal-quote">
@@ -276,6 +287,65 @@ const MagazineBPage = () => {
                   </div>
                 </>
               )}
+
+              {/* Investment Content (Hospitals, Restaurants, Startups) */}
+              {selectedArticle.businessInfo && (
+                <div className="mag-modal-investment">
+                  <div className="modal-tabs">
+                    <button className={activeModalTab === 'summary' ? 'active' : ''} onClick={() => setActiveModalTab('summary')}>매장 요약</button>
+                    <button className={activeModalTab === 'financial' ? 'active' : ''} onClick={() => setActiveModalTab('financial')}>투자 정보</button>
+                  </div>
+
+                  {activeModalTab === 'summary' ? (
+                    <div className="modal-tab-content">
+                      <p className="modal-desc">{selectedArticle.description}</p>
+                      <div className="modal-stats-grid">
+                        <div className="stat-box">
+                          <span className="label">대표자</span>
+                          <span className="value">{selectedArticle.businessInfo.founder}</span>
+                        </div>
+                        <div className="stat-box">
+                          <span className="label">전용 면적</span>
+                          <span className="value">{selectedArticle.businessInfo.area}</span>
+                        </div>
+                        <div className="stat-box">
+                          <span className="label">규모</span>
+                          <span className="value">{selectedArticle.businessInfo.tables}</span>
+                        </div>
+                        <div className="stat-box">
+                          <span className="label">월 매출</span>
+                          <span className="value">{selectedArticle.businessInfo.avgRevenue}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="modal-tab-content">
+                      <div className="financial-summary">
+                        <div className="fin-row">
+                          <span>총 결성금액</span>
+                          <strong>{selectedArticle.totalAmount}</strong>
+                        </div>
+                        <div className="fin-row">
+                          <span>연 예상 수익률</span>
+                          <strong className="text-red">{selectedArticle.returnRate}</strong>
+                        </div>
+                        <div className="fin-row">
+                          <span>최소 투자액</span>
+                          <strong>{selectedArticle.minInvestment}</strong>
+                        </div>
+                        <div className="fin-row">
+                          <span>투자기간</span>
+                          <strong>{selectedArticle.duration}</strong>
+                        </div>
+                        <div className="fin-row">
+                          <span>정산 방식</span>
+                          <strong>{selectedArticle.payoutCycle}</strong>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
               
               <div className="mag-modal-footer">
                 <button className="btn-modal-action">
@@ -285,7 +355,7 @@ const MagazineBPage = () => {
                   <Share2 size={20} /> 공유하기
                 </button>
                 <Link to={selectedArticle.link} className="btn-modal-primary">
-                  상세 투자정보 보기 <ArrowUpRight size={20} />
+                  {selectedArticle.businessInfo ? '상세 계약하기' : '상세 투자정보 보기'} <ArrowUpRight size={20} />
                 </Link>
               </div>
             </div>

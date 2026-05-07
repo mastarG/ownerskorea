@@ -4,9 +4,9 @@
   position: relative;
 }
 
-.highlight-text-orange {
-  background-color: rgba(249, 115, 22, 0.15); /* Orange background */
-  color: #EA580C; /* Darker orange */
+.highlight-text-gold {
+  background-color: rgba(197, 161, 111, 0.15); /* Gold background */
+  color: #C5A16F; /* Logo Gold */
   font-weight: 700;
   padding: 0 0.25rem;
   border-radius: 2px;
@@ -63,8 +63,8 @@
 }
 
 .review-quote-icon {
-  color: #F97316; /* Orange color */
-  opacity: 0.3;
+  color: #C5A16F; /* Logo Gold */
+  opacity: 0.4;
   margin-bottom: 1rem;
 }
 
@@ -89,7 +89,7 @@
   height: 64px;
   border-radius: 12px;
   object-fit: cover;
-  border: 2px solid #F97316; /* Orange border */
+  border: 2px solid #C5A16F; /* Logo Gold border */
 }
 
 .review-author-info {

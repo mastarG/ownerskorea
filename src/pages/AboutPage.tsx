@@ -121,7 +121,7 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* Chapter 2: 그래서 시작 되었습니다. */}
-      <section className="chapter-hero" ref={startRef}>
+      <section className="chapter-hero chapter-2" ref={startRef}>
 
         <div className="hero-image-bg">
           <img 
@@ -133,7 +133,7 @@ const AboutPage: React.FC = () => {
         <div className="container h-100 d-flex align-items-center justify-content-center">
           <div className="hero-content text-center fade-in-section w-100">
             <div className="chapter-label">Chapter 2</div>
-            <h1 className="chapter-title">그래서 시작 되었습니다.</h1>
+            <h1 className="chapter-title text-nowrap">그래서 시작 되었습니다.</h1>
             
             <div className="chapter-intro-text text-white opacity-90 mt-5 mx-auto" style={{ maxWidth: '1200px', wordBreak: 'keep-all' }}>
               <p className="fs-5 fw-light lh-lg mb-4">
@@ -158,7 +158,7 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* Chapter 3: 공인된 전문가들이 함께합니다 */}
-      <section className="chapter-hero" ref={trustRef}>
+      <section className="chapter-hero chapter-3" ref={trustRef}>
 
         <div className="hero-image-bg">
           <img 
@@ -231,7 +231,7 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* Chapter 5: 함께 만드는 새로운 가치 */}
-      <section className="chapter-hero" ref={closingRef}>
+      <section className="chapter-hero chapter-5" ref={closingRef}>
 
         <div className="hero-image-bg">
           <img 
@@ -243,10 +243,10 @@ const AboutPage: React.FC = () => {
         <div className="container h-100 d-flex align-items-center justify-content-center">
           <div className="hero-content text-center fade-in-section w-100">
             <div className="chapter-label">Chapter 5</div>
-            <h1 className="chapter-title">함께 만드는 새로운 가치</h1>
+            <h1 className="chapter-title text-nowrap">함께 만드는 새로운 가치</h1>
             
             <div className="chapter-intro-text text-white opacity-90 mt-5 mx-auto" style={{ maxWidth: '1200px', wordBreak: 'keep-all' }}>
-              <p className="fs-5 fw-light lh-lg mb-4">
+              <p className="fs-5 fw-light lh-lg mb-4 text-nowrap">
                 누군가의 희망을 담은 첫 투자로 오늘 누군가는 첫 매장의 문을 엽니다. <br/>
                 새로운 일자리가 창출되고 대한민국의 지방상권이 살아납니다.
               </p>

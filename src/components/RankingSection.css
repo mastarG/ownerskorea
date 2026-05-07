@@ -29,8 +29,8 @@
   border-bottom: 1px solid #E5E7EB;
 }
 
-.header-icon.orange {
-  color: #F97316;
+.header-icon.gold {
+  color: #C5A16F;
 }
 
 .column-title {
@@ -58,7 +58,7 @@
 .rank-num {
   font-size: 0.875rem;
   font-weight: 800;
-  color: #F97316;
+  color: #C5A16F;
   width: 24px;
 }
 
@@ -85,23 +85,29 @@
   color: #EF4444;
 }
 
-.item-change.down {
-  color: #3B82F6;
+.item-.social-label.gold {
+  color: #C5A16F;
+  /* Matching Logo Gold */
 }
 
-/* Greeting Feed */
 .greeting-feed {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
+.item-change.down {
+  color: #3B82F6;
+}
+
+/* Greeting Feed */
+
 .greeting-card {
   background-color: white;
   border-radius: 12px;
   padding: 1.25rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #F97316;
+  border-left: 4px solid #C5A16F;
   animation: pushUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -113,7 +119,7 @@
 }
 
 .msg-icon {
-  color: #F97316;
+  color: #C5A16F;
 }
 
 .greeting-name {
@@ -168,6 +174,7 @@
     opacity: 0;
     transform: translateX(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -179,6 +186,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

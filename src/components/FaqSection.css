@@ -20,7 +20,7 @@
 .faq-label {
   font-size: 1.05rem;
   font-weight: 800;
-  color: #EF4444; /* Applied Red Color */
+  color: #C5A059; /* Applied Gold Color */
   letter-spacing: 0.05rem;
   margin-bottom: 0.5rem;
 }
@@ -56,7 +56,7 @@
   align-items: center;
   padding: 0.75rem 1.5rem;
   background-color: transparent;
-  color: #EF4444;
+  color: #C5A059;
   text-decoration: none;
   font-weight: 700;
   font-size: 0.95rem;
@@ -67,10 +67,10 @@
 }
 
 .faq-action-btn:hover {
-  background-color: #EF4444;
+  background-color: #C5A059;
   color: #FFFFFF;
   transform: translateY(-2px);
-  border-color: #EF4444;
+  border-color: #C5A059;
 }
 
 .filter-btn {
@@ -112,12 +112,12 @@
 }
 
 .faq-item:hover {
-  border-color: #EF4444;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.05);
+  border-color: #C5A059;
+  box-shadow: 0 4px 12px rgba(197, 160, 89, 0.05);
 }
 
 .faq-item.open {
-  border-color: #EF4444;
+  border-color: #C5A059;
 }
 
 .faq-question {
@@ -132,7 +132,7 @@
 }
 
 .faq-q-mark {
-  color: #EF4444;
+  color: #C5A059;
   font-weight: 800;
   font-size: 1.25rem;
   margin-right: 1rem;
@@ -243,7 +243,7 @@
 
 .modal-submit-btn {
   width: 100%;
-  background-color: #EF4444;
+  background-color: #C5A059;
   color: #FFFFFF;
   padding: 1rem;
   border: none;
@@ -258,7 +258,7 @@
 }
 
 .modal-submit-btn:hover {
-  background-color: #DC2626;
+  background-color: #B49048; /* Slightly darker gold */
 }
 
 @media (max-width: 768px) {

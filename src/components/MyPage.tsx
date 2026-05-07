@@ -8,7 +8,7 @@ import {
   MapPin, PieChart, Maximize, User, Users, Download, Share2, Calculator,
   Building, CheckCircle2, ArrowLeft, AlertCircle, CalendarDays, Info,
   Sun, Cloud, CloudRain, CloudSun, ArrowUp, ArrowDown, ChevronLeft,
-  Plus, MoreHorizontal, Trash2, Edit2, Archive, CornerDownLeft, Quote, Send, X, Star
+  Plus, MoreHorizontal, Trash2, Edit2, Archive, CornerDownLeft, Quote, Send, X, Star, Menu
 } from 'lucide-react';
 import './MyPage.css';
 import IntegratedValue from './IntegratedValue';
@@ -18,6 +18,8 @@ import MagazinePage from './MagazinePage';
 import InvestmentInfoSubPage from './InvestmentInfoSubPage';
 import SettlementPage from './SettlementPage';
 import LegalTaxPage from './LegalTaxPage';
+import StartupStatusPage from './StartupStatusPage';
+import StartupInfoSubPage from './StartupInfoSubPage';
 
 interface MyPageProps {
   onLogout: () => void;
@@ -286,6 +288,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
   const [previewMenuIdx, setPreviewMenuIdx] = useState(0);
   const [previewGalleryIdx, setPreviewGalleryIdx] = useState(0);
   const [isRankingShuffling, setIsRankingShuffling] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [activeMagPage, setActiveMagPage] = useState(0);
   const magRightRef = useRef<HTMLDivElement>(null);
 
@@ -385,14 +388,36 @@ const MyPage = ({ onLogout }: MyPageProps) => {
     ]
   });
 
-  const [investSubTab, setInvestSubTab] = useState<'magazine' | 'info' | 'status' | 'settlement' | 'docs' | 'tax'>('magazine');
+  const [investSubTab, setInvestSubTab] = useState<'magazine' | 'info' | 'status' | 'settlement' | 'docs' | 'tax' | 'startupInfo' | 'startupStatus' | 'consultation'>('magazine');
   const [investTabs, setInvestTabs] = useState([
-    { id: 'magazine', label: '매거진', accent: 'pink', path: '/dashboard/investments/magazine' },
-    { id: 'info', label: '투자정보', accent: 'purple', path: '/dashboard/investments/info' },
-    { id: 'status', label: '투자 현황', accent: 'yellow', path: '/dashboard/investments/status' },
-    { id: 'settlement', label: '정산내역', accent: 'blue', path: '/dashboard/investments/settlement' },
-    { id: 'docs', label: '투자 계약서', accent: 'green', path: '/dashboard/investments/documents' },
-    { id: 'tax', label: '법률.세무', accent: 'cyan', path: '/dashboard/investments/legal-tax' },
+    { id: 'magazine', label: '매거진', accent: 'pink', path: '/dashboard/investments/magazine', index: '01' },
+    { id: 'info', label: '투자정보', accent: 'purple', path: '/dashboard/investments/info', index: '02' },
+    { id: 'status', label: '투자 현황', accent: 'yellow', path: '/dashboard/investments/status', index: '03' },
+    { id: 'settlement', label: '정산내역', accent: 'blue', path: '/dashboard/investments/settlement', index: '04' },
+    { id: 'docs', label: '계약서', accent: 'green', path: '/dashboard/investments/documents', index: '05' },
+    { id: 'tax', label: '법률.세무', accent: 'cyan', path: '/dashboard/investments/legal-tax', index: '06' },
+  ]);
+
+  const [startupTabs, setStartupTabs] = useState([
+    { id: 'magazine', label: '매거진', accent: 'pink', path: '/dashboard/startup/magazine', index: '01' },
+    { id: 'startupInfo', label: '창업정보', accent: 'purple', path: '/dashboard/startup/info', index: '07' },
+    { id: 'startupStatus', label: '창업현황', accent: 'yellow', path: '/dashboard/startup/status', index: '08' },
+    { id: 'settlement', label: '정산내역', accent: 'blue', path: '/dashboard/startup/settlement', index: '04' },
+    { id: 'docs', label: '계약서', accent: 'green', path: '/dashboard/startup/documents', index: '05' },
+    { id: 'tax', label: '법률.세무', accent: 'cyan', path: '/dashboard/startup/legal-tax', index: '06' },
+    { id: 'consultation', label: '상담', accent: 'orange', path: '/dashboard/startup/consultation', index: '09' },
+  ]);
+
+  const [crewTabs, setCrewTabs] = useState([
+    { id: 'magazine', label: '매거진', accent: 'pink', path: '/dashboard/crew/magazine', index: '01' },
+    { id: 'sushi', label: '시흥 어부 횟집', accent: 'blue', path: '/dashboard/crew/sushi', index: '10' },
+    { id: 'cafe', label: '판교 카페', accent: 'orange', path: '/dashboard/crew/cafe', index: '11' },
+    { id: 'settlement', label: '정산내역', accent: 'green', path: '/dashboard/crew/settlement', index: '04' },
+  ]);
+
+  const [orgTabs, setOrgTabs] = useState([
+    { id: 'magazine', label: '매거진', accent: 'pink', path: '/dashboard/organization/magazine', index: '01' },
+    { id: 'alliance', label: '오너스 연합', accent: 'purple', path: '/dashboard/organization/alliance', index: '12' },
   ]);
   const [draggedTabIndex, setDraggedTabIndex] = useState<number | null>(null);
 
@@ -415,10 +440,27 @@ const MyPage = ({ onLogout }: MyPageProps) => {
       return;
     }
 
-    const newTabs = [...investTabs];
-    const draggedItem = newTabs.splice(dragIndex, 1);
-    newTabs.splice(dropIndex, 0, draggedItem[0]);
-    setInvestTabs(newTabs);
+    if (activeMenu === 'investments') {
+      const newTabs = [...investTabs];
+      const draggedItem = newTabs.splice(dragIndex, 1);
+      newTabs.splice(dropIndex, 0, draggedItem[0]);
+      setInvestTabs(newTabs);
+    } else if (activeMenu === 'startup') {
+      const newTabs = [...startupTabs];
+      const draggedItem = newTabs.splice(dragIndex, 1);
+      newTabs.splice(dropIndex, 0, draggedItem[0]);
+      setStartupTabs(newTabs);
+    } else if (activeMenu === 'crew') {
+      const newTabs = [...crewTabs];
+      const draggedItem = newTabs.splice(dragIndex, 1);
+      newTabs.splice(dropIndex, 0, draggedItem[0]);
+      setCrewTabs(newTabs);
+    } else if (activeMenu === 'organization') {
+      const newTabs = [...orgTabs];
+      const draggedItem = newTabs.splice(dragIndex, 1);
+      newTabs.splice(dropIndex, 0, draggedItem[0]);
+      setOrgTabs(newTabs);
+    }
     setDraggedTabIndex(null);
   };
 
@@ -476,8 +518,45 @@ const MyPage = ({ onLogout }: MyPageProps) => {
       if (currentSubPath && tabMap[currentSubPath]) {
         setInvestSubTab(tabMap[currentSubPath]);
       } else if (!currentSubPath) {
-        // Default redirect to magazine if no sub-path
         navigate('/dashboard/investments/magazine', { replace: true });
+      }
+    } else if (activeMenu === 'startup') {
+      const tabMap: { [key: string]: any } = {
+        'magazine': 'magazine',
+        'info': 'startupInfo',
+        'status': 'startupStatus',
+        'settlement': 'settlement',
+        'documents': 'docs',
+        'legal-tax': 'tax',
+        'consultation': 'consultation'
+      };
+      
+      if (currentSubPath && tabMap[currentSubPath]) {
+        setInvestSubTab(tabMap[currentSubPath]);
+      } else if (!currentSubPath) {
+        navigate('/dashboard/startup/magazine', { replace: true });
+      }
+    } else if (activeMenu === 'crew') {
+      const tabMap: { [key: string]: any } = {
+        'magazine': 'magazine',
+        'sushi': 'sushi',
+        'cafe': 'cafe',
+        'settlement': 'settlement'
+      };
+      if (currentSubPath && tabMap[currentSubPath]) {
+        setInvestSubTab(tabMap[currentSubPath]);
+      } else if (!currentSubPath) {
+        navigate('/dashboard/crew/magazine', { replace: true });
+      }
+    } else if (activeMenu === 'organization') {
+      const tabMap: { [key: string]: any } = {
+        'magazine': 'magazine',
+        'alliance': 'alliance'
+      };
+      if (currentSubPath && tabMap[currentSubPath]) {
+        setInvestSubTab(tabMap[currentSubPath]);
+      } else if (!currentSubPath) {
+        navigate('/dashboard/organization/magazine', { replace: true });
       }
     }
   }, [activeMenu, currentSubPath, navigate]);
@@ -580,9 +659,9 @@ const MyPage = ({ onLogout }: MyPageProps) => {
     return () => clearInterval(interval);
   }, [showEmailAuth]);
   const CONTRACTS = [
-    { id: 1, title: "투자 계약서 (시흥 어부 횟집)", imageUrl: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=200&q=80", date: "2024.03.15", expiry: "2027.03.14", amount: "3,000만원(1구좌)", content: "제 1조 (목적)\n본 계약은 '오너스코리아'와 '투자자' 간의 상호 협력을 목적으로 하며...\n\n제 2조 (투자 금액 및 배당)\n투자자는 해당 매장에 대한 금 일천만 원을 투자하며, 매월 수익의 5%를 배당받는다...\n\n제 3조 (계약 기간)\n본 계약의 효력은 체결일로부터 2년간 유지되며...\n\n제 4조 (권리 및 의무)\n투자자는 매장의 경영에 직접 관여하지 않으나, 투명한 회계 보고를 받을 권리가 있다...\n\n제 5조 (해지)\n일방이 본 계약을 위반할 경우, 상대방은 서면 통지 후 계약을 해지할 수 있다." },
-    { id: 2, title: "투자 계약서 (판교 카페)", imageUrl: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=200&q=80", date: "2024.04.10", expiry: "2026.04.09", amount: "1,500만원(0.5구좌)", content: "제 1조 (투자금의 예치)\n투자자는 지정된 기일까지 지정된 계좌로 투자금을 예치하여야 한다...\n\n제 2조 (수익 배분 방식)\n수익 배분은 매월 25일에 정산하여 지급하는 것을 원칙으로 한다...\n\n제 3조 (비밀 유지)\n양 당사자는 본 계약과 관련하여 지득한 모든 정보를 제3자에게 누설해서는 아니된다..." },
-    { id: 3, title: "업무 제휴 계약서 (강남 오피스)", imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=200&q=80", date: "2024.05.01", expiry: "2025.04.30", amount: "5,000만원(1.5구좌)", content: "제 1조 (제휴의 범위)\n본 계약은 강남 오피스 지점의 업무 환경 고도화를 위한 제휴를 다룬다...\n\n제 2조 (비용 분담)\n제휴에 따른 초기 구축 비용은 오너스코리아가 전액 부담하며..." }
+    { id: 1, title: "플랫폼 이용약관", imageUrl: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=200&q=80", date: "2024.01.01", expiry: "상시", amount: "-", content: "제 1조 (목적)\n본 약관은 오너스코리아 플랫폼이 제공하는 서비스의 이용 조건 및 절차를 규정함을 목적으로 합니다.\n\n제 2조 (서비스의 제공 및 변경)\n회사는 사용자에게 투자 정보 제공, 자산 관리 지원, 그리고 맞춤형 컨설팅 서비스를 제공합니다. 서비스의 내용은 기술적 사양의 변경이나 회사의 정책에 따라 변경될 수 있습니다.\n\n제 3조 (회원의 의무)\n회원은 본 약관 및 관계 법령을 준수해야 하며, 타인의 정보를 도용하거나 서비스를 부정한 목적으로 이용하지 않아야 합니다.\n\n제 4조 (책임의 제한)\n회사는 천재지변 또는 이에 준하는 불가항력으로 인하여 서비스를 제공할 수 없는 경우 서비스 제공에 관한 책임이 면제됩니다." },
+    { id: 2, title: "정보보호동의", imageUrl: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=200&q=80", date: "2024.01.01", expiry: "상시", amount: "-", content: "제 1조 (정보 보호의 원칙)\n오너스코리아는 사용자의 데이터를 최우선으로 보호하며, 최신 보안 기술을 적용하여 허가되지 않은 접근으로부터 정보를 안전하게 지킵니다.\n\n제 2조 (데이터 수집 및 활용)\n회사는 서비스 고도화 및 사용자 편의 증진을 위해 최소한의 필요 정보를 수집하며, 이는 동의 범위를 초과하여 활용되지 않습니다.\n\n제 3조 (보안 사고 대응)\n정보 유출 등 보안 사고 발생 시 회사는 즉각적으로 대응 절차를 가동하며, 관련 법령에 따라 사용자에게 통지하고 피해 최소화를 위해 노력합니다." },
+    { id: 3, title: "개인정보 보호", imageUrl: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=200&q=80", date: "2024.01.01", expiry: "상시", amount: "-", content: "제 1조 (개인정보 처리 목적)\n회사는 회원 관리, 서비스 제공 및 계약 이행, 마케팅 활용 등을 목적으로 개인정보를 처리합니다.\n\n제 2조 (개인정보의 처리 및 보유 기간)\n원칙적으로 개인정보 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 단, 관계 법령에 의해 보존이 필요한 경우 해당 기간 동안 보관합니다.\n\n제 3조 (정보주체의 권리)\n사용자는 언제든지 자신의 개인정보를 조회하거나 수정할 수 있으며, 개인정보 처리에 대한 동의 철회 및 삭제를 요청할 수 있습니다." }
   ];
 
   const currentData = ASSET_DATA[selectedAsset];
@@ -597,50 +676,69 @@ const MyPage = ({ onLogout }: MyPageProps) => {
   };
 
   return (
-    <div className="mypage-layout">
+    <div className={`mypage-layout ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
       {/* Sidebar */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${isSidebarCollapsed ? 'collapsed' : ''}`}>
         <div className="sidebar-header">
-          <Link to="/" className="sidebar-logo" onClick={onLogout}>
-            <span className="text-secondary">O</span>wners <span className="text-secondary">K</span>orea
-          </Link>
+          <button className="sidebar-toggle-hamburger" onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}>
+            <Menu size={20} />
+          </button>
+          {!isSidebarCollapsed && (
+            <Link to="/" className="sidebar-logo" onClick={onLogout}>
+              <span className="logo-owners">Owners</span><span className="logo-korea">Korea</span>
+            </Link>
+          )}
         </div>
 
-        <div className="sidebar-profile-v30">
-          <div className="profile-left-v30">
-            <div className="profile-avatar-v30">
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" />
+        {!isSidebarCollapsed && (
+          <div className="sidebar-profile-v30">
+            <div className="profile-left-v30">
+              <div className="profile-avatar-v30">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User" />
+              </div>
+              <button className="profile-edit-btn-v30" onClick={() => navigate('/dashboard/memberInfo')}>
+                <Edit2 size={10} /> 정보수정
+              </button>
             </div>
-            <button className="profile-edit-btn-v30" onClick={() => navigate('/dashboard/memberInfo')}>
-              <Edit2 size={10} /> 정보수정
-            </button>
-          </div>
-          <div className="profile-info-v30">
-            <div className="profile-name-row-v30">
-              <span className="p-name-v30">김오너 님</span>
-              <div className="p-bell-v30">
-                <Bell size={16} />
-                <span className="p-badge-v30">4</span>
+            <div className="profile-info-v30">
+              <div className="profile-name-row-v30">
+                <span className="p-name-v30">김오너 님</span>
+                <div className="p-bell-v30">
+                  <Bell size={16} />
+                  <span className="p-badge-v30">4</span>
+                </div>
+              </div>
+              <div className="profile-email-v30">owner_kim@naver.com</div>
+              <div className="profile-rankings-v31">
+                <div className="r-row-v31"><span className="r-label-v31">투자 랭킹:</span> <span className="r-val-v31">12위</span></div>
+                <div className="r-row-v31"><span className="r-label-v31">수익 랭킹:</span> <span className="r-val-v31">5위</span></div>
+                <div className="r-row-v31"><span className="r-label-v31">크루 랭킹:</span> <span className="r-val-v31">4위</span></div>
               </div>
             </div>
-            <div className="profile-email-v30">owner_kim@naver.com</div>
-            <div className="profile-rankings-v31">
-              <div className="r-row-v31"><span className="r-label-v31">투자 랭킹:</span> <span className="r-val-v31">12위</span></div>
-              <div className="r-row-v31"><span className="r-label-v31">수익 랭킹:</span> <span className="r-val-v31">5위</span></div>
-              <div className="r-row-v31"><span className="r-label-v31">크루 랭킹:</span> <span className="r-val-v31">4위</span></div>
-            </div>
           </div>
-        </div>
+        )}
+
+        {/* Middle Toggle Arrow */}
+        <button 
+          className={`sidebar-middle-toggle ${isSidebarCollapsed ? 'collapsed' : ''}`}
+          onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+        >
+          {isSidebarCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+        </button>
 
         <nav className="sidebar-nav">
           <div className="nav-group">
 
             {/* Dashboard */}
             <div className={`nav-item-v26 ${activeMenu === 'dashboard' ? 'active' : ''}`}>
-              <button className="nav-btn-v26" onClick={() => navigate('/dashboard')}>
+              <button 
+                className="nav-btn-v26" 
+                onClick={() => navigate('/dashboard')}
+                data-tooltip="대시보드"
+              >
                 <div className="toggle-placeholder-v26"></div>
                 <LayoutDashboard size={16} className="nav-icon-v26" />
-                <span className="nav-text-v26">대시보드</span>
+                {!isSidebarCollapsed && <span className="nav-text-v26">대시보드</span>}
               </button>
             </div>
 
@@ -648,28 +746,30 @@ const MyPage = ({ onLogout }: MyPageProps) => {
             {favorites.length > 0 && (
               <div className="nav-group-container-v29 expanded">
                 <div className={`nav-item-v26 active expanded favorite-group-header`}>
-                  <button className="nav-btn-v26">
+                  <button className="nav-btn-v26" data-tooltip="즐겨찾기">
                     <ChevronDown size={14} className="toggle-chevron-v26" />
                     <span className="nav-icon-v26"><Star size={16} fill="#EAB308" color="#EAB308" /></span>
-                    <span className="nav-text-v26">즐겨찾기</span>
+                    {!isSidebarCollapsed && <span className="nav-text-v26">즐겨찾기</span>}
                   </button>
                 </div>
-                <div className="sub-nav-v26">
-                  {favorites.map((fav, index) => (
-                    <div 
-                      key={fav.id} 
-                      draggable
-                      className={`sub-nav-item-v26 ${investSubTab === fav.id ? 'active' : ''} ${draggedFavIndex === index ? 'fav-item-dragging' : ''}`}
-                      onClick={() => navigate(fav.path)}
-                      onDragStart={(e) => handleFavDragStart(e, index)}
-                      onDragOver={handleFavDragOver}
-                      onDrop={(e) => handleFavDrop(e, index)}
-                      onDragEnd={() => setDraggedFavIndex(null)}
-                    >
-                      {fav.label}
-                    </div>
-                  ))}
-                </div>
+                {!isSidebarCollapsed && favorites.length > 0 && (
+                  <div className="sub-nav-v26">
+                    {favorites.map((fav, index) => (
+                      <div 
+                        key={fav.id} 
+                        draggable
+                        className={`sub-nav-item-v26 ${investSubTab === fav.id ? 'active' : ''} ${draggedFavIndex === index ? 'fav-item-dragging' : ''}`}
+                        onClick={() => navigate(fav.path)}
+                        onDragStart={(e) => handleFavDragStart(e, index)}
+                        onDragOver={handleFavDragOver}
+                        onDrop={(e) => handleFavDrop(e, index)}
+                        onDragEnd={() => setDraggedFavIndex(null)}
+                      >
+                        {fav.label}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
@@ -692,31 +792,24 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                     <button 
                       className="nav-btn-v26" 
                       onClick={() => {
-                        if (groupId === 'investments') {
-                          navigate('/dashboard/investments');
-                        } else {
-                          toggleMenuExpansion(groupId);
-                        }
+                        navigate(`/dashboard/${groupId}`);
                       }}
+                      data-tooltip={labels[groupId].name}
                     >
-                      {groupId === 'investments' ? (
-                        <div className="toggle-placeholder-v26"></div>
-                      ) : (
-                        <ChevronRight size={14} className="toggle-chevron-v26" />
-                      )}
+                      <div className="toggle-placeholder-v26"></div>
                       <span className="nav-icon-v26">{labels[groupId].icon}</span>
-                      <span className="nav-text-v26">{labels[groupId].name}</span>
+                      {!isSidebarCollapsed && <span className="nav-text-v26">{labels[groupId].name}</span>}
                     </button>
-                    <div className="nav-actions-v26">
-                      {groupId !== 'investments' && (
-                        <button className="nav-action-btn-v26" onClick={(e) => { e.stopPropagation(); setContractInputId(groupId); }}><Plus size={14} /></button>
+                      {!isSidebarCollapsed && (
+                        <div className="nav-actions-v26">
+                          <button className="nav-action-btn-v26"><MoreHorizontal size={14} /></button>
+                        </div>
                       )}
-                      <button className="nav-action-btn-v26"><MoreHorizontal size={14} /></button>
-                    </div>
                   </div>
 
-                  {/* Contract Entry UI */}
-                  {contractInputId === groupId && (
+                  {/* Contract Entry UI hidden since expansion is disabled */}
+                  
+                  {false && (
                     <div className="contract-input-v29 fade-in">
                       <div className="input-row-v29">
                         <input 
@@ -740,7 +833,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                     </div>
                   )}
 
-                  {isExpanded && (
+                  {!isSidebarCollapsed && isExpanded && (
                     <div className="sub-nav-v26">
                       {items.map((item) => (
                         <div key={item.id} className="sub-nav-wrapper-v29">
@@ -802,32 +895,52 @@ const MyPage = ({ onLogout }: MyPageProps) => {
 
         <div className="sidebar-footer">
           <div className="nav-item-v26">
-            <button className="nav-btn-v26" onClick={() => setActiveMenu('archive')}>
+            <button 
+              className="nav-btn-v26" 
+              onClick={() => navigate('/dashboard/archive')}
+              data-tooltip="보관함"
+            >
               <div className="toggle-placeholder-v26"></div>
               <Archive size={16} className="nav-icon-v26" />
-              <span className="nav-text-v26">보관함</span>
-              {archivedItems.length > 0 && <span className="archive-count-v29">{archivedItems.length}</span>}
+              {!isSidebarCollapsed && (
+                <>
+                  <span className="nav-text-v26">보관함</span>
+                  {archivedItems.length > 0 && <span className="archive-count-v29">{archivedItems.length}</span>}
+                </>
+              )}
             </button>
           </div>
           <div className="nav-item-v26">
-            <button className="nav-btn-v26" onClick={() => navigate('/support')}>
+            <button 
+              className="nav-btn-v26" 
+              onClick={() => navigate('/support')}
+              data-tooltip="1:1 문의"
+            >
               <div className="toggle-placeholder-v26"></div>
               <MessageSquare size={16} className="nav-icon-v26" />
-              <span className="nav-text-v26">1:1 문의</span>
+              {!isSidebarCollapsed && <span className="nav-text-v26">1:1 문의</span>}
             </button>
           </div>
           <div className="nav-item-v26">
-            <button className="nav-btn-v26" onClick={() => navigate('/dashboard/admin')}>
+            <button 
+              className="nav-btn-v26" 
+              onClick={() => navigate('/dashboard/admin')}
+              data-tooltip="관리자"
+            >
               <div className="toggle-placeholder-v26"></div>
               <ShieldCheck size={16} className="nav-icon-v26" />
-              <span className="nav-text-v26">관리자</span>
+              {!isSidebarCollapsed && <span className="nav-text-v26">관리자</span>}
             </button>
           </div>
           <div className="nav-item-v26 logout-item-v30">
-            <button className="nav-btn-v26" onClick={onLogout}>
+            <button 
+              className="nav-btn-v26" 
+              onClick={onLogout}
+              data-tooltip="로그아웃"
+            >
               <div className="toggle-placeholder-v26"></div>
               <LogOut size={16} className="nav-icon-v26" />
-              <span className="nav-text-v26">로그아웃</span>
+              {!isSidebarCollapsed && <span className="nav-text-v26">로그아웃</span>}
             </button>
           </div>
         </div>
@@ -1542,10 +1655,12 @@ const MyPage = ({ onLogout }: MyPageProps) => {
               </div>
             )}
           </>
-        ) : activeMenu === 'investments' ? (
+        ) : (activeMenu === 'investments' || activeMenu === 'startup' || activeMenu === 'crew' || activeMenu === 'organization') ? (
           <div className="notebook-container-v36 fade-in">
             <div className="notebook-tabs-v36">
-              {investTabs.map((tab, index) => (
+              {(activeMenu === 'investments' ? investTabs : 
+                activeMenu === 'startup' ? startupTabs : 
+                activeMenu === 'crew' ? crewTabs : orgTabs).map((tab, index) => (
                 <button 
                   key={tab.id}
                   draggable
@@ -1556,7 +1671,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                   onDrop={(e) => handleTabDrop(e, index)}
                   onDragEnd={() => setDraggedTabIndex(null)}
                 >
-                  <span className="tab-num">{(index + 1).toString().padStart(2, '0')}</span>
+                  <span className="tab-num">{tab.index}</span>
                   <span className="tab-label">{tab.label}</span>
                   <div className={`tab-accent ${tab.accent}`}></div>
                   <Star 
@@ -1585,6 +1700,18 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                 <InvestmentDocumentsPage />
               ) : investSubTab === 'tax' ? (
                 <LegalTaxPage />
+              ) : investSubTab === 'startupInfo' ? (
+                <StartupInfoSubPage />
+              ) : investSubTab === 'startupStatus' ? (
+                <StartupStatusPage />
+              ) : investSubTab === 'consultation' ? (
+                <div className="placeholder-v29">창업 상담 서비스 준비 중입니다.</div>
+              ) : investSubTab === 'sushi' ? (
+                <div className="placeholder-v29">시흥 어부 횟집 상세 정보입니다.</div>
+              ) : investSubTab === 'cafe' ? (
+                <div className="placeholder-v29">판교 카페 상세 정보입니다.</div>
+              ) : investSubTab === 'alliance' ? (
+                <div className="placeholder-v29">오너스 연합 상세 정보입니다.</div>
               ) : null}
             </div>
           </div>
@@ -1770,7 +1897,7 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                             <span className="contract-card-name">
                               {contract.title.includes('(') ? contract.title.split('(')[1].split(')')[0] : contract.title}
                             </span>
-                            <span className="contract-card-tag">투자계 </span>
+                            <span className="contract-card-tag">약관/동의</span>
                           </div>
                         </div>
                       ))}
@@ -1782,11 +1909,11 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                           <div className="detail-title-info">
                             <h3 className="detail-full-title">{activeContract.title}</h3>
                             <div className="detail-dates">
-                              <span>계 일: {activeContract.date}</span>
+                              <span>등록일: {activeContract.date}</span>
                               <span className="date-sep">ㅣ</span>
-                              <span>마감일: {activeContract.expiry}</span>
+                              <span>상태: {activeContract.expiry}</span>
                               <span className="date-sep">ㅣ</span>
-                              <span>계 금 : {activeContract.amount}</span>
+                              <span>구분: 필수동의</span>
                             </div>
                           </div>
                           <button className="btn-print-v3">
@@ -1802,286 +1929,6 @@ const MyPage = ({ onLogout }: MyPageProps) => {
                       </div>
                     )}
                   </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        ) : activeMenu === 'mystore' || activeMenu === 'crew' ? (
-          <section className="mystore-section-v18 fade-in">
-            <div className="mystore-container-single-v20">
-              {/* Main Management Area */}
-              <div className="mystore-content-v18 glass-content-card">
-                <header className="card-top-header">
-                  <div className="header-title-area">
-                    <h2 className="card-main-title">{myStores.find(s => s.id === activeMyStoreId)?.name || '매장'} 관리</h2>
-                    <div className="header-divider"></div>
-                  </div>
-                  <div className="mystore-tabs-v17">
-                    <button className={`mystore-tab ${myStoreTab === 'info' ? 'active' : ''}`} onClick={() => setMyStoreTab('info')}>매장 보</button>
-                    <span className="sep">ㅣ</span>
-                    <button className={`mystore-tab ${myStoreTab === 'revenue' ? 'active' : ''}`} onClick={() => setMyStoreTab('revenue')}>매출분석</button>
-                    <span className="sep">ㅣ</span>
-                    <button className={`mystore-tab ${myStoreTab === 'invest' ? 'active' : ''}`} onClick={() => setMyStoreTab('invest')}>투자 보</button>
-                  </div>
-                </header>
-                <div className="mystore-body-v17">
-                  {myStoreTab === 'info' && (
-                    <div className="mystore-tab-content info-edit-v18">
-                      {/* 1. Basic Business Fields */}
-                      <div className="section-title-v18">상세  보</div>
-                      <div className="input-grid-v18">
-                        <div className="input-field"><label>업종</label><input type="text" className="unified-input" defaultValue="음식점" /></div>
-                        <div className="input-field"><label>업태</label><input type="text" className="unified-input" defaultValue="일식/횟집" /></div>
-                        <div className="input-field"><label>사업자번호</label><input type="text" className="unified-input" defaultValue="123-45-67890" /></div>
-                        <div className="input-field"><label>대표자명</label><input type="text" className="unified-input" defaultValue="김오너" /></div>
-                        <div className="input-field"><label>매니저 연락처</label><input type="text" className="unified-input" defaultValue="010-1111-2222" /></div>
-                        <div className="input-field"><label>상호명</label><input type="text" className="unified-input" defaultValue="시흥 어부 횟집" /></div>
-                        <div className="input-field"><label>임대 보증금</label><input type="text" className="unified-input" defaultValue="30,000" placeholder="만원 단위" /></div>
-                        <div className="input-field"><label>상가 권리금</label><input type="text" className="unified-input" defaultValue="0" placeholder="만원 단위" /></div>
-                        <div className="input-field"><label>임대 기간</label><input type="text" className="unified-input" defaultValue="3년" placeholder="예: 2년" /></div>
-                        <div className="input-field full-width"><label>주소</label><input type="text" className="unified-input" defaultValue="경기도 시흥시 거북섬길 12" /></div>
-                        <div className="input-field full-width">
-                          <label>상세  보</label>
-                          <textarea className="unified-textarea-v21" defaultValue="시흥 거북섬의 대표 횟집으로 신선  제철 회와 최고의 서비스를 제공 니다." />
-                        </div>
-                      </div>
-                      {/* 2. Sub-Tabs for detailed upload */}
-                      <div className="info-sub-tabs-v19">
-                        <button className={`sub-tab ${infoSubTab === 'amenities' ? 'active' : ''}`} onClick={() => setInfoSubTab('amenities')}>편의시설</button>
-                        <span className="sep">ㅣ</span>
-                        <button className={`sub-tab ${infoSubTab === 'menu' ? 'active' : ''}`} onClick={() => setInfoSubTab('menu')}>메뉴관리</button>
-                        <span className="sep">ㅣ</span>
-                        <button className={`sub-tab ${infoSubTab === 'photos' ? 'active' : ''}`} onClick={() => setInfoSubTab('photos')}>사진등록</button>
-                      </div>
-
-                      <div className="info-sub-content-v19">
-                        {infoSubTab === 'amenities' && (
-                          <div className="amenity-checks-v19">
-                            {amenities.map(amenity => (
-                              <label key={amenity.id} className="amenity-checkbox-v19">
-                                <input 
-                                  type="checkbox" 
-                                  checked={amenity.checked} 
-                                  onChange={() => setAmenities(amenities.map(a => a.id === amenity.id ? {...a, checked: !a.checked} : a))}
-                                />
-                                <span className="custom-check"></span>
-                                {amenity.icon}
-                                <span>{amenity.name}</span>
-                              </label>
-                            ))}
-                          </div>
-                        )}
-
-                        {infoSubTab === 'menu' && (
-                          <table className="menu-edit-table-v18">
-                            <thead>
-                              <tr>
-                                <th>사진</th>
-                                <th>음식명</th>
-                                <th>가격</th>
-                                <th style={{ width: '80px' }}>판매중</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {myStores.find(s => s.id === activeMyStoreId)?.menus.map((menu, i) => (
-                                <tr key={i}>
-                                  <td><div className="menu-thumb-v18"><Smartphone size={16} /></div></td>
-                                  <td><input type="text" className="unified-input" defaultValue={menu.name} /></td>
-                                  <td><input type="text" className="unified-input" defaultValue={menu.price} /></td>
-                                  <td>
-                                    <button className="row-del-btn" onClick={() => {
-                                      const updated = myStores.map(s => s.id === activeMyStoreId ? {...s, menus: s.menus.filter((_, idx) => idx !== i)} : s);
-                                      setMyStores(updated);
-                                    }}>-</button>
-                                  </td>
-                                </tr>
-                              ))}
-                              <tr>
-                                <td colSpan={4}>
-                                  <button className="row-add-btn" onClick={() => {
-                                    const updated = myStores.map(s => s.id === activeMyStoreId ? {...s, menus: [...s.menus, { id: Date.now(), name: '', price: '', img: '' }]} : s);
-                                    setMyStores(updated);
-                                  }}>+ 메뉴 추가</button>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        )}
-
-                        {infoSubTab === 'photos' && (
-                          <div className="photo-gallery-v18">
-                            {myStores.find(s => s.id === activeMyStoreId)?.photos.map((photo, i) => (
-                              <div key={i} className="photo-item-v18" onClick={() => {
-                                 const updated = myStores.map(s => s.id === activeMyStoreId ? {...s, photos: s.photos.filter((_, idx) => idx !== i)} : s);
-                                 setMyStores(updated);
-                              }}>
-                                <img src={photo} alt="Store" />
-                                <div className="delete-overlay"><TrendingUp size={24} /></div>
-                              </div>
-                            ))}
-                            <button className="photo-add-btn-v18" onClick={() => {
-                               const updated = myStores.map(s => s.id === activeMyStoreId ? {...s, photos: [...s.photos, "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=400&q=80"]} : s);
-                               setMyStores(updated);
-                            }}>
-                              <Sparkles size={20} />
-                              <span>사진 추가</span>
-                            </button>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="form-actions-v17" style={{ marginTop: '3rem' }}>
-                        <button className="btn-save-v17">매장  보 전체 저장</button>
-                      </div>
-                    </div>
-                  )}
-
-                  {myStoreTab === 'revenue' && (
-                    <div className="mystore-tab-content revenue-upload-v17">
-                      <div className="upload-box-v17">
-                        <h4 className="box-title">일일 매출 수기 업로드</h4>
-                        <div className="upload-form-v17">
-                          <div className="input-field">
-                            <label>날짜</label>
-                            <input type="date" className="unified-input" />
-                          </div>
-                          <div className="input-field">
-                            <label>매출  (만원)</label>
-                            <input type="number" className="unified-input" placeholder="예: 250" />
-                          </div>
-                          <div className="input-field">
-                            <label>방문 고객수</label>
-                            <input type="number" className="unified-input" placeholder="예: 45" />
-                          </div>
-                          <button className="btn-upload-v17">업로드  기</button>
-                        </div>
-                      </div>
-
-                      <div className="revenue-history-v17">
-                        <h4 className="box-title">최근 업로드 내역</h4>
-                        <table className="history-table-v17">
-                          <thead>
-                            <tr>
-                              <th>날짜</th>
-                              <th>매출 </th>
-                              <th>고객수</th>
-                              <th>상태</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>2024.04.29</td>
-                              <td>320만원</td>
-                              <td>52명</td>
-                              <td><span className="status-badge success">완료</span></td>
-                            </tr>
-                            <tr>
-                              <td>2024.04.28</td>
-                              <td>280만원</td>
-                              <td>48명</td>
-                              <td><span className="status-badge success">완료</span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  )}
-
-                  {myStoreTab === 'invest' && (
-                    <div className="mystore-tab-content invest-tracking-v17">
-                      <div className="lease-info-grid-v17">
-                        <div className="lease-card">
-                          <span className="label">임대 보증금</span>
-                          <span className="value">3억원</span>
-                        </div>
-                        <div className="lease-card">
-                          <span className="label">상가 권리금</span>
-                          <span className="value">-</span>
-                        </div>
-                        <div className="lease-card">
-                          <span className="label">펀딩명</span>
-                          <span className="value">어부 펀드 1호</span>
-                        </div>
-                        <div className="lease-card">
-                          <span className="label">투자 계 일</span>
-                          <span className="value">24.03.15 ~ 27.03.14 (3년)</span>
-                        </div>
-                        <div className="lease-card">
-                          <span className="label">투자 유치금</span>
-                          <span className="value">6억원 (20구좌)</span>
-                        </div>
-                        <div className="lease-card">
-                          <span className="label">배당</span>
-                          <span className="value">투자금의 10%</span>
-                        </div>
-                        <div className="lease-card">
-                          <span className="label">투자자 총원</span>
-                          <span className="value">14명</span>
-                        </div>
-                      </div>
-
-                      <div className="investor-list-section-v17">
-                        <h4 className="box-title">투자자 리스트</h4>
-                        <table className="investor-table-v17">
-                          <thead>
-                            <tr>
-                              <th>투자자명</th>
-                              <th>구좌</th>
-                              <th>금 </th>
-                              <th>계  상태</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {[
-                              { name: '김*현', units: '2구좌', amount: '6,000만원', status: '계 완료' },
-                              { name: '이*우', units: '1구좌', amount: '3,000만원', status: '계 완료' },
-                              { name: ' * ', units: '3구좌', amount: '9,000만원', status: '계 완료' },
-                              { name: '최*호', units: '1구좌', amount: '3,000만원', status: '대기중' },
-                            ].map((investor, i) => (
-                              <tr key={i}>
-                                <td>{investor.name}</td>
-                                <td>{investor.units}</td>
-                                <td>{investor.amount}</td>
-                                <td><span className={`status-text ${investor.status === '대기중' ? 'pending' : ''}`}>{investor.status}</span></td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </section>
-        ) : activeMenu === 'startup' ? (
-          <section className="startup-section fade-in">
-            <div className="glass-content-card" style={{ padding: '2rem' }}>
-              <div className="header-title-area">
-                <h2 className="card-main-title">창업 지원</h2>
-                <div className="header-divider"></div>
-              </div>
-              <div style={{ marginTop: '2rem' }}>
-                <p style={{ color: '#64748b' }}>오너스코리아만의 체계적인 창업 지원 서비스입니다.</p>
-                <div style={{ marginTop: '2rem', padding: '3rem', textAlign: 'center', background: '#f8fafc', borderRadius: '12px' }}>
-                  <Building size={48} color="#3b82f6" style={{ opacity: 0.5, marginBottom: '1rem' }}/>
-                  <p>창업 컨설팅 및 지원 서비스 준비 중입니다.</p>
-                </div>
-              </div>
-            </div>
-          </section>
-        ) : activeMenu === 'organization' ? (
-          <section className="organization-section fade-in">
-            <div className="glass-content-card" style={{ padding: '2rem' }}>
-              <div className="header-title-area">
-                <h2 className="card-main-title">조직 관리</h2>
-                <div className="header-divider"></div>
-              </div>
-              <div style={{ marginTop: '2rem' }}>
-                <p style={{ color: '#64748b' }}>오너스 연합 및 조직 관리 시스템입니다.</p>
-                <div style={{ marginTop: '2rem', padding: '3rem', textAlign: 'center', background: '#f8fafc', borderRadius: '12px' }}>
-                  <Target size={48} color="#ef4444" style={{ opacity: 0.5, marginBottom: '1rem' }}/>
-                  <p>조직 관리 시스템 준비 중입니다.</p>
                 </div>
               </div>
             </div>

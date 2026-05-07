@@ -1,14 +1,17 @@
 .integrated-value {
   background-color: #FFFFFF;
-  padding: 0; /* Top and bottom padding removed as requested */
+  padding: 0;
+  /* Top and bottom padding removed as requested */
   position: relative;
   overflow: hidden;
   width: 100%;
 }
 
 .integrated-value .container {
-  max-width: 1200px !important; /* Matched with FAQ section */
-  width: 100%; /* Force it to expand inside the flex column */
+  max-width: 1200px !important;
+  /* Matched with FAQ section */
+  width: 100%;
+  /* Force it to expand inside the flex column */
   margin: 0 auto !important;
   padding: 0 1.5rem !important;
 }
@@ -16,8 +19,8 @@
 .iv-header-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end; 
-  margin-bottom: 2.5rem; 
+  align-items: flex-end;
+  margin-bottom: 2.5rem;
   position: relative;
   width: 100%;
   margin-left: 0;
@@ -34,13 +37,15 @@
 .iv-label {
   font-size: 1.05rem;
   font-weight: 800;
-  color: #764D32; /* Premium Gold changed to Theme Color */
+  color: #764D32;
+  /* Premium Gold changed to Theme Color */
   letter-spacing: 0.05rem;
   margin-bottom: 0.5rem;
 }
 
 .iv-main-title {
-  font-size: 2.1rem; /* Unified title size */
+  font-size: 2.1rem;
+  /* Unified title size */
   font-weight: 800;
   color: #111827;
   line-height: 1.2;
@@ -48,11 +53,13 @@
 }
 
 .iv-title-spacer {
-  height: 0.75rem; /* Reduced for a cleaner 1-line look */
+  height: 0.75rem;
+  /* Reduced for a cleaner 1-line look */
 }
 
 .iv-gold-text {
-  color: #764D32; /* New Theme Color for "투자수익모델" */
+  color: #764D32;
+  /* New Theme Color for "투자수익모델" */
 }
 
 .iv-btn-group {
@@ -91,7 +98,8 @@
 .iv-item {
   display: grid;
   grid-template-columns: 1fr;
-  padding: 1rem 0; /* Reduced vertical padding */
+  padding: 1rem 0;
+  /* Reduced vertical padding */
   border-bottom: 1px solid #E5E7EB;
   gap: 1.5rem;
 }
@@ -133,7 +141,8 @@
 .orange-bold {
   font-size: 1.25rem;
   font-weight: 800;
-  color: #764D32; /* New Theme Color for Highlights */
+  color: #764D32;
+  /* New Theme Color for Highlights */
   margin-bottom: 0.25rem;
 }
 
@@ -162,11 +171,11 @@
     align-items: flex-start;
     gap: 1.5rem;
   }
-  
+
   .iv-main-title {
     font-size: 1.75rem;
   }
-  
+
   .iv-item-title-italic {
     font-size: 1.5rem;
   }

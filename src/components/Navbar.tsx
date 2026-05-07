@@ -6,10 +6,11 @@ import LoginModal from './LoginModal';
 
 interface NavbarProps {
   onLogin: () => void;
+  isLoginOpen: boolean;
+  setIsLoginOpen: (val: boolean) => void;
 }
 
-const Navbar = ({ onLogin }: NavbarProps) => {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+const Navbar = ({ onLogin, isLoginOpen, setIsLoginOpen }: NavbarProps) => {
   const [currentLang, setCurrentLang] = useState('한국어 (Korea)');
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,7 +30,6 @@ const Navbar = ({ onLogin }: NavbarProps) => {
     "한국어 (Korea)": {
       mission: "미션",
       magazine: "투자정보",
-      magazineB: "투자정보B",
       investmentSupport: "오너스",
       startupSupport: "창업지원",
       legalAccounting: "법률.회계",
@@ -131,7 +131,6 @@ const Navbar = ({ onLogin }: NavbarProps) => {
           <div className="navbar-links center-links">
             <Link to="/" className={isActive('/') ? 'active' : ''}>{t.investmentSupport}</Link>
             <Link to="/investments" className={isActive('/investments') ? 'active' : ''}>{t.magazine}</Link>
-            <Link to="/magazine-b" className={isActive('/magazine-b') ? 'active' : ''}>{t.magazineB}</Link>
             <Link to="/startup-support" className={isActive('/startup-support') ? 'active' : ''}>{t.startupSupport}</Link>
             <Link to="/legal-accounting" className={isActive('/legal-accounting') ? 'active' : ''}>{t.legalAccounting}</Link>
             <Link to="/#faq" className={isActive('/', '#faq') ? 'active' : ''}>{t.support}</Link>

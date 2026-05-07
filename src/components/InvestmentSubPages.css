@@ -1508,6 +1508,30 @@
   background: #d4af37;
 }
 
+.search-box-v42 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f1f5f9;
+  padding: 0 1rem;
+  border-radius: 8px;
+  height: 36px;
+  margin-left: 1rem;
+}
+
+.search-box-v42 input {
+  background: transparent;
+  border: none;
+  width: 120px;
+  font-size: 0.85rem;
+  outline: none;
+  color: #0B192C;
+}
+
+.search-box-v42 input::placeholder {
+  color: #94a3b8;
+}
+
 .expert-list-v42 {
   display: flex;
   flex-direction: column;

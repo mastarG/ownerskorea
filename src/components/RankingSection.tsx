@@ -85,7 +85,6 @@ const RankingSection: React.FC = () => {
       {/* Investment Ranking */}
       <div className="ranking-column">
         <div className="column-header">
-          <TrendingUp className="header-icon orange" size={24} />
           <h3 className="column-title">투자 랭킹</h3>
         </div>
         <div className="ranking-list">
@@ -103,7 +102,6 @@ const RankingSection: React.FC = () => {
       {/* Monthly Content */}
       <div className="ranking-column">
         <div className="column-header">
-          <Award className="header-icon orange" size={24} />
           <h3 className="column-title">월간 컨텐츠</h3>
         </div>
         <div className="ranking-list">
@@ -121,7 +119,6 @@ const RankingSection: React.FC = () => {
       {/* New Signups & Greetings */}
       <div className="ranking-column">
         <div className="column-header">
-          <UserPlus className="header-icon orange" size={24} />
           <h3 className="column-title">신규 가입</h3>
         </div>
         <div className="greeting-feed">

@@ -144,7 +144,7 @@ const NowSection: React.FC = () => {
   const [activeMagPage, setActiveMagPage] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const magRightRef = useRef<HTMLDivElement>(null);
-  
+
   const [isDown, setIsDown] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -209,14 +209,13 @@ const NowSection: React.FC = () => {
       <div className="container">
         <div className="now-header-row">
           <div className="now-header">
-            <div className="now-label">NOW</div>
-            <h2 className="now-title">인기 매거진</h2>
+            <h2 className="now-title">MAGAZINE</h2>
           </div>
         </div>
 
         <div className="now-carousel-wrapper">
-          <div 
-            className={`now-carousel-track ${isDown ? 'active' : ''}`} 
+          <div
+            className={`now-carousel-track ${isDown ? 'active' : ''}`}
             ref={scrollRef}
             onMouseDown={handleMouseDown}
             onMouseLeave={handleMouseLeave}
@@ -227,18 +226,21 @@ const NowSection: React.FC = () => {
               <div key={`${item.id}-${idx}`} className="now-card" style={{ backgroundColor: item.bgColor }} onClick={() => handleCardClick(item)}>
                 <img src={item.img} alt={item.title} className="now-card-bg" />
                 <div className="now-card-overlay"></div>
-                
+
                 <div className="now-card-content">
-                  <div className="now-card-top-content">
-                    <div className="now-card-type-badge">| {item.category}</div>
+                  <div className="now-card-masthead">
+                    <div className="masthead-title">OWNERS KOREA</div>
+                    <div className="masthead-date">JULY / AUGUST 2026</div>
                   </div>
-                  
+
                   <div className="now-card-bottom-content">
-                    <h3 className="now-card-title">
+                    <div className="now-card-meta">
+                      <div className="now-card-brand">{item.brand}</div>
+                      <div className="now-card-owner">{item.owner}</div>
+                    </div>
+                    <h3 className="now-card-hover-title">
                       {item.title}
                     </h3>
-                    <div className="now-card-brand">{item.brand}</div>
-                    <div className="now-card-owner">{item.owner}</div>
                     <div className="now-card-more">자세히 보러 가기 →</div>
                   </div>
                 </div>
@@ -276,8 +278,8 @@ const NowSection: React.FC = () => {
                           <>
                             <span className="title-line-1">{selectedArticle.title.split(/[",]/)[0].trim()}</span>
                             <span className="title-line-2">
-                              {selectedArticle.title.includes('"') 
-                                ? `"${selectedArticle.title.split('"')[1]}"` 
+                              {selectedArticle.title.includes('"')
+                                ? `"${selectedArticle.title.split('"')[1]}"`
                                 : selectedArticle.title.split(',')[1].trim()}
                             </span>
                           </>
@@ -286,7 +288,7 @@ const NowSection: React.FC = () => {
                         )}
                       </h1>
                     </div>
-                    
+
                     {selectedArticle.content && (
                       <div className="mag-modal-quote">
                         <Quote size={40} className="quote-icon" />
@@ -315,7 +317,7 @@ const NowSection: React.FC = () => {
                         ))}
                       </div>
                     )}
-                    
+
                     {selectedArticle.content && selectedArticle.content.interview.length <= 2 && (
                       <div className="mag-modal-footer">
                         <button className="btn-mag-share">기사 공유하기</button>
@@ -323,7 +325,7 @@ const NowSection: React.FC = () => {
                       </div>
                     )}
                   </div>
-                  
+
                   {selectedArticle.content && selectedArticle.content.interview.length > 2 && (
                     <div className="mag-modal-section">
                       <div className="mag-modal-interview">
@@ -345,14 +347,14 @@ const NowSection: React.FC = () => {
                 {(() => {
                   const interviewCount = selectedArticle.content?.interview.length || 0;
                   const totalPages = interviewCount > 2 ? 2 : 1;
-                  
+
                   if (totalPages <= 1) return null;
-                  
+
                   return (
                     <div className="mag-modal-scroll-dots">
                       {Array.from({ length: totalPages }).map((_, i) => (
-                        <div 
-                          key={i} 
+                        <div
+                          key={i}
                           className={`scroll-dot ${activeMagPage === i ? 'active' : ''}`}
                           onClick={() => scrollToMagPage(i)}
                         ></div>
