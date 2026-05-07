@@ -13,7 +13,7 @@
   background-position: center right; /* Building focused on the right */
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* [Update] Force left alignment from the start */
+  justify-content: center; /* Center the container to align with bottom content */
   overflow: hidden;
   margin-bottom: 5rem;
 }
@@ -39,36 +39,43 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Expanded vertical gap */
-  max-width: 600px;
+  align-items: flex-start !important; /* Force children to the left */
+  gap: 20px;
+  max-width: 1200px; /* Match the .container width */
   width: 100%;
-  text-align: left; /* Explicitly left-aligned */
+  padding: 0 1.5rem; /* Match the .container horizontal padding */
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
 }
 
 .hero-subtitle-b {
   font-size: 24px;
   font-weight: 500;
-  color: #FFFFFF; /* White for Navy contrast */
+  color: #FFFFFF;
   letter-spacing: -0.5px;
   line-height: 1.2;
+  text-align: left !important;
 }
 
 .hero-title-b {
-  font-size: 52px; /* Increased for impact */
+  font-size: 52px;
   font-weight: 800;
-  color: #C5A059; /* Owners Signature Gold */
+  color: #C5A059;
   letter-spacing: -1px;
   line-height: 1.1;
-  margin-bottom: 0; /* Managed by gap */
+  margin-bottom: 0;
+  text-align: left !important;
 }
 
 .hero-desc-b {
-  font-size: 17px; /* Increased by 1px as requested */
+  font-size: 17px;
   font-weight: 400;
-  color: #FFFFFF; /* White for Navy contrast */
-  line-height: 1.7; /* Enhanced readability */
+  color: #FFFFFF;
+  line-height: 1.7;
   letter-spacing: -0.3px;
   margin-top: 8px;
+  text-align: left !important;
 }
 
 /* Category Rows */
@@ -83,6 +90,18 @@
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
+  gap: 8px;
+}
+
+.inv-b-category-eng {
+  font-weight: 300;
+  color: #666666;
+  margin-left: 2px;
+}
+
+.cat-arrow {
+  color: #999999;
+  margin-left: -2px;
 }
 
 /* Creatoom Grid */

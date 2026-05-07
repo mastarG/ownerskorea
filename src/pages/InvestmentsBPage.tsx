@@ -59,11 +59,13 @@ const InvestmentsBPage = ({ onOpenLogin }: InvestmentsBPageProps) => {
 
   const categories = [
     {
-      title: "최근등록(Recently Added) >",
+      title: "최근등록",
+      subtitle: "(Recently Added)",
       items: investmentItems.slice(0, 4),
     },
     {
-      title: "스타트업(Startup) >",
+      title: "스타트업",
+      subtitle: "(Startup)",
       items: investmentItems.slice(0, 16), // Enough to fill 4 rows (4x4)
     }
   ];
@@ -73,7 +75,7 @@ const InvestmentsBPage = ({ onOpenLogin }: InvestmentsBPageProps) => {
       {/* Hero Section - Premium Navy Theme */}
       <section className="inv-b-hero" style={{ backgroundImage: `url(https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=2400&q=80)` }}>
         <div className="hero-overlay-navy"></div>
-        <div className="container">
+        <div className="container hero-container">
           <div className="hero-content-b">
             <p className="hero-subtitle-b">오너스코리아가 제안하는</p>
             <h1 className="hero-title-b">프리미엄 투자 정보</h1>
@@ -91,7 +93,7 @@ const InvestmentsBPage = ({ onOpenLogin }: InvestmentsBPageProps) => {
           <div key={idx} className="inv-b-category-row">
             <div className="container">
               <h2 className="inv-b-category-title">
-                {cat.title}
+                {cat.title} <span className="inv-b-category-eng">{cat.subtitle}</span> <ChevronRight size={20} className="cat-arrow" />
               </h2>
               
               <div className="creatoom-grid">

@@ -114,7 +114,9 @@
 }
 
 .hero-content {
-  max-width: 700px;
+  max-width: 1200px; /* Match the .container width for grid alignment */
+  width: 100%;
+  padding: 0 1.5rem; /* Match the global container padding */
   color: var(--color-surface);
   animation: fadeUp 1s ease-out forwards;
   text-align: left; /* [Update] Force left alignment */
